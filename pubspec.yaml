@@ -41,6 +41,7 @@ dependencies:
   openapi:
     path: lib/openapi
   flutter_secure_storage: ^7.0.1
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:

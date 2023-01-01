@@ -1,12 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:flutter/foundation.dart';
 import 'package:hello_riverpod/openapi/lib/api.dart';
+import 'package:hello_riverpod/constants.dart';
+import 'package:hello_riverpod/state.dart';
 
-final ApiClient apiClient = kDebugMode
-    ? ApiClient(basePath: "http://192.168.1.100:8001")
-    : ApiClient(basePath: "https://your-domain.com/api");
-
+final ApiClient apiClient = ApiClient(basePath: basePath);
 final TodosApi todosApiClient = TodosApi(apiClient);
 
 class IsLoadingNotifier extends StateNotifier<bool> {
@@ -102,64 +100,64 @@ final todosProvider = StateNotifierProvider<TodosNotifier, List<Todo>>((ref) {
   return TodosNotifier();
 });
 
-class TodosLocalNotifier extends StateNotifier<List<Todo>> {
-  TodosLocalNotifier() : super([]);
-
-  void todoCreate(String content) {
-    List<Todo> todos = state;
-
-    // calculate ID for new todo
-    int greatestTodoId = 0;
-
-    for (var i = 0; i < todos.length; i++) {
-      int currentTodoId = todos[i].id;
-      if (currentTodoId > greatestTodoId) {
-        greatestTodoId = currentTodoId;
-      }
-    }
-
-    final newTodo = Todo(
-      id: greatestTodoId + 1,
-      content: content,
-      isCompleted: false,
-    );
-
-    state = [...state, newTodo];
-  }
-
-  void todoDelete(int todoId) {
-    state = [
-      for (final todo in state)
-        if (todo.id != todoId) todo,
-    ];
-  }
-
-  void todoUpdateContent(int todoId, String content) {
-    state = [
-      for (var todo in state)
-        if (todo.id == todoId)
-          Todo(id: todo.id, content: content, isCompleted: todo.isCompleted)
-        else
-          todo, // return unchanged todo
-    ];
-  }
-
-  void todoToggleIsCompleted(int todoId) {
-    final bool isCompleted =
-        state.where((todo) => todo.id == todoId).toList()[0].isCompleted ??
-            false;
-
-    state = [
-      for (final todo in state)
-        if (todo.id == todoId)
-          Todo(id: todo.id, content: todo.content, isCompleted: !isCompleted)
-        else
-          todo,
-    ];
-  }
-}
-
-// final todosProvider = StateNotifierProvider<TodosNotifier, List<Todo>>((ref) {
+// class TodosLocalNotifier extends StateNotifier<List<Todo>> {
+//   TodosLocalNotifier() : super([]);
+//
+//   void todoCreate(String content) {
+//     List<Todo> todos = state;
+//
+//     // calculate ID for new todo
+//     int greatestTodoId = 0;
+//
+//     for (var i = 0; i < todos.length; i++) {
+//       int currentTodoId = todos[i].id;
+//       if (currentTodoId > greatestTodoId) {
+//         greatestTodoId = currentTodoId;
+//       }
+//     }
+//
+//     final newTodo = Todo(
+//       id: greatestTodoId + 1,
+//       content: content,
+//       isCompleted: false,
+//     );
+//
+//     state = [...state, newTodo];
+//   }
+//
+//   void todoDelete(int todoId) {
+//     state = [
+//       for (final todo in state)
+//         if (todo.id != todoId) todo,
+//     ];
+//   }
+//
+//   void todoUpdateContent(int todoId, String content) {
+//     state = [
+//       for (var todo in state)
+//         if (todo.id == todoId)
+//           Todo(id: todo.id, content: content, isCompleted: todo.isCompleted)
+//         else
+//           todo, // return unchanged todo
+//     ];
+//   }
+//
+//   void todoToggleIsCompleted(int todoId) {
+//     final bool isCompleted =
+//         state.where((todo) => todo.id == todoId).toList()[0].isCompleted ??
+//             false;
+//
+//     state = [
+//       for (final todo in state)
+//         if (todo.id == todoId)
+//           Todo(id: todo.id, content: todo.content, isCompleted: !isCompleted)
+//         else
+//           todo,
+//     ];
+//   }
+// }
+//
+// final todosLocalProvider = StateNotifierProvider<TodosNotifier, List<Todo>>((ref) {
 //   return TodosNotifier();
 // });
 
@@ -181,3 +179,13 @@ final todoSelectedIdProvider =
     StateNotifierProvider<TodoSelectedIdNotifier, int>((ref) {
   return TodoSelectedIdNotifier();
 });
+
+// user
+class IsLoggedInNotifier extends StateNotifier<Object> {
+  IsLoggedInNotifier() : super({});
+
+  Future check() async {
+    return await secureStorage.read('isLoggedIn');
+  }
+}
+// final userProvider = StateNotifierProvider
