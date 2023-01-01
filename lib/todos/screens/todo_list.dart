@@ -68,15 +68,10 @@ class TodoScreen extends ConsumerWidget {
 
   Widget _todoListContainer() {
     return Column(
-      children: <Widget>[
-        ListView(
-          shrinkWrap: true,
-          children: const <Widget>[
-            TodoForm(),
-            SizedBox(height: 16.0),
-          ],
-        ),
-        const Expanded(
+      children: const <Widget>[
+        TodoForm(),
+        SizedBox(height: 16.0),
+        Expanded(
           child: TodoList(),
         ),
       ],
