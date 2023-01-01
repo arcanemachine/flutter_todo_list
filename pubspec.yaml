@@ -40,6 +40,7 @@ dependencies:
   flutter_riverpod: ^2.1.1
   openapi:
     path: lib/openapi
+  flutter_secure_storage: ^7.0.1
 
 dev_dependencies:
   flutter_test:

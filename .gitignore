@@ -1,3 +1,7 @@
+# custom
+Session*.vim
+flutter_jank_metrics*.json
+
 # Miscellaneous
 *.class
 *.log

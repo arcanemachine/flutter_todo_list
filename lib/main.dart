@@ -3,8 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:hello_riverpod/openapi/lib/api.dart';
 import 'package:hello_riverpod/state.dart';
+import 'package:hello_riverpod/stores.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await secureStorage.init(); // load persistent data
+
   runApp(
     const ProviderScope(
       child: MyApp(),
@@ -32,6 +37,7 @@ class MyApp extends ConsumerWidget {
           child: const TodoScreen(),
         ),
       ),
+      // debugShowCheckedModeBanner: false,
     );
   }
 }
