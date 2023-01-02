@@ -63,5 +63,5 @@ class _Colors {
 }
 
 class _Palette {
-  Color get primary => const Color(0xFFA90000);
+  Color get primary => const Color(0xFF1A8C00);
 }

@@ -6,6 +6,7 @@ import 'package:flutter_todo_list/constants.dart';
 import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/styles.dart';
+import 'package:flutter_todo_list/user/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -13,9 +14,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Login"),
-        centerTitle: true,
+      appBar: userWidgets.appBar(
+        context,
+        title: "Login",
       ),
       body: Center(
         child: ListView(
@@ -51,9 +52,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       _usernameController.text.isNotEmpty &&
       _passwordController.text.isNotEmpty;
 
-  void login(BuildContext context, String userApiToken) {
-    secureStorage.write('user_api_token', userApiToken).then((x) {
-      sharedPrefs.isLoggedIn = true;
+  void login(BuildContext context, String authToken) {
+    secureStorage.write('authToken', authToken).then((x) {
+      sharedPrefs.isAuthenticated = true;
       context.goNamed('companies:companyList');
       widgetHelpers.snackBarShow(context, "Login successful");
     });
@@ -73,25 +74,34 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     return Center(
       child: Column(
         children: <Widget>[
-          Text(
-            "Welcome to ${constants.projectName}!",
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Text(
-              'Please login to continue.',
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-          ),
-          _loginForm(),
-          _registerButton(),
+          _formTitle(),
+          _formBody(),
+          _buttonRegister(),
         ],
       ),
     );
   }
 
-  Widget _loginForm() {
+  Widget _formTitle() {
+    return Column(
+      children: <Widget>[
+        const SizedBox(height: 16.0),
+        Text(
+          "Welcome to ${constants.projectName}!",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Text(
+            'Please login to continue.',
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _formBody() {
     return Form(
       key: _formKey,
       child: Container(
@@ -99,57 +109,69 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         child: Column(
           children: [
             const SizedBox(height: 16.0),
-            TextFormField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.person),
-                labelText: "Username *",
-              ),
-              onChanged: (x) => setState(() {}),
-              validator: (val) {
-                if (val == null || val.isEmpty) {
-                  return "This field must not be empty.";
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.key),
-                labelText: "Password *",
-              ),
-              onChanged: (x) => setState(() {}),
-              onFieldSubmitted: (x) => _handleSubmit(),
-              validator: (val) {
-                if (val == null || val.isEmpty) {
-                  return "This field must not be empty.";
-                }
-                return null;
-              },
-            ),
+            _fieldUsername(),
+            _fieldPassword(),
             const SizedBox(height: 32.0),
-            Center(
-              child: ElevatedButton(
-                style: styles.button.elevatedLgPrimary,
-                onPressed: _loginButtonEnabled
-                    ? () {
-                        _handleSubmit();
-                      }
-                    : null,
-                child: !_isLoading
-                    ? const Text("Login")
-                    : const CircularProgressIndicator(),
-              ),
-            ),
+            _buttonSubmit(),
           ],
         ),
       ),
     );
   }
 
-  Widget _registerButton() {
+  Widget _fieldUsername() {
+    return TextFormField(
+      controller: _usernameController,
+      decoration: const InputDecoration(
+        icon: Icon(Icons.person),
+        labelText: "Username",
+      ),
+      onChanged: (x) => setState(() {}),
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return "This field must not be empty.";
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _fieldPassword() {
+    return TextFormField(
+      controller: _passwordController,
+      obscureText: true,
+      decoration: const InputDecoration(
+        icon: Icon(Icons.key),
+        labelText: "Password",
+      ),
+      onChanged: (x) => setState(() {}),
+      onFieldSubmitted: (x) => _handleSubmit(),
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return "This field must not be empty.";
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _buttonSubmit() {
+    return Center(
+      child: ElevatedButton(
+        style: styles.button.elevatedLgPrimary,
+        onPressed: _loginButtonEnabled
+            ? () {
+                _handleSubmit();
+              }
+            : null,
+        child: !_isLoading
+            ? const Text("Login")
+            : const CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Widget _buttonRegister() {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: TextButton(

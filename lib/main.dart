@@ -11,8 +11,9 @@ import 'package:flutter_todo_list/user/screens/login.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // load persistent data
   await sharedPrefs.init();
-  await secureStorage.init(); // load persistent data
+  await secureStorage.init();
 
   runApp(
     const ProviderScope(
@@ -40,9 +41,9 @@ class MyApp extends StatelessWidget {
       title: constants.projectName,
       theme: defaultTheme,
       darkTheme: ThemeData.dark(),
-      themeMode: sharedPrefs.darkMode == 'Light'
+      themeMode: sharedPrefs.darkMode == 'light'
           ? ThemeMode.light
-          : sharedPrefs.darkMode == 'Dark'
+          : sharedPrefs.darkMode == 'dark'
               ? ThemeMode.dark
               : ThemeMode.system,
       debugShowCheckedModeBanner: false,
@@ -55,7 +56,7 @@ class InitScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (sharedPrefs.isLoggedIn) {
+    if (sharedPrefs.isAuthenticated) {
       return const TodosScreen();
     } else {
       return const LoginScreen();

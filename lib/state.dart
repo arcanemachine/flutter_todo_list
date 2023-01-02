@@ -6,18 +6,23 @@ import 'package:flutter_todo_list/openapi/lib/api.dart';
 import 'package:flutter_todo_list/constants.dart';
 
 // API client
-final ApiClient apiClient = ApiClient(basePath: basePath);
+final ApiClient apiClient = ApiClient(basePath: constants.basePath);
 final TodosApi todosApiClient = TodosApi(apiClient);
 
 // shared preferences
 class SharedPrefs {
-  static SharedPreferences? _sharedPrefs;
+  late SharedPreferences? _sharedPrefs;
 
   init() async {
-    _sharedPrefs ??= await SharedPreferences.getInstance();
+    _sharedPrefs = await SharedPreferences.getInstance();
 
     // clear ephemeral data on startup
-    _sharedPrefs?.remove('route_previous');
+    // _sharedPrefs?.remove('route_previous');
+
+    // set default values
+    if (_sharedPrefs?.getBool('is_authenticated') != true) {
+      _sharedPrefs?.setBool('is_authenticated', false);
+    }
   }
 
   // utility
@@ -27,7 +32,7 @@ class SharedPrefs {
 
   void readAll() {
     // if (kDebugMode) {
-    //   print('isLoggedIn: "$isLoggedIn"');
+    //   print('isAuthenticated: "$isAuthenticated"');
     // }
   }
 
@@ -36,10 +41,6 @@ class SharedPrefs {
     // _sharedPrefs?.remove('company_pk_current');
     // _sharedPrefs?.remove('employee_pk_current');
   }
-
-  // void logout() {
-  //   _sharedPrefs?.remove('is_logged_in');
-  // }
 
   // // current company
   // String get companyNameCurrent =>
@@ -59,11 +60,10 @@ class SharedPrefs {
   // }
 
   // routes
-  // String get routeCurrent =>
-  //   _sharedPrefs?.getString('route_current') ?? "";
-  // set routeCurrent(String val) {
-  //   _sharedPrefs?.setString('route_current', val);
-  // }
+  String get routeCurrent => _sharedPrefs?.getString('route_current') ?? "";
+  set routeCurrent(String val) {
+    _sharedPrefs?.setString('route_current', val);
+  }
 
   // String get routePrevious =>
   //   _sharedPrefs?.getString('route_previous') ?? "";
@@ -77,10 +77,19 @@ class SharedPrefs {
     _sharedPrefs?.setString('dark_mode', val);
   }
 
-  // isLoggedIn
-  bool get isLoggedIn => _sharedPrefs?.getBool('is_logged_in') ?? false;
-  set isLoggedIn(bool val) {
-    _sharedPrefs?.setBool('is_logged_in', val);
+  // auth
+  bool get isAuthenticated =>
+      _sharedPrefs?.getBool('is_authenticated') ?? false;
+  set isAuthenticated(bool val) {
+    _sharedPrefs?.setBool('is_authenticated', val);
+  }
+
+  void login() {
+    _sharedPrefs?.setBool('is_authenticated', true);
+  }
+
+  void logout() {
+    _sharedPrefs?.setBool('is_authenticated', false);
   }
 }
 
@@ -115,17 +124,16 @@ class SecureStorage {
     await _storage.deleteAll();
   }
 
-  /* computed properties */
   // auth
-  Future<bool> isLoggedIn() async {
-    final bool isLoggedIn =
-        await _storage.read(key: "authToken") == null ? false : true;
-    return isLoggedIn;
+  Future<bool> isAuthenticated() async {
+    final bool isAuthenticated =
+        await _storage.read(key: "auth_token") == null ? false : true;
+    return isAuthenticated;
   }
 
   Future<bool> logout() async {
     try {
-      await _storage.delete(key: "authToken");
+      await _storage.delete(key: "auth_token");
       return true;
     } catch (err) {
       return false;

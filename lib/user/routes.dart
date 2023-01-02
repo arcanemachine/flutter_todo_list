@@ -1,13 +1,12 @@
 import 'package:go_router/go_router.dart';
 
-import 'package:shiftopoly/helpers.dart';
-import 'package:shiftopoly/users/screens/login.dart';
-import 'package:shiftopoly/users/screens/settings.dart';
+import 'package:flutter_todo_list/user/screens/login.dart';
+import 'package:flutter_todo_list/user/screens/settings.dart';
 
-final List<GoRoute> usersRoutes = [
+final List<GoRoute> userRoutes = [
   GoRoute(
-    path: '/users/login',
-    name: 'users:login',
+    path: '/user/login',
+    name: 'user:login',
     builder: (context, state) => const LoginScreen(),
     // pageBuilder: (context, state) => CustomTransitionPage<void>(
     //   key: state.pageKey,
@@ -25,9 +24,9 @@ final List<GoRoute> usersRoutes = [
     // ),
   ),
   GoRoute(
-    path: '/users/settings',
-    name: 'users:settings',
-    builder: (context, state) => helpers.route(state, const SettingsScreen()),
+    path: '/user/settings',
+    name: 'user:settings',
+    builder: (context, state) => const SettingsScreen(),
     // pageBuilder: (context, state) => CustomTransitionPage<void>(
     //   key: state.pageKey,
     //   child: const LoginScreen(),

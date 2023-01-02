@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_todo_list/state.dart';
+import 'package:go_router/go_router.dart';
+
 class _Helpers {
   _ExampleHelpers get example => _ExampleHelpers();
 
@@ -21,11 +24,13 @@ class _Helpers {
     }
   }
 
-  Widget route(state, Widget widget) {
-    // sharedPrefs.routePrevious = sharedPrefs.routeCurrent;
-    // sharedPrefs.routeCurrent = state.location;
+  Widget saveRoute(GoRouterState state, Widget widget) {
+    /** Save incoming route to shared preferences so that it will be seen first
+      * when first opening the app.
+      */
 
-    // sharedPrefs.readAll();
+    sharedPrefs.routeCurrent = state.location;
+
     return widget;
   }
 }
@@ -35,8 +40,7 @@ final helpers = _Helpers();
 // example
 class _ExampleHelpers {
   Future<List> listFetch() async {
-    /** Returns enough data to populate the user's companyList.
-     */
+    /** Returns enough data to populate the user's companyList. */
 
     return ["hello", "world"];
   }
@@ -47,6 +51,7 @@ class _WidgetHelpers {
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackBarShow(
       BuildContext context, String message,
       [SnackBarAction? customAction]) {
+    /** Hide existing snackbars and show a new one. */
     final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     // hide existing snackbars
