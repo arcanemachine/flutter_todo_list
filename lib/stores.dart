@@ -100,68 +100,6 @@ final todosProvider = StateNotifierProvider<TodosNotifier, List<Todo>>((ref) {
   return TodosNotifier();
 });
 
-class TodosLocalNotifier extends StateNotifier<List<Todo>> {
-  TodosLocalNotifier() : super([]);
-
-  void todoCreate(String content) {
-    List<Todo> todos = state;
-
-    // calculate ID for new todo
-    int greatestTodoId = 0;
-
-    for (var i = 0; i < todos.length; i++) {
-      int currentTodoId = todos[i].id;
-      if (currentTodoId > greatestTodoId) {
-        greatestTodoId = currentTodoId;
-      }
-    }
-
-    final newTodo = Todo(
-      id: greatestTodoId + 1,
-      content: content,
-      isCompleted: false,
-    );
-
-    state = [...state, newTodo];
-  }
-
-  void todoDelete(int todoId) {
-    state = [
-      for (final todo in state)
-        if (todo.id != todoId) todo,
-    ];
-  }
-
-  void todoUpdateContent(int todoId, String content) {
-    state = [
-      for (var todo in state)
-        if (todo.id == todoId)
-          Todo(id: todo.id, content: content, isCompleted: todo.isCompleted)
-        else
-          todo, // return unchanged todo
-    ];
-  }
-
-  void todoToggleIsCompleted(int todoId) {
-    final bool isCompleted =
-        state.where((todo) => todo.id == todoId).toList()[0].isCompleted ??
-            false;
-
-    state = [
-      for (final todo in state)
-        if (todo.id == todoId)
-          Todo(id: todo.id, content: todo.content, isCompleted: !isCompleted)
-        else
-          todo,
-    ];
-  }
-}
-
-final todosLocalProvider =
-    StateNotifierProvider<TodosNotifier, List<Todo>>((ref) {
-  return TodosNotifier();
-});
-
 class TodoSelectedIdNotifier extends StateNotifier<int> {
   TodoSelectedIdNotifier() : super(0);
 
