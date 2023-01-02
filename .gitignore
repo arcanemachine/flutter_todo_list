@@ -1,6 +1,7 @@
 # custom
 Session*.vim
 flutter_jank_metrics*.json
+*.tmp
 
 # Miscellaneous
 *.class

@@ -1,6 +1,13 @@
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:flutter_todo_list/openapi/lib/api.dart';
+import 'package:flutter_todo_list/constants.dart';
+
+// API client
+final ApiClient apiClient = ApiClient(basePath: basePath);
+final TodosApi todosApiClient = TodosApi(apiClient);
 
 // shared preferences
 class SharedPrefs {
@@ -19,37 +26,37 @@ class SharedPrefs {
   }
 
   void readAll() {
-    if (kDebugMode) {
-      print('isLoggedIn: "$isLoggedIn"');
-    }
+    // if (kDebugMode) {
+    //   print('isLoggedIn: "$isLoggedIn"');
+    // }
   }
 
   void clearSession() {
-    _sharedPrefs?.remove('company_name_current');
-    _sharedPrefs?.remove('company_pk_current');
-    _sharedPrefs?.remove('employee_pk_current');
+    // _sharedPrefs?.remove('company_name_current');
+    // _sharedPrefs?.remove('company_pk_current');
+    // _sharedPrefs?.remove('employee_pk_current');
   }
 
-  void logout() {
-    _sharedPrefs?.remove('is_logged_in');
-  }
+  // void logout() {
+  //   _sharedPrefs?.remove('is_logged_in');
+  // }
 
-  // current company
-  String get companyNameCurrent =>
-      _sharedPrefs?.getString('company_name_current') ?? "";
-  set companyNameCurrent(String val) {
-    _sharedPrefs?.setString('company_name_current', val);
-  }
+  // // current company
+  // String get companyNameCurrent =>
+  //     _sharedPrefs?.getString('company_name_current') ?? "";
+  // set companyNameCurrent(String val) {
+  //   _sharedPrefs?.setString('company_name_current', val);
+  // }
 
-  int get companyPkCurrent => _sharedPrefs?.getInt('company_pk_current') ?? 0;
-  set companyPkCurrent(int val) {
-    _sharedPrefs?.setInt('company_pk_current', val);
-  }
+  // int get companyPkCurrent => _sharedPrefs?.getInt('company_pk_current') ?? 0;
+  // set companyPkCurrent(int val) {
+  //   _sharedPrefs?.setInt('company_pk_current', val);
+  // }
 
-  int get employeePkCurrent => _sharedPrefs?.getInt('employee_pk_current') ?? 0;
-  set employeePkCurrent(int val) {
-    _sharedPrefs?.setInt('employee_pk_current', val);
-  }
+  // int get employeePkCurrent => _sharedPrefs?.getInt('employee_pk_current') ?? 0;
+  // set employeePkCurrent(int val) {
+  //   _sharedPrefs?.setInt('employee_pk_current', val);
+  // }
 
   // routes
   // String get routeCurrent =>
@@ -85,11 +92,6 @@ class SecureStorage {
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   // crud
-  Future write(String key, String val) async {
-    var writeData = await _storage.write(key: key, value: val);
-    return writeData;
-  }
-
   Future read(String key) async {
     var readData = await _storage.read(key: key);
     return readData;
@@ -97,6 +99,11 @@ class SecureStorage {
 
   Future readAll() async {
     return await _storage.readAll();
+  }
+
+  Future write(String key, String value) async {
+    var writeData = await _storage.write(key: key, value: value);
+    return writeData;
   }
 
   Future delete(String key) async {
@@ -108,11 +115,21 @@ class SecureStorage {
     await _storage.deleteAll();
   }
 
-  // computed properties
+  /* computed properties */
+  // auth
   Future<bool> isLoggedIn() async {
     final bool isLoggedIn =
         await _storage.read(key: "authToken") == null ? false : true;
     return isLoggedIn;
+  }
+
+  Future<bool> logout() async {
+    try {
+      await _storage.delete(key: "authToken");
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
 }
 

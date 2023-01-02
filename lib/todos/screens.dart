@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/openapi/lib/api.dart';
-import 'package:flutter_todo_list/stores.dart';
+import 'package:flutter_todo_list/todos/stores.dart';
 
-class TodoScreen extends ConsumerWidget {
-  const TodoScreen({Key? key}) : super(key: key);
+class TodosScreen extends ConsumerWidget {
+  const TodosScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

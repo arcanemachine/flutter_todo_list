@@ -1,19 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/openapi/lib/api.dart';
-import 'package:flutter_todo_list/constants.dart';
 import 'package:flutter_todo_list/state.dart';
-
-final ApiClient apiClient = ApiClient(basePath: basePath);
-final TodosApi todosApiClient = TodosApi(apiClient);
-
-class IsLoadingNotifier extends StateNotifier<bool> {
-  IsLoadingNotifier() : super(false);
-}
-
-final pIsLoading = StateNotifierProvider<IsLoadingNotifier, bool>((ref) {
-  return IsLoadingNotifier();
-});
 
 class TodosNotifier extends StateNotifier<List<Todo>> {
   TodosNotifier() : super([]);
@@ -118,13 +106,3 @@ final todoSelectedIdProvider =
     StateNotifierProvider<TodoSelectedIdNotifier, int>((ref) {
   return TodoSelectedIdNotifier();
 });
-
-// user
-class IsLoggedInNotifier extends StateNotifier<Object> {
-  IsLoggedInNotifier() : super({});
-
-  Future check() async {
-    return await secureStorage.read('isLoggedIn');
-  }
-}
-// final userProvider = StateNotifierProvider
