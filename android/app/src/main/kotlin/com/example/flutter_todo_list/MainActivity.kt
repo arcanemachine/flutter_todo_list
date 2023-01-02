@@ -1,4 +1,4 @@
-package com.example.hello_riverpod
+package com.example.flutter_todo_list
 
 import io.flutter.embedding.android.FlutterActivity
 

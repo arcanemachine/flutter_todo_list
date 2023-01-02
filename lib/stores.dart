@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hello_riverpod/openapi/lib/api.dart';
-import 'package:hello_riverpod/constants.dart';
-import 'package:hello_riverpod/state.dart';
+import 'package:flutter_todo_list/openapi/lib/api.dart';
+import 'package:flutter_todo_list/constants.dart';
+import 'package:flutter_todo_list/state.dart';
 
 final ApiClient apiClient = ApiClient(basePath: basePath);
 final TodosApi todosApiClient = TodosApi(apiClient);

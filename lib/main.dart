@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:hello_riverpod/state.dart';
-import 'package:hello_riverpod/todos/screens/todo_list.dart';
+import 'package:flutter_todo_list/state.dart';
+import 'package:flutter_todo_list/todos/screens/todo_list.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
