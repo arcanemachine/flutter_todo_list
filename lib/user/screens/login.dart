@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_todo_list/openapi/lib/api.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/constants.dart';
 import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/styles.dart';
+import 'package:flutter_todo_list/user/stores.dart';
 import 'package:flutter_todo_list/user/widgets.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: userWidgets.appBar(
         context,
@@ -21,68 +24,17 @@ class LoginScreen extends StatelessWidget {
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          children: const <Widget>[
-            LoginFormWidget(),
+          children: <Widget>[
+            _formTitle(context),
+            LoginForm(ref: ref),
+            _buttonRegister(),
           ],
         ),
       ),
     );
   }
-}
 
-class LoginFormWidget extends StatefulWidget {
-  const LoginFormWidget({Key? key}) : super(key: key);
-
-  @override
-  State<LoginFormWidget> createState() => _LoginFormWidgetState();
-}
-
-class _LoginFormWidgetState extends State<LoginFormWidget> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
-
-  void _isLoadingSet(bool isLoading) {
-    setState(() {
-      _isLoading = isLoading;
-    });
-  }
-
-  bool get _loginButtonEnabled =>
-      !_isLoading &&
-      _usernameController.text.isNotEmpty &&
-      _passwordController.text.isNotEmpty;
-
-  void login(BuildContext context, String authToken) {
-    secureStorage.write('authToken', authToken).then((x) {
-      sharedPrefs.isAuthenticated = true;
-      context.goNamed('companies:companyList');
-      widgetHelpers.snackBarShow(context, "Login successful");
-    });
-  }
-
-  // controllers
-  // final _usernameController = TextEditingController();
-  // final _passwordController = TextEditingController();
-  final _usernameController =
-      TextEditingController.fromValue(const TextEditingValue(text: 'user'));
-  final _passwordController =
-      TextEditingController.fromValue(const TextEditingValue(text: 'password'));
-
-  // widgets
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: <Widget>[
-          _formTitle(),
-          _formBody(),
-          _buttonRegister(),
-        ],
-      ),
-    );
-  }
-
-  Widget _formTitle() {
+  Widget _formTitle(BuildContext context) {
     return Column(
       children: <Widget>[
         const SizedBox(height: 16.0),
@@ -98,76 +50,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           ),
         )
       ],
-    );
-  }
-
-  Widget _formBody() {
-    return Form(
-      key: _formKey,
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 300),
-        child: Column(
-          children: [
-            const SizedBox(height: 16.0),
-            _fieldUsername(),
-            _fieldPassword(),
-            const SizedBox(height: 32.0),
-            _buttonSubmit(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _fieldUsername() {
-    return TextFormField(
-      controller: _usernameController,
-      decoration: const InputDecoration(
-        icon: Icon(Icons.person),
-        labelText: "Username",
-      ),
-      onChanged: (x) => setState(() {}),
-      validator: (val) {
-        if (val == null || val.isEmpty) {
-          return "This field must not be empty.";
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget _fieldPassword() {
-    return TextFormField(
-      controller: _passwordController,
-      obscureText: true,
-      decoration: const InputDecoration(
-        icon: Icon(Icons.key),
-        labelText: "Password",
-      ),
-      onChanged: (x) => setState(() {}),
-      onFieldSubmitted: (x) => _handleSubmit(),
-      validator: (val) {
-        if (val == null || val.isEmpty) {
-          return "This field must not be empty.";
-        }
-        return null;
-      },
-    );
-  }
-
-  Widget _buttonSubmit() {
-    return Center(
-      child: ElevatedButton(
-        style: styles.button.elevatedLgPrimary,
-        onPressed: _loginButtonEnabled
-            ? () {
-                _handleSubmit();
-              }
-            : null,
-        child: !_isLoading
-            ? const Text("Login")
-            : const CircularProgressIndicator(),
-      ),
     );
   }
 
@@ -187,19 +69,141 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       ),
     );
   }
+}
+
+class LoginForm extends StatefulWidget {
+  final WidgetRef ref;
+  const LoginForm({Key? key, required this.ref}) : super(key: key);
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
+
+  void _isLoadingSet(bool isLoading) {
+    setState(() {
+      _isLoading = isLoading;
+    });
+  }
+
+  bool get _loginButtonEnabled =>
+      !_isLoading &&
+      _usernameController.text.isNotEmpty &&
+      _passwordController.text.isNotEmpty;
+
+  void login(BuildContext context, String authToken) {
+    secureStorage.write('authToken', authToken).then((dynamic x) {
+      sharedPrefs.isAuthenticated = true;
+      context.goNamed('companies:companyList');
+      widgetHelpers.snackBarShow(context, "Login successful");
+    });
+  }
+
+  // controllers
+  // final _usernameController = TextEditingController();
+  // final _passwordController = TextEditingController();
+  final _usernameController = TextEditingController.fromValue(
+    const TextEditingValue(text: 'user'),
+  );
+  final _passwordController = TextEditingController.fromValue(
+    const TextEditingValue(text: 'password'),
+  );
+
+  // widgets
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          Form(
+            key: _formKey,
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 300),
+              child: Column(
+                children: [
+                  const SizedBox(height: 16.0),
+                  _fieldUsername(),
+                  _fieldPassword(),
+                  const SizedBox(height: 32.0),
+                  _buttonSubmit(),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _fieldUsername() {
+    return TextFormField(
+      controller: _usernameController,
+      decoration: const InputDecoration(
+        icon: Icon(Icons.person),
+        labelText: "Username",
+      ),
+      onChanged: (dynamic x) => setState(() {}),
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return "This field must not be empty.";
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _fieldPassword() {
+    return TextFormField(
+      controller: _passwordController,
+      obscureText: true,
+      decoration: const InputDecoration(
+        icon: Icon(Icons.key),
+        labelText: "Password",
+      ),
+      onChanged: (dynamic x) => setState(() {}),
+      onFieldSubmitted: (dynamic x) => _handleSubmit(),
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return "This field must not be empty.";
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _buttonSubmit() {
+    return Center(
+      child: ElevatedButton(
+        style: _loginButtonEnabled
+            ? styles.button.elevatedLgPrimary
+            : styles.button.elevatedLgSecondary,
+        onPressed: () {
+          _loginButtonEnabled
+              ? _handleSubmit()
+              : widgetHelpers.snackBarShow(context, "The form is incomplete.");
+        },
+        child: !_isLoading
+            ? const Text("Login")
+            : const CircularProgressIndicator(),
+      ),
+    );
+  }
 
   // methods
   void _handleSubmit() async {
-    // final String username = _usernameController.text;
-    // final String password = _passwordController.text;
+    final String username = _usernameController.text;
+    final String password = _passwordController.text;
 
-    // set loading status
-    _isLoadingSet(true);
+    _isLoadingSet(true); // set loading status
 
-    // attempt to login
+    widget.ref // attempt to login
+        .read(userProvider.notifier)
+        .login(username, password);
 
-    // reset loading status
-    _isLoadingSet(false);
+    _isLoadingSet(false); // reset loading status
 
     // login the user
 

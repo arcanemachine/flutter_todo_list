@@ -21,7 +21,8 @@ class UserNotifier extends StateNotifier<User> {
     return false; // TO-DO
   }
 
-  Future<bool> login() async {
+  Future<bool> login(String username, String password) async {
+    print("login()");
     return false; // TO-DO
   }
 

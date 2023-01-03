@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final defaultTheme = ThemeData(
       primarySwatch:
-          styles.colors.generateMaterialColor(styles.colors.palette.primary),
+          styles.colors.generateMaterialColor(colors.palette.primary),
       appBarTheme: const AppBarTheme(
         toolbarHeight: 48.0,
       ),
