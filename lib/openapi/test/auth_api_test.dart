@@ -19,15 +19,8 @@ void main() {
   group('tests for AuthApi', () {
     // Check the credentials and return the REST Token if the credentials are valid and authenticated. Calls Django Auth login method to register User ID in Django session framework  Accept the following POST parameters: username, password Return the REST Framework Token Object's key.
     //
-    //Future<Token> authLoginCreate(Login login) async
+    //Future<Login> authLoginCreate(Login login) async
     test('test authLoginCreate', () async {
-      // TODO
-    });
-
-    // Check the credentials and return the REST Token if the credentials are valid and authenticated. Calls Django Auth login method to register User ID in Django session framework  Accept the following POST parameters: username, password Return the REST Framework Token Object's key.
-    //
-    //Future<Login> authLoginSessionCreate(Login login) async
-    test('test authLoginSessionCreate', () async {
       // TODO
     });
 

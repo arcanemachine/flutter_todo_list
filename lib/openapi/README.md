@@ -43,10 +43,6 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
 // uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 //defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
-// TODO Configure API key authorization: tokenAuth
-//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
 final login = Login(); // Login | 
@@ -67,7 +63,6 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AuthApi* | [**authLoginCreate**](doc//AuthApi.md#authlogincreate) | **POST** /api/auth/login/ | 
-*AuthApi* | [**authLoginSessionCreate**](doc//AuthApi.md#authloginsessioncreate) | **POST** /api/auth/login/session/ | 
 *AuthApi* | [**authLoginTokenCreate**](doc//AuthApi.md#authlogintokencreate) | **POST** /api/auth/login/token/ | 
 *AuthApi* | [**authLogoutCreate**](doc//AuthApi.md#authlogoutcreate) | **POST** /api/auth/logout/ | 
 *AuthApi* | [**authPasswordChangeCreate**](doc//AuthApi.md#authpasswordchangecreate) | **POST** /api/auth/password/change/ | 
