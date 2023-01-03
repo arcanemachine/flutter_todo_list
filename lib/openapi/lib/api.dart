@@ -29,7 +29,9 @@ part 'auth/http_bearer_auth.dart';
 
 part 'api/auth_api.dart';
 part 'api/todos_api.dart';
+part 'api/utils_api.dart';
 
+part 'model/csrfmiddlewaretoken.dart';
 part 'model/login.dart';
 part 'model/password_change.dart';
 part 'model/password_reset.dart';

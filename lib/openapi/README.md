@@ -83,10 +83,13 @@ Class | Method | HTTP request | Description
 *TodosApi* | [**todosPartialUpdate**](doc//TodosApi.md#todospartialupdate) | **PATCH** /api/todos/{id} | 
 *TodosApi* | [**todosRetrieve**](doc//TodosApi.md#todosretrieve) | **GET** /api/todos/{id} | 
 *TodosApi* | [**todosUpdate**](doc//TodosApi.md#todosupdate) | **PUT** /api/todos/{id} | 
+*UtilsApi* | [**utilsCsrfmiddlewaretokenCreate**](doc//UtilsApi.md#utilscsrfmiddlewaretokencreate) | **POST** /api/utils/csrfmiddlewaretoken/ | 
+*UtilsApi* | [**utilsCsrfmiddlewaretokenRetrieve**](doc//UtilsApi.md#utilscsrfmiddlewaretokenretrieve) | **GET** /api/utils/csrfmiddlewaretoken/ | 
 
 
 ## Documentation For Models
 
+ - [Csrfmiddlewaretoken](doc//Csrfmiddlewaretoken.md)
  - [Login](doc//Login.md)
  - [PasswordChange](doc//PasswordChange.md)
  - [PasswordReset](doc//PasswordReset.md)
