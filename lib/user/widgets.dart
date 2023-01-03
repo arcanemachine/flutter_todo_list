@@ -36,7 +36,7 @@ class UserWidgets {
     List<Widget> appBarActions = List<Widget>.from(extraActions);
 
     /* popup menu items */
-    if (sharedPrefs.isAuthenticated) {
+    if (sharedPrefs.userIsAuthenticated) {
       // user profile icon
 
       void logout(BuildContext context) {

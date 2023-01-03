@@ -16,13 +16,13 @@ class TodosApi {
 
   final ApiClient apiClient;
 
-  /// Performs an HTTP 'POST /api/todos' operation and returns the [Response].
+  /// Performs an HTTP 'POST /api/todos/' operation and returns the [Response].
   /// Parameters:
   ///
   /// * [Todo] todo (required):
   Future<Response> todosCreateWithHttpInfo(Todo todo,) async {
     // ignore: prefer_const_declarations
-    final path = r'/api/todos';
+    final path = r'/api/todos/';
 
     // ignore: prefer_final_locals
     Object? postBody = todo;
@@ -63,14 +63,14 @@ class TodosApi {
     return null;
   }
 
-  /// Performs an HTTP 'DELETE /api/todos/{id}' operation and returns the [Response].
+  /// Performs an HTTP 'DELETE /api/todos/{id}/' operation and returns the [Response].
   /// Parameters:
   ///
   /// * [int] id (required):
   ///   A unique integer value identifying this todo.
   Future<Response> todosDestroyWithHttpInfo(int id,) async {
     // ignore: prefer_const_declarations
-    final path = r'/api/todos/{id}'
+    final path = r'/api/todos/{id}/'
       .replaceAll('{id}', id.toString());
 
     // ignore: prefer_final_locals
@@ -105,10 +105,10 @@ class TodosApi {
     }
   }
 
-  /// Performs an HTTP 'GET /api/todos' operation and returns the [Response].
+  /// Performs an HTTP 'GET /api/todos/' operation and returns the [Response].
   Future<Response> todosListWithHttpInfo() async {
     // ignore: prefer_const_declarations
-    final path = r'/api/todos';
+    final path = r'/api/todos/';
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -149,7 +149,7 @@ class TodosApi {
     return null;
   }
 
-  /// Performs an HTTP 'PATCH /api/todos/{id}' operation and returns the [Response].
+  /// Performs an HTTP 'PATCH /api/todos/{id}/' operation and returns the [Response].
   /// Parameters:
   ///
   /// * [int] id (required):
@@ -158,7 +158,7 @@ class TodosApi {
   /// * [PatchedTodo] patchedTodo:
   Future<Response> todosPartialUpdateWithHttpInfo(int id, { PatchedTodo? patchedTodo, }) async {
     // ignore: prefer_const_declarations
-    final path = r'/api/todos/{id}'
+    final path = r'/api/todos/{id}/'
       .replaceAll('{id}', id.toString());
 
     // ignore: prefer_final_locals
@@ -203,14 +203,14 @@ class TodosApi {
     return null;
   }
 
-  /// Performs an HTTP 'GET /api/todos/{id}' operation and returns the [Response].
+  /// Performs an HTTP 'GET /api/todos/{id}/' operation and returns the [Response].
   /// Parameters:
   ///
   /// * [int] id (required):
   ///   A unique integer value identifying this todo.
   Future<Response> todosRetrieveWithHttpInfo(int id,) async {
     // ignore: prefer_const_declarations
-    final path = r'/api/todos/{id}'
+    final path = r'/api/todos/{id}/'
       .replaceAll('{id}', id.toString());
 
     // ignore: prefer_final_locals
@@ -253,7 +253,7 @@ class TodosApi {
     return null;
   }
 
-  /// Performs an HTTP 'PUT /api/todos/{id}' operation and returns the [Response].
+  /// Performs an HTTP 'PUT /api/todos/{id}/' operation and returns the [Response].
   /// Parameters:
   ///
   /// * [int] id (required):
@@ -262,7 +262,7 @@ class TodosApi {
   /// * [Todo] todo (required):
   Future<Response> todosUpdateWithHttpInfo(int id, Todo todo,) async {
     // ignore: prefer_const_declarations
-    final path = r'/api/todos/{id}'
+    final path = r'/api/todos/{id}/'
       .replaceAll('{id}', id.toString());
 
     // ignore: prefer_final_locals

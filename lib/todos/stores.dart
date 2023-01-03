@@ -14,7 +14,7 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
 
   Future todosFetch() {
     Future result =
-        todosApiClient.todosList().then((todos) => state = todos as List<Todo>);
+        todosApi.todosList().then((todos) => state = todos as List<Todo>);
 
     return result;
   }
@@ -22,7 +22,7 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
   Future<void> todoCreate(String content) async {
     try {
       // create API request
-      final newTodo = await todosApiClient.todosCreate(Todo(
+      final newTodo = await todosApi.todosCreate(Todo(
         id: 0,
         content: content,
         isCompleted: false,
@@ -37,7 +37,7 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
   Future<bool> todoDelete(int todoId) async {
     try {
       // create API request
-      await todosApiClient.todosDestroy(todoId);
+      await todosApi.todosDestroy(todoId);
 
       // update local state
       state = [
@@ -58,7 +58,7 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
 
     // create API request
     Todo updatedTodo =
-        await todosApiClient.todosUpdate(modifiedTodo.id, modifiedTodo) as Todo;
+        await todosApi.todosUpdate(modifiedTodo.id, modifiedTodo) as Todo;
 
     // update local state
     state = [
@@ -74,7 +74,7 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
 
     // create API request
     Todo updatedTodo =
-        await todosApiClient.todosUpdate(modifiedTodo.id, modifiedTodo) as Todo;
+        await todosApi.todosUpdate(modifiedTodo.id, modifiedTodo) as Todo;
 
     // update local state
     state = [

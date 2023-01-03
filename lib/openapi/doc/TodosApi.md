@@ -9,12 +9,12 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**todosCreate**](TodosApi.md#todoscreate) | **POST** /api/todos | 
-[**todosDestroy**](TodosApi.md#todosdestroy) | **DELETE** /api/todos/{id} | 
-[**todosList**](TodosApi.md#todoslist) | **GET** /api/todos | 
-[**todosPartialUpdate**](TodosApi.md#todospartialupdate) | **PATCH** /api/todos/{id} | 
-[**todosRetrieve**](TodosApi.md#todosretrieve) | **GET** /api/todos/{id} | 
-[**todosUpdate**](TodosApi.md#todosupdate) | **PUT** /api/todos/{id} | 
+[**todosCreate**](TodosApi.md#todoscreate) | **POST** /api/todos/ | 
+[**todosDestroy**](TodosApi.md#todosdestroy) | **DELETE** /api/todos/{id}/ | 
+[**todosList**](TodosApi.md#todoslist) | **GET** /api/todos/ | 
+[**todosPartialUpdate**](TodosApi.md#todospartialupdate) | **PATCH** /api/todos/{id}/ | 
+[**todosRetrieve**](TodosApi.md#todosretrieve) | **GET** /api/todos/{id}/ | 
+[**todosUpdate**](TodosApi.md#todosupdate) | **PUT** /api/todos/{id}/ | 
 
 
 # **todosCreate**

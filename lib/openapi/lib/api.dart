@@ -31,6 +31,7 @@ part 'api/auth_api.dart';
 part 'api/todos_api.dart';
 part 'api/utils_api.dart';
 
+part 'model/auth_token.dart';
 part 'model/csrfmiddlewaretoken.dart';
 part 'model/login.dart';
 part 'model/password_change.dart';

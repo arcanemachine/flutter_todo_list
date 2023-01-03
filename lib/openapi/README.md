@@ -67,6 +67,8 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AuthApi* | [**authLoginCreate**](doc//AuthApi.md#authlogincreate) | **POST** /api/auth/login/ | 
+*AuthApi* | [**authLoginSessionCreate**](doc//AuthApi.md#authloginsessioncreate) | **POST** /api/auth/login/session/ | 
+*AuthApi* | [**authLoginTokenCreate**](doc//AuthApi.md#authlogintokencreate) | **POST** /api/auth/login/token/ | 
 *AuthApi* | [**authLogoutCreate**](doc//AuthApi.md#authlogoutcreate) | **POST** /api/auth/logout/ | 
 *AuthApi* | [**authPasswordChangeCreate**](doc//AuthApi.md#authpasswordchangecreate) | **POST** /api/auth/password/change/ | 
 *AuthApi* | [**authPasswordResetConfirmCreate**](doc//AuthApi.md#authpasswordresetconfirmcreate) | **POST** /api/auth/password/reset/confirm/ | 
@@ -77,18 +79,19 @@ Class | Method | HTTP request | Description
 *AuthApi* | [**authUserPartialUpdate**](doc//AuthApi.md#authuserpartialupdate) | **PATCH** /api/auth/user/ | 
 *AuthApi* | [**authUserRetrieve**](doc//AuthApi.md#authuserretrieve) | **GET** /api/auth/user/ | 
 *AuthApi* | [**authUserUpdate**](doc//AuthApi.md#authuserupdate) | **PUT** /api/auth/user/ | 
-*TodosApi* | [**todosCreate**](doc//TodosApi.md#todoscreate) | **POST** /api/todos | 
-*TodosApi* | [**todosDestroy**](doc//TodosApi.md#todosdestroy) | **DELETE** /api/todos/{id} | 
-*TodosApi* | [**todosList**](doc//TodosApi.md#todoslist) | **GET** /api/todos | 
-*TodosApi* | [**todosPartialUpdate**](doc//TodosApi.md#todospartialupdate) | **PATCH** /api/todos/{id} | 
-*TodosApi* | [**todosRetrieve**](doc//TodosApi.md#todosretrieve) | **GET** /api/todos/{id} | 
-*TodosApi* | [**todosUpdate**](doc//TodosApi.md#todosupdate) | **PUT** /api/todos/{id} | 
+*TodosApi* | [**todosCreate**](doc//TodosApi.md#todoscreate) | **POST** /api/todos/ | 
+*TodosApi* | [**todosDestroy**](doc//TodosApi.md#todosdestroy) | **DELETE** /api/todos/{id}/ | 
+*TodosApi* | [**todosList**](doc//TodosApi.md#todoslist) | **GET** /api/todos/ | 
+*TodosApi* | [**todosPartialUpdate**](doc//TodosApi.md#todospartialupdate) | **PATCH** /api/todos/{id}/ | 
+*TodosApi* | [**todosRetrieve**](doc//TodosApi.md#todosretrieve) | **GET** /api/todos/{id}/ | 
+*TodosApi* | [**todosUpdate**](doc//TodosApi.md#todosupdate) | **PUT** /api/todos/{id}/ | 
 *UtilsApi* | [**utilsCsrfmiddlewaretokenCreate**](doc//UtilsApi.md#utilscsrfmiddlewaretokencreate) | **POST** /api/utils/csrfmiddlewaretoken/ | 
 *UtilsApi* | [**utilsCsrfmiddlewaretokenRetrieve**](doc//UtilsApi.md#utilscsrfmiddlewaretokenretrieve) | **GET** /api/utils/csrfmiddlewaretoken/ | 
 
 
 ## Documentation For Models
 
+ - [AuthToken](doc//AuthToken.md)
  - [Csrfmiddlewaretoken](doc//Csrfmiddlewaretoken.md)
  - [Login](doc//Login.md)
  - [PasswordChange](doc//PasswordChange.md)

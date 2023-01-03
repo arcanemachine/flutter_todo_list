@@ -10,6 +10,8 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**authLoginCreate**](AuthApi.md#authlogincreate) | **POST** /api/auth/login/ | 
+[**authLoginSessionCreate**](AuthApi.md#authloginsessioncreate) | **POST** /api/auth/login/session/ | 
+[**authLoginTokenCreate**](AuthApi.md#authlogintokencreate) | **POST** /api/auth/login/token/ | 
 [**authLogoutCreate**](AuthApi.md#authlogoutcreate) | **POST** /api/auth/logout/ | 
 [**authPasswordChangeCreate**](AuthApi.md#authpasswordchangecreate) | **POST** /api/auth/password/change/ | 
 [**authPasswordResetConfirmCreate**](AuthApi.md#authpasswordresetconfirmcreate) | **POST** /api/auth/password/reset/confirm/ | 
@@ -23,7 +25,7 @@ Method | HTTP request | Description
 
 
 # **authLoginCreate**
-> Login authLoginCreate(login)
+> Token authLoginCreate(login)
 
 
 
@@ -60,6 +62,57 @@ Name | Type | Description  | Notes
 
 ### Return type
 
+[**Token**](Token.md)
+
+### Authorization
+
+[cookieAuth](../README.md#cookieAuth), [tokenAuth](../README.md#tokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authLoginSessionCreate**
+> Login authLoginSessionCreate(login)
+
+
+
+Check the credentials and return the REST Token if the credentials are valid and authenticated. Calls Django Auth login method to register User ID in Django session framework  Accept the following POST parameters: username, password Return the REST Framework Token Object's key.
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: cookieAuth
+//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
+// TODO Configure API key authorization: tokenAuth
+//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
+
+final api_instance = AuthApi();
+final login = Login(); // Login | 
+
+try {
+    final result = api_instance.authLoginSessionCreate(login);
+    print(result);
+} catch (e) {
+    print('Exception when calling AuthApi->authLoginSessionCreate: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **login** | [**Login**](Login.md)|  | 
+
+### Return type
+
 [**Login**](Login.md)
 
 ### Authorization
@@ -69,6 +122,59 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authLoginTokenCreate**
+> AuthToken authLoginTokenCreate(username, password, token)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: cookieAuth
+//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
+// TODO Configure API key authorization: tokenAuth
+//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
+
+final api_instance = AuthApi();
+final username = username_example; // String | 
+final password = password_example; // String | 
+final token = token_example; // String | 
+
+try {
+    final result = api_instance.authLoginTokenCreate(username, password, token);
+    print(result);
+} catch (e) {
+    print('Exception when calling AuthApi->authLoginTokenCreate: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **username** | **String**|  | 
+ **password** | **String**|  | 
+ **token** | **String**|  | 
+
+### Return type
+
+[**AuthToken**](AuthToken.md)
+
+### Authorization
+
+[cookieAuth](../README.md#cookieAuth), [tokenAuth](../README.md#tokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded, multipart/form-data, application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

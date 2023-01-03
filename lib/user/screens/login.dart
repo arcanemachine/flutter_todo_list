@@ -96,7 +96,7 @@ class _LoginFormState extends State<LoginForm> {
 
   void login(BuildContext context, String authToken) {
     secureStorage.write('authToken', authToken).then((dynamic x) {
-      sharedPrefs.isAuthenticated = true;
+      sharedPrefs.userIsAuthenticated = true;
       context.goNamed('companies:companyList');
       widgetHelpers.snackBarShow(context, "Login successful");
     });

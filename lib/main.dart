@@ -15,8 +15,15 @@ void main() async {
   await sharedPrefs.init();
   await secureStorage.init();
 
+  // // get CSRF token if user is unauthenticated
+  // late String? csrfmiddlewaretoken;
+  // if (sharedPrefs.userIsAuthenticated == false) {
+  //   csrfmiddlewaretoken = await userHelpers.csrfmiddlewaretokenFetch();
+  // }
+
   runApp(
     const ProviderScope(
+      // child: MyApp(csrfmiddlewaretoken: csrfmiddlewaretoken),
       child: MyApp(),
     ),
   );
@@ -51,12 +58,13 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class InitScreen extends StatelessWidget {
-  const InitScreen({Key? key}) : super(key: key);
+class InitScreen extends ConsumerWidget {
+  final String? csrfmiddlewaretoken;
+  const InitScreen({Key? key, this.csrfmiddlewaretoken}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    if (sharedPrefs.isAuthenticated) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (sharedPrefs.userIsAuthenticated) {
       return const TodosScreen();
     } else {
       return const LoginScreen();

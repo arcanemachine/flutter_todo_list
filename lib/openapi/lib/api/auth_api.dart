@@ -53,7 +53,7 @@ class AuthApi {
   /// Parameters:
   ///
   /// * [Login] login (required):
-  Future<Login?> authLoginCreate(Login login,) async {
+  Future<Token?> authLoginCreate(Login login,) async {
     final response = await authLoginCreateWithHttpInfo(login,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -62,7 +62,123 @@ class AuthApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Token',) as Token;
+    
+    }
+    return null;
+  }
+
+  /// Check the credentials and return the REST Token if the credentials are valid and authenticated. Calls Django Auth login method to register User ID in Django session framework  Accept the following POST parameters: username, password Return the REST Framework Token Object's key.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [Login] login (required):
+  Future<Response> authLoginSessionCreateWithHttpInfo(Login login,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/api/auth/login/session/';
+
+    // ignore: prefer_final_locals
+    Object? postBody = login;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json', 'application/x-www-form-urlencoded', 'multipart/form-data'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Check the credentials and return the REST Token if the credentials are valid and authenticated. Calls Django Auth login method to register User ID in Django session framework  Accept the following POST parameters: username, password Return the REST Framework Token Object's key.
+  ///
+  /// Parameters:
+  ///
+  /// * [Login] login (required):
+  Future<Login?> authLoginSessionCreate(Login login,) async {
+    final response = await authLoginSessionCreateWithHttpInfo(login,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'Login',) as Login;
+    
+    }
+    return null;
+  }
+
+  /// Performs an HTTP 'POST /api/auth/login/token/' operation and returns the [Response].
+  /// Parameters:
+  ///
+  /// * [String] username (required):
+  ///
+  /// * [String] password (required):
+  ///
+  /// * [String] token (required):
+  Future<Response> authLoginTokenCreateWithHttpInfo(String username, String password, String token,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/api/auth/login/token/';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/x-www-form-urlencoded', 'multipart/form-data', 'application/json'];
+
+    if (username != null) {
+      formParams[r'username'] = parameterToString(username);
+    }
+    if (password != null) {
+      formParams[r'password'] = parameterToString(password);
+    }
+    if (token != null) {
+      formParams[r'token'] = parameterToString(token);
+    }
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Parameters:
+  ///
+  /// * [String] username (required):
+  ///
+  /// * [String] password (required):
+  ///
+  /// * [String] token (required):
+  Future<AuthToken?> authLoginTokenCreate(String username, String password, String token,) async {
+    final response = await authLoginTokenCreateWithHttpInfo(username, password, token,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'AuthToken',) as AuthToken;
     
     }
     return null;

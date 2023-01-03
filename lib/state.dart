@@ -5,9 +5,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_todo_list/openapi/lib/api.dart';
 import 'package:flutter_todo_list/constants.dart';
 
-// API client
-final ApiClient apiClient = ApiClient(basePath: constants.basePath);
-final TodosApi todosApiClient = TodosApi(apiClient);
+// API clients
+ApiClient apiClientCreate({String token = ""}) {
+  if (token.isNotEmpty) {
+    return ApiClient(basePath: constants.basePath);
+  } else {
+    ApiKeyAuth authentication = ApiKeyAuth("header", "Authorization");
+    authentication.apiKeyPrefix = "Token";
+    authentication.apiKey = token;
+    return ApiClient(
+        basePath: constants.basePath, authentication: authentication);
+  }
+}
+
+AuthApi authApiCreate({String token = ""}) =>
+    AuthApi(apiClientCreate(token: token));
+TodosApi todosApiCreate({String token = ""}) =>
+    TodosApi(apiClientCreate(token: token));
+UtilsApi utilsApiCreate({String token = ""}) =>
+    UtilsApi(apiClientCreate(token: token));
+
+final ApiClient apiClient = apiClientCreate();
+final AuthApi authApi = authApiCreate();
+final TodosApi todosApi = todosApiCreate();
+final UtilsApi utilsApi = utilsApiCreate();
 
 // shared preferences
 class SharedPrefs {
@@ -32,7 +53,7 @@ class SharedPrefs {
 
   void readAll() {
     // if (kDebugMode) {
-    //   print('isAuthenticated: "$isAuthenticated"');
+    //   print('userIsAuthenticated: "$userIsAuthenticated"');
     // }
   }
 
@@ -42,45 +63,10 @@ class SharedPrefs {
     // _sharedPrefs?.remove('employee_pk_current');
   }
 
-  // // current company
-  // String get companyNameCurrent =>
-  //     _sharedPrefs?.getString('company_name_current') ?? "";
-  // set companyNameCurrent(String val) {
-  //   _sharedPrefs?.setString('company_name_current', val);
-  // }
-
-  // int get companyPkCurrent => _sharedPrefs?.getInt('company_pk_current') ?? 0;
-  // set companyPkCurrent(int val) {
-  //   _sharedPrefs?.setInt('company_pk_current', val);
-  // }
-
-  // int get employeePkCurrent => _sharedPrefs?.getInt('employee_pk_current') ?? 0;
-  // set employeePkCurrent(int val) {
-  //   _sharedPrefs?.setInt('employee_pk_current', val);
-  // }
-
-  // routes
-  String get routeCurrent => _sharedPrefs?.getString('route_current') ?? "";
-  set routeCurrent(String val) {
-    _sharedPrefs?.setString('route_current', val);
-  }
-
-  // String get routePrevious =>
-  //   _sharedPrefs?.getString('route_previous') ?? "";
-  // set routePrevious(String val) {
-  //   _sharedPrefs?.setString('route_previous', val);
-  // }
-
-  // darkMode
-  String get darkMode => _sharedPrefs?.getString('dark_mode') ?? 'auto';
-  set darkMode(String val) {
-    _sharedPrefs?.setString('dark_mode', val);
-  }
-
   // auth
-  bool get isAuthenticated =>
+  bool get userIsAuthenticated =>
       _sharedPrefs?.getBool('is_authenticated') ?? false;
-  set isAuthenticated(bool val) {
+  set userIsAuthenticated(bool val) {
     _sharedPrefs?.setBool('is_authenticated', val);
   }
 
@@ -91,6 +77,18 @@ class SharedPrefs {
   void logout() {
     _sharedPrefs?.setBool('is_authenticated', false);
   }
+
+  // darkMode
+  String get darkMode => _sharedPrefs?.getString('dark_mode') ?? 'auto';
+  set darkMode(String val) {
+    _sharedPrefs?.setString('dark_mode', val);
+  }
+
+  // routes
+  String get routeCurrent => _sharedPrefs?.getString('route_current') ?? "";
+  set routeCurrent(String val) {
+    _sharedPrefs?.setString('route_current', val);
+  }
 }
 
 final SharedPrefs sharedPrefs = SharedPrefs();
@@ -98,42 +96,42 @@ final SharedPrefs sharedPrefs = SharedPrefs();
 // secure storage
 class SecureStorage {
   init() async {}
-  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
 
   // crud
   Future read(String key) async {
-    var readData = await _storage.read(key: key);
+    var readData = await storage.read(key: key);
     return readData;
   }
 
   Future readAll() async {
-    return await _storage.readAll();
+    return await storage.readAll();
   }
 
   Future write(String key, String value) async {
-    var writeData = await _storage.write(key: key, value: value);
+    var writeData = await storage.write(key: key, value: value);
     return writeData;
   }
 
   Future delete(String key) async {
-    var deleteData = await _storage.delete(key: key);
+    var deleteData = await storage.delete(key: key);
     return deleteData;
   }
 
   Future clear() async {
-    await _storage.deleteAll();
+    await storage.deleteAll();
   }
 
   // auth
-  Future<bool> isAuthenticated() async {
-    final bool isAuthenticated =
-        await _storage.read(key: "auth_token") == null ? false : true;
-    return isAuthenticated;
+  Future<bool> userIsAuthenticated() async {
+    final bool userIsAuthenticated =
+        await storage.read(key: "auth_token") == null ? false : true;
+    return userIsAuthenticated;
   }
 
   Future<bool> logout() async {
     try {
-      await _storage.delete(key: "auth_token");
+      await storage.delete(key: "auth_token");
       return true;
     } catch (err) {
       return false;
