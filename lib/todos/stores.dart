@@ -20,33 +20,25 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
   }
 
   Future<void> todoCreate(String content) async {
-    try {
-      // create API request
-      final newTodo = await todosApi.todosCreate(Todo(
-        id: 0,
-        content: content,
-        isCompleted: false,
-      )) as Todo;
+    // create API request
+    final newTodo = await todosApi.todosCreate(Todo(
+      id: 0,
+      content: content,
+      isCompleted: false,
+    )) as Todo;
 
-      state = [...state, newTodo];
-    } catch (err) {
-      throw Exception(err);
-    }
+    state = [...state, newTodo];
   }
 
   Future<bool> todoDelete(int todoId) async {
-    try {
-      // create API request
-      await todosApi.todosDestroy(todoId);
+    // create API request
+    await todosApi.todosDestroy(todoId);
 
-      // update local state
-      state = [
-        for (final todo in state)
-          if (todo.id != todoId) todo,
-      ];
-    } catch (err) {
-      throw Exception(err);
-    }
+    // update local state
+    state = [
+      for (final todo in state)
+        if (todo.id != todoId) todo,
+    ];
 
     return true;
   }
