@@ -3,10 +3,10 @@ import 'package:go_router/go_router.dart';
 // import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/todos/screens.dart';
 
-final List<GoRoute> userRoutes = [
+final List<GoRoute> todosRoutes = [
   GoRoute(
     path: '/todos',
-    name: 'todos:todos_root',
+    name: 'todos:todos',
     // builder: (context, state) => helpers.route(state, const SettingsScreen()),
     builder: (context, state) => const TodosScreen(),
     // pageBuilder: (context, state) => CustomTransitionPage<void>(

@@ -7,7 +7,8 @@ import 'package:flutter_todo_list/constants.dart';
 
 // API clients
 ApiClient apiClientCreate({String token = ""}) {
-  if (token.isNotEmpty) {
+  /** If user is authenticated, add authorization data to HTTP headers. */
+  if (token.isEmpty) {
     return ApiClient(basePath: constants.basePath);
   } else {
     ApiKeyAuth authentication = ApiKeyAuth("header", "Authorization");
@@ -25,6 +26,7 @@ TodosApi todosApiCreate({String token = ""}) =>
 UtilsApi utilsApiCreate({String token = ""}) =>
     UtilsApi(apiClientCreate(token: token));
 
+// deleteme
 final ApiClient apiClient = apiClientCreate();
 final AuthApi authApi = authApiCreate();
 final TodosApi todosApi = todosApiCreate();
@@ -95,7 +97,7 @@ final SharedPrefs sharedPrefs = SharedPrefs();
 
 // secure storage
 class SecureStorage {
-  init() async {}
+  // init() async {}
   final FlutterSecureStorage storage = const FlutterSecureStorage();
 
   // crud
@@ -129,13 +131,12 @@ class SecureStorage {
     return userIsAuthenticated;
   }
 
-  Future<bool> logout() async {
-    try {
-      await storage.delete(key: "auth_token");
-      return true;
-    } catch (err) {
-      return false;
-    }
+  Future<void> login(String token) async {
+    await storage.write(key: "auth_token", value: token);
+  }
+
+  Future<void> logout() async {
+    await storage.delete(key: "auth_token");
   }
 }
 

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:restart_app/restart_app.dart';
 
 import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/state.dart';
-import 'package:flutter_todo_list/user/widgets.dart';
+import 'package:flutter_todo_list/widgets.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: UserWidgets().appBar(
+      appBar: baseWidgets.appBar(
         context,
-        showSettings: false,
+        ref,
+        hideSettings: true,
       ),
       body: const Settings(),
     );

@@ -3,13 +3,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/openapi/lib/api.dart';
 import 'package:flutter_todo_list/todos/stores.dart';
+import 'package:flutter_todo_list/widgets.dart';
 
 class TodosScreen extends ConsumerWidget {
   const TodosScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return _refreshIndicator(context, ref);
+    return Scaffold(
+      appBar: baseWidgets.appBar(
+        context,
+        ref,
+        title: "Todo List",
+        hideBackButton: true,
+      ),
+      body: _refreshIndicator(context, ref),
+    );
   }
 
   Widget _refreshIndicator(BuildContext context, WidgetRef ref) {
@@ -86,10 +95,10 @@ class TodoForm extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
     final textInputController = TextEditingController();
-    final int todoSelectedId = ref.watch(todoSelectedIdProvider);
+    final int? todoSelectedId = ref.watch(todoSelectedIdProvider);
 
     // when updating todo, assign input field value to todo content
-    if (todoSelectedId != 0) {
+    if (todoSelectedId != null) {
       textInputController.text = ref
           .read(todosProvider)
           .where((todo) => todo.id == todoSelectedId)
@@ -122,6 +131,8 @@ class TodoForm extends ConsumerWidget {
             // submit button
             child: ElevatedButton(
               onPressed: () {
+                // ignore: todo
+                // TODO: move into own function
                 if (formKey.currentState!.validate()) {
                   final String content = textInputController.text;
 
@@ -220,7 +231,7 @@ class TodoList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Todo> todos = ref.watch(todosProvider);
-    int todoSelectedId = ref.watch(todoSelectedIdProvider);
+    int? todoSelectedId = ref.watch(todoSelectedIdProvider);
 
     Widget todosEmptyText() {
       return ListView(

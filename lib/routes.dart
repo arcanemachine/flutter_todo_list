@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-// import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/main.dart';
+import 'package:flutter_todo_list/todos/routes.dart';
 import 'package:flutter_todo_list/user/routes.dart';
 
 final List<GoRoute> _routes = [
@@ -12,6 +12,7 @@ final List<GoRoute> _routes = [
             const InitScreen(),
       ),
     ] +
+    todosRoutes +
     userRoutes;
 
 final GoRouter router = GoRouter(

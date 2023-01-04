@@ -21,8 +21,7 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
 
   Future<void> todoCreate(String content) async {
     // create API request
-    final newTodo = await todosApi.todosCreate(Todo(
-      id: 0,
+    final newTodo = await todosApi.todosCreate(TodoRequest(
       content: content,
       isCompleted: false,
     )) as Todo;
@@ -30,9 +29,9 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
     state = [...state, newTodo];
   }
 
-  Future<bool> todoDelete(int todoId) async {
+  Future<bool> todoDelete(int? todoId) async {
     // create API request
-    await todosApi.todosDestroy(todoId);
+    await todosApi.todosDestroy(todoId as int);
 
     // update local state
     state = [
@@ -43,14 +42,14 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
     return true;
   }
 
-  Future<void> todoToggleIsCompleted(int todoId) async {
+  Future<void> todoToggleIsCompleted(int? todoId) async {
     // create new todo with updated completion status
     Todo modifiedTodo = state.where((todo) => todo.id == todoId).toList()[0];
     modifiedTodo.isCompleted = !(modifiedTodo.isCompleted as bool);
 
     // create API request
-    Todo updatedTodo =
-        await todosApi.todosUpdate(modifiedTodo.id, modifiedTodo) as Todo;
+    Todo updatedTodo = await todosApi.todosUpdate(
+        todoId as int, modifiedTodo as TodoRequest) as Todo;
 
     // update local state
     state = [
@@ -59,14 +58,14 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
     ];
   }
 
-  Future<void> todoUpdateContent(int todoId, String content) async {
+  Future<void> todoUpdateContent(int? todoId, String content) async {
     // create new todo with updated content
     Todo modifiedTodo = state.where((todo) => todo.id == todoId).toList()[0];
     modifiedTodo.content = content;
 
     // create API request
-    Todo updatedTodo =
-        await todosApi.todosUpdate(modifiedTodo.id, modifiedTodo) as Todo;
+    Todo updatedTodo = await todosApi.todosUpdate(
+        todoId as int, modifiedTodo as TodoRequest) as Todo;
 
     // update local state
     state = [
@@ -80,12 +79,12 @@ final todosProvider = StateNotifierProvider<TodosNotifier, List<Todo>>((ref) {
   return TodosNotifier();
 });
 
-class TodoSelectedIdNotifier extends StateNotifier<int> {
-  TodoSelectedIdNotifier() : super(0);
+class TodoSelectedIdNotifier extends StateNotifier<int?> {
+  TodoSelectedIdNotifier() : super(null);
 
   void reset() => state = 0;
 
-  void update(int todoId) {
+  void update(int? todoId) {
     if (state != todoId) {
       state = todoId;
     } else {
@@ -95,6 +94,6 @@ class TodoSelectedIdNotifier extends StateNotifier<int> {
 }
 
 final todoSelectedIdProvider =
-    StateNotifierProvider<TodoSelectedIdNotifier, int>((ref) {
+    StateNotifierProvider<TodoSelectedIdNotifier, int?>((ref) {
   return TodoSelectedIdNotifier();
 });

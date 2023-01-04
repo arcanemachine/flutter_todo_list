@@ -7,23 +7,17 @@ import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/styles.dart';
 import 'package:flutter_todo_list/todos/screens.dart';
 import 'package:flutter_todo_list/user/screens/login.dart';
+// import 'package:flutter_todo_list/user/stores.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // load persistent data
   await sharedPrefs.init();
-  await secureStorage.init();
-
-  // // get CSRF token if user is unauthenticated
-  // late String? csrfmiddlewaretoken;
-  // if (sharedPrefs.userIsAuthenticated == false) {
-  //   csrfmiddlewaretoken = await userHelpers.csrfmiddlewaretokenFetch();
-  // }
+  // await secureStorage.init();
 
   runApp(
     const ProviderScope(
-      // child: MyApp(csrfmiddlewaretoken: csrfmiddlewaretoken),
       child: MyApp(),
     ),
   );
@@ -59,15 +53,14 @@ class MyApp extends StatelessWidget {
 }
 
 class InitScreen extends ConsumerWidget {
-  final String? csrfmiddlewaretoken;
-  const InitScreen({Key? key, this.csrfmiddlewaretoken}) : super(key: key);
+  const InitScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (sharedPrefs.userIsAuthenticated) {
-      return const TodosScreen();
-    } else {
+    if (!sharedPrefs.userIsAuthenticated) {
       return const LoginScreen();
+    } else {
+      return const TodosScreen();
     }
   }
 }

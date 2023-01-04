@@ -27,38 +27,29 @@ class User {
 class UserNotifier extends StateNotifier<User> {
   UserNotifier() : super(User());
 
-  Future<ApiClient> apiClientGet() async {
-    return apiClientCreate(
-        token: await secureStorage.storage.read(key: "auth_token") ?? "");
-  }
-
-  // Future<String> csrfmiddlewaretokenGet({bool renew = false}) async {
-  //   if (state.csrfmiddlewaretoken.isEmpty || renew == true) {
-  //     // retrieve new token
-  //     Csrfmiddlewaretoken? token =
-  //         await utilsApi.utilsCsrfmiddlewaretokenRetrieve();
-  //     if (token != null) {
-  //       state.csrfmiddlewaretoken = token.csrfmiddlewaretoken;
-  //     }
+  // Future<ApiClient> apiClientGet() async {
+  //   String token = await secureStorage.storage.read(key: "auth_token") ?? "";
+  //   if (token.isEmpty) {
+  //     // create unauthenticated API client
+  //     return apiClientCreate();
+  //   } else {
+  //     return apiClientCreate(token: token);
   //   }
-  //   return Future<String>.value(state.csrfmiddlewaretoken);
   // }
 
-  Future<bool> isAuthenticated() async {
-    final bool isAuthenticated =
-        await secureStorage.read("authToken") == null ? false : true;
-    return isAuthenticated;
-  }
+  bool get isAuthenticated => state.isAuthenticated;
 
   Future<bool> confirmAuthenticationStatus() async {
     return false; // TO-DO
   }
 
-  Future<AuthToken?> login(String username, String password) async {
-    AuthToken? token = await authApi.authLoginTokenCreate(
-        username, password, state.email ?? "");
+  Future<void> login(String username, String password) async {
+    AuthApi authApi = authApiCreate(); // create unauthenticated API client
 
-    return token;
+    AuthToken? authToken =
+        await authApi.authLoginTokenCreate(username, password);
+    await secureStorage.login(authToken!.token as String);
+    sharedPrefs.login();
   }
 
   Future<void> logout() async {

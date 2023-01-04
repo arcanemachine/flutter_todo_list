@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_todo_list/openapi/lib/api.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/constants.dart';
@@ -9,7 +8,7 @@ import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/styles.dart';
 import 'package:flutter_todo_list/user/stores.dart';
-import 'package:flutter_todo_list/user/widgets.dart';
+import 'package:flutter_todo_list/widgets.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,9 +16,11 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: userWidgets.appBar(
+      appBar: baseWidgets.appBar(
         context,
+        ref,
         title: "Login",
+        hideBackButton: true,
       ),
       body: Center(
         child: ListView(
@@ -93,14 +94,6 @@ class _LoginFormState extends State<LoginForm> {
       !_isLoading &&
       _usernameController.text.isNotEmpty &&
       _passwordController.text.isNotEmpty;
-
-  void login(BuildContext context, String authToken) {
-    secureStorage.write('authToken', authToken).then((dynamic x) {
-      sharedPrefs.userIsAuthenticated = true;
-      context.goNamed('companies:companyList');
-      widgetHelpers.snackBarShow(context, "Login successful");
-    });
-  }
 
   // controllers
   // final _usernameController = TextEditingController();
@@ -193,20 +186,33 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   // methods
-  void _handleSubmit() async {
+  // Future<void> login(BuildContext context, String authToken) async {
+  //   await secureStorage.write('authToken', authToken).then((dynamic x) {
+  //     sharedPrefs.userIsAuthenticated = true;
+  //     context.goNamed('companies:companyList');
+  //     widgetHelpers.snackBarShow(context, "Login successful");
+  //   });
+  // }
+
+  void _handleSubmit() {
     final String username = _usernameController.text;
     final String password = _passwordController.text;
 
     _isLoadingSet(true); // set loading status
 
-    widget.ref // attempt to login
-        .read(userProvider.notifier)
-        .login(username, password);
+    try {
+      widget.ref // login
+          .read(userProvider.notifier)
+          .login(username, password)
+          .then((value) {
+        // success message
+        widgetHelpers.snackBarShow(context, "Login successful");
+      });
+      context.pushReplacement("/todos"); // success url
+    } catch (err) {
+      widgetHelpers.snackBarShow(context, err.toString()); // error message
+    }
 
     _isLoadingSet(false); // reset loading status
-
-    // login the user
-
-    // display error message
   }
 }
