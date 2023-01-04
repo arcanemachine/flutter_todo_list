@@ -13,19 +13,31 @@ part of openapi.api;
 class UserDetails {
   /// Returns a new [UserDetails] instance.
   UserDetails({
-    required this.pk,
+    this.pk,
     required this.username,
-    required this.email,
+    this.email,
     this.firstName,
     this.lastName,
   });
 
-  int pk;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  int? pk;
 
   /// Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
   String username;
 
-  String email;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? email;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -54,9 +66,9 @@ class UserDetails {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (pk.hashCode) +
+    (pk == null ? 0 : pk!.hashCode) +
     (username.hashCode) +
-    (email.hashCode) +
+    (email == null ? 0 : email!.hashCode) +
     (firstName == null ? 0 : firstName!.hashCode) +
     (lastName == null ? 0 : lastName!.hashCode);
 
@@ -65,9 +77,17 @@ class UserDetails {
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
+    if (this.pk != null) {
       json[r'pk'] = this.pk;
+    } else {
+      json[r'pk'] = null;
+    }
       json[r'username'] = this.username;
+    if (this.email != null) {
       json[r'email'] = this.email;
+    } else {
+      json[r'email'] = null;
+    }
     if (this.firstName != null) {
       json[r'first_name'] = this.firstName;
     } else {
@@ -100,9 +120,9 @@ class UserDetails {
       }());
 
       return UserDetails(
-        pk: mapValueOfType<int>(json, r'pk')!,
+        pk: mapValueOfType<int>(json, r'pk'),
         username: mapValueOfType<String>(json, r'username')!,
-        email: mapValueOfType<String>(json, r'email')!,
+        email: mapValueOfType<String>(json, r'email'),
         firstName: mapValueOfType<String>(json, r'first_name'),
         lastName: mapValueOfType<String>(json, r'last_name'),
       );
@@ -154,9 +174,7 @@ class UserDetails {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
-    'pk',
     'username',
-    'email',
   };
 }
 

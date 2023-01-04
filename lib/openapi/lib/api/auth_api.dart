@@ -75,8 +75,8 @@ class AuthApi {
   ///
   /// * [String] password (required):
   ///
-  /// * [String] token (required):
-  Future<Response> authLoginTokenCreateWithHttpInfo(String username, String password, String token,) async {
+  /// * [String] token:
+  Future<Response> authLoginTokenCreateWithHttpInfo(String username, String password, { String? token, }) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/login/token/';
 
@@ -116,9 +116,9 @@ class AuthApi {
   ///
   /// * [String] password (required):
   ///
-  /// * [String] token (required):
-  Future<AuthToken?> authLoginTokenCreate(String username, String password, String token,) async {
-    final response = await authLoginTokenCreateWithHttpInfo(username, password, token,);
+  /// * [String] token:
+  Future<AuthToken?> authLoginTokenCreate(String username, String password, { String? token, }) async {
+    final response = await authLoginTokenCreateWithHttpInfo(username, password,  token: token, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

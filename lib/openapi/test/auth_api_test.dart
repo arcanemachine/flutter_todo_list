@@ -24,7 +24,7 @@ void main() {
       // TODO
     });
 
-    //Future<AuthToken> authLoginTokenCreate(String username, String password, String token) async
+    //Future<AuthToken> authLoginTokenCreate(String username, String password, { String token }) async
     test('test authLoginTokenCreate', () async {
       // TODO
     });

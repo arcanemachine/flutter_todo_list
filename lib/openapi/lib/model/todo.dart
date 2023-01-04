@@ -13,12 +13,18 @@ part of openapi.api;
 class Todo {
   /// Returns a new [Todo] instance.
   Todo({
-    required this.id,
+    this.id,
     required this.content,
     this.isCompleted,
   });
 
-  int id;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  int? id;
 
   String content;
 
@@ -39,7 +45,7 @@ class Todo {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (id.hashCode) +
+    (id == null ? 0 : id!.hashCode) +
     (content.hashCode) +
     (isCompleted == null ? 0 : isCompleted!.hashCode);
 
@@ -48,7 +54,11 @@ class Todo {
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
+    if (this.id != null) {
       json[r'id'] = this.id;
+    } else {
+      json[r'id'] = null;
+    }
       json[r'content'] = this.content;
     if (this.isCompleted != null) {
       json[r'is_completed'] = this.isCompleted;
@@ -77,7 +87,7 @@ class Todo {
       }());
 
       return Todo(
-        id: mapValueOfType<int>(json, r'id')!,
+        id: mapValueOfType<int>(json, r'id'),
         content: mapValueOfType<String>(json, r'content')!,
         isCompleted: mapValueOfType<bool>(json, r'is_completed'),
       );
@@ -129,7 +139,6 @@ class Todo {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
-    'id',
     'content',
   };
 }

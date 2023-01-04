@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **username** | **String**|  | 
  **password** | **String**|  | 
- **token** | **String**|  | 
+ **token** | **String**|  | [optional] 
 
 ### Return type
 

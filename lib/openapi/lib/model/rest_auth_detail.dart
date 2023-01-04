@@ -13,10 +13,16 @@ part of openapi.api;
 class RestAuthDetail {
   /// Returns a new [RestAuthDetail] instance.
   RestAuthDetail({
-    required this.detail,
+    this.detail,
   });
 
-  String detail;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? detail;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is RestAuthDetail &&
@@ -25,14 +31,18 @@ class RestAuthDetail {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (detail.hashCode);
+    (detail == null ? 0 : detail!.hashCode);
 
   @override
   String toString() => 'RestAuthDetail[detail=$detail]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
+    if (this.detail != null) {
       json[r'detail'] = this.detail;
+    } else {
+      json[r'detail'] = null;
+    }
     return json;
   }
 
@@ -55,7 +65,7 @@ class RestAuthDetail {
       }());
 
       return RestAuthDetail(
-        detail: mapValueOfType<String>(json, r'detail')!,
+        detail: mapValueOfType<String>(json, r'detail'),
       );
     }
     return null;
@@ -105,7 +115,6 @@ class RestAuthDetail {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
-    'detail',
   };
 }
 

@@ -15,14 +15,20 @@ class AuthToken {
   AuthToken({
     required this.username,
     required this.password,
-    required this.token,
+    this.token,
   });
 
   String username;
 
   String password;
 
-  String token;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? token;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is AuthToken &&
@@ -35,7 +41,7 @@ class AuthToken {
     // ignore: unnecessary_parenthesis
     (username.hashCode) +
     (password.hashCode) +
-    (token.hashCode);
+    (token == null ? 0 : token!.hashCode);
 
   @override
   String toString() => 'AuthToken[username=$username, password=$password, token=$token]';
@@ -44,7 +50,11 @@ class AuthToken {
     final json = <String, dynamic>{};
       json[r'username'] = this.username;
       json[r'password'] = this.password;
+    if (this.token != null) {
       json[r'token'] = this.token;
+    } else {
+      json[r'token'] = null;
+    }
     return json;
   }
 
@@ -69,7 +79,7 @@ class AuthToken {
       return AuthToken(
         username: mapValueOfType<String>(json, r'username')!,
         password: mapValueOfType<String>(json, r'password')!,
-        token: mapValueOfType<String>(json, r'token')!,
+        token: mapValueOfType<String>(json, r'token'),
       );
     }
     return null;
@@ -121,7 +131,6 @@ class AuthToken {
   static const requiredKeys = <String>{
     'username',
     'password',
-    'token',
   };
 }
 
