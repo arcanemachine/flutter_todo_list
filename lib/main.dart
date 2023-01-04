@@ -12,9 +12,7 @@ import 'package:flutter_todo_list/user/screens/login.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // load persistent data
-  await sharedPrefs.init();
-  // await secureStorage.init();
+  await sharedPrefs.init(); // load persistent data
 
   runApp(
     const ProviderScope(

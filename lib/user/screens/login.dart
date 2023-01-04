@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_list/openapi/lib/api.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/constants.dart';
 import 'package:flutter_todo_list/helpers.dart';
-import 'package:flutter_todo_list/state.dart';
+// import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/styles.dart';
 import 'package:flutter_todo_list/user/stores.dart';
 import 'package:flutter_todo_list/widgets.dart';
@@ -102,7 +103,7 @@ class _LoginFormState extends State<LoginForm> {
     const TextEditingValue(text: 'user'),
   );
   final _passwordController = TextEditingController.fromValue(
-    const TextEditingValue(text: 'password'),
+    const TextEditingValue(text: 'passwords'),
   );
 
   // widgets
@@ -200,18 +201,17 @@ class _LoginFormState extends State<LoginForm> {
 
     _isLoadingSet(true); // set loading status
 
-    try {
-      widget.ref // login
-          .read(userProvider.notifier)
-          .login(username, password)
-          .then((value) {
-        // success message
-        widgetHelpers.snackBarShow(context, "Login successful");
-      });
+    widget.ref // login
+        .read(userProvider.notifier)
+        .login(username, password)
+        .then((value) {
       context.pushReplacement("/todos"); // success url
-    } catch (err) {
-      widgetHelpers.snackBarShow(context, err.toString()); // error message
-    }
+
+      // success message
+      widgetHelpers.snackBarShow(context, "Login successful");
+    }).catchError((err) {
+      widgetHelpers.snackBarShowApiException(context, err); // error message
+    });
 
     _isLoadingSet(false); // reset loading status
   }

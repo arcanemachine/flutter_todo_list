@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:flutter_todo_list/constants.dart';
 import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/state.dart';
+import 'package:flutter_todo_list/user/helpers.dart';
 
 class _BaseWidgets {
   PreferredSizeWidget appBar(
     BuildContext context,
-    // todo: remove ref parameter?
     WidgetRef ref, {
     String? title,
     List<Widget> extraActions = const <Widget>[],
@@ -52,21 +53,6 @@ class _BaseWidgets {
       // ignore: todo
       // TODO: user profile icon
 
-      void logout(BuildContext context) {
-        secureStorage.delete('user_api_token').then(
-          (x) {
-            sharedPrefs.logout();
-            sharedPrefs.clearSession();
-
-            while (helpers.canPop(context)) {
-              Navigator.pop(context);
-            }
-            context.pushReplacement('/');
-            widgetHelpers.snackBarShow(context, "Logout successful");
-          },
-        );
-      }
-
       void showDialogLogout() {
         showDialog(
           context: context,
@@ -80,15 +66,7 @@ class _BaseWidgets {
               ),
               TextButton(
                 child: const Text("OK"),
-                onPressed: () {
-                  logout(context);
-
-                  while (helpers.canPop(context)) {
-                    Navigator.pop(context);
-                  }
-
-                  context.go('/');
-                },
+                onPressed: () => userHelpers.logout(context, ref),
               ),
             ],
           ),

@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:developer';
 
-import 'package:flutter_todo_list/state.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_todo_list/openapi/lib/api.dart';
 
 class _Helpers {
   _ExampleHelpers get example => _ExampleHelpers();
@@ -24,15 +26,15 @@ class _Helpers {
     }
   }
 
-  Widget saveRoute(GoRouterState state, Widget widget) {
-    /** Save incoming route to shared preferences so that it will be seen first
-      * when first opening the app.
-      */
+  // Widget saveRoute(GoRouterState state, Widget widget) {
+  //   /** Save incoming route to shared preferences so that it will be seen first
+  //     * when first opening the app.
+  //     */
 
-    sharedPrefs.routeCurrent = state.location;
+  //   sharedPrefs.routeCurrent = state.location;
 
-    return widget;
-  }
+  //   return widget;
+  // }
 }
 
 final helpers = _Helpers();
@@ -67,6 +69,36 @@ class _WidgetHelpers {
             ),
       ),
     );
+  }
+
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
+      snackBarShowApiException(BuildContext context, ApiException error,
+          [SnackBarAction? customAction]) {
+    /** Parse error and show a snackbar message. */
+
+    int statusCode = error.code; // status code
+
+    /* parse error message(s) and return the first error in the message body */
+    late String message;
+    if (error.message != null) {
+      Map<String, dynamic> messageJson = jsonDecode(error.message as String);
+
+      if (messageJson.containsKey('non_field_errors')) {
+        message = messageJson['non_field_errors'][0];
+      } else {
+        String firstKey = messageJson.keys.first;
+        message = messageJson[firstKey][0];
+      }
+    } else {
+      message = "An unknown error occurred.";
+    }
+
+    // int statusCode =
+    if (statusCode != 400) {
+      return snackBarShow(context, "Error $statusCode: $message");
+    } else {
+      return snackBarShow(context, "Error: $message");
+    }
   }
 }
 

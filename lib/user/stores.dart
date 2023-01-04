@@ -8,56 +8,65 @@ import 'package:flutter_todo_list/state.dart';
 
 class User {
   User({
-    this.isAuthenticated = false,
+    // this.isAuthenticated = false,
     this.username,
     this.email,
-    this.csrftoken,
-    this.csrfmiddlewaretoken = "",
     this.apiClient,
   });
 
-  bool isAuthenticated;
+  // bool isAuthenticated = false;
   String? username;
   String? email;
-  String? csrftoken;
-  String csrfmiddlewaretoken;
   ApiClient? apiClient;
 }
 
 class UserNotifier extends StateNotifier<User> {
   UserNotifier() : super(User());
 
-  // Future<ApiClient> apiClientGet() async {
-  //   String token = await secureStorage.storage.read(key: "auth_token") ?? "";
-  //   if (token.isEmpty) {
-  //     // create unauthenticated API client
-  //     return apiClientCreate();
-  //   } else {
-  //     return apiClientCreate(token: token);
-  //   }
-  // }
+  Future<ApiClient> apiClientGet() async {
+    String token = await secureStorage.storage.read(key: "auth_token") ?? "";
+    if (token.isEmpty) {
+      // create unauthenticated API client
+      return apiClientCreate();
+    } else {
+      return apiClientCreate(token: token);
+    }
+  }
 
-  bool get isAuthenticated => state.isAuthenticated;
+  // bool get isAuthenticated => state.isAuthenticated;
 
   Future<bool> confirmAuthenticationStatus() async {
-    return false; // TO-DO
+    return false; // todo
   }
 
   Future<void> login(String username, String password) async {
-    AuthApi authApi = authApiCreate(); // create unauthenticated API client
+    // create unauthenticated API client
+    AuthApi authApi = authApiCreate();
 
+    // get auth token
     AuthToken? authToken =
         await authApi.authLoginTokenCreate(username, password);
+
+    // // update user authentication status
+    // state.isAuthenticated = true;
+
+    // save token to secure storage
     await secureStorage.login(authToken!.token as String);
+
+    // save auth status to shared preferences (for easy non-async access)
     sharedPrefs.login();
   }
 
   Future<void> logout() async {
-    // await secureStorage.read("authToken") == null ? false : true;
+    await secureStorage.logout();
+    sharedPrefs.logout();
   }
 }
 
-// final userProvider = StateNotifierProvider
 final userProvider = StateNotifierProvider<UserNotifier, Object>((ref) {
   return UserNotifier();
 });
+
+// final userIsAuthenticatedProvider = StateProvider<bool>((ref) {
+//   return sharedPrefs.userIsAuthenticated;
+// });

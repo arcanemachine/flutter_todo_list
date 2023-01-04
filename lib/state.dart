@@ -55,14 +55,14 @@ class SharedPrefs {
 
   void readAll() {
     // if (kDebugMode) {
+    //   print('darkMode: "$darkMode"');
     //   print('userIsAuthenticated: "$userIsAuthenticated"');
     // }
   }
 
   void clearSession() {
+    logout();
     // _sharedPrefs?.remove('company_name_current');
-    // _sharedPrefs?.remove('company_pk_current');
-    // _sharedPrefs?.remove('employee_pk_current');
   }
 
   // auth
@@ -72,11 +72,11 @@ class SharedPrefs {
     _sharedPrefs?.setBool('is_authenticated', val);
   }
 
-  void login() {
+  login() {
     _sharedPrefs?.setBool('is_authenticated', true);
   }
 
-  void logout() {
+  logout() {
     _sharedPrefs?.setBool('is_authenticated', false);
   }
 
@@ -86,11 +86,11 @@ class SharedPrefs {
     _sharedPrefs?.setString('dark_mode', val);
   }
 
-  // routes
-  String get routeCurrent => _sharedPrefs?.getString('route_current') ?? "";
-  set routeCurrent(String val) {
-    _sharedPrefs?.setString('route_current', val);
-  }
+  // // routes
+  // String get routeCurrent => _sharedPrefs?.getString('route_current') ?? "";
+  // set routeCurrent(String val) {
+  //   _sharedPrefs?.setString('route_current', val);
+  // }
 }
 
 final SharedPrefs sharedPrefs = SharedPrefs();
@@ -126,9 +126,7 @@ class SecureStorage {
 
   // auth
   Future<bool> userIsAuthenticated() async {
-    final bool userIsAuthenticated =
-        await storage.read(key: "auth_token") == null ? false : true;
-    return userIsAuthenticated;
+    return await storage.read(key: "auth_token") != null ? true : false;
   }
 
   Future<void> login(String token) async {
