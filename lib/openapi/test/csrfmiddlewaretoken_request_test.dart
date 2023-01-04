@@ -11,13 +11,13 @@
 import 'package:openapi/api.dart';
 import 'package:test/test.dart';
 
-// tests for VerifyEmail
+// tests for CsrfmiddlewaretokenRequest
 void main() {
-  // final instance = VerifyEmail();
+  // final instance = CsrfmiddlewaretokenRequest();
 
-  group('test VerifyEmail', () {
-    // String key
-    test('to test the property `key`', () async {
+  group('test CsrfmiddlewaretokenRequest', () {
+    // String csrfmiddlewaretoken
+    test('to test the property `csrfmiddlewaretoken`', () async {
       // TODO
     });
 

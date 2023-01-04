@@ -10,36 +10,42 @@
 
 part of openapi.api;
 
-class VerifyEmail {
-  /// Returns a new [VerifyEmail] instance.
-  VerifyEmail({
-    required this.key,
+class AuthTokenRequest {
+  /// Returns a new [AuthTokenRequest] instance.
+  AuthTokenRequest({
+    required this.username,
+    required this.password,
   });
 
-  String key;
+  String username;
+
+  String password;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is VerifyEmail &&
-     other.key == key;
+  bool operator ==(Object other) => identical(this, other) || other is AuthTokenRequest &&
+     other.username == username &&
+     other.password == password;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (key.hashCode);
+    (username.hashCode) +
+    (password.hashCode);
 
   @override
-  String toString() => 'VerifyEmail[key=$key]';
+  String toString() => 'AuthTokenRequest[username=$username, password=$password]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'key'] = this.key;
+      json[r'username'] = this.username;
+      json[r'password'] = this.password;
     return json;
   }
 
-  /// Returns a new [VerifyEmail] instance and imports its values from
+  /// Returns a new [AuthTokenRequest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static VerifyEmail? fromJson(dynamic value) {
+  static AuthTokenRequest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -48,24 +54,25 @@ class VerifyEmail {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "VerifyEmail[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "VerifyEmail[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "AuthTokenRequest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "AuthTokenRequest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return VerifyEmail(
-        key: mapValueOfType<String>(json, r'key')!,
+      return AuthTokenRequest(
+        username: mapValueOfType<String>(json, r'username')!,
+        password: mapValueOfType<String>(json, r'password')!,
       );
     }
     return null;
   }
 
-  static List<VerifyEmail>? listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <VerifyEmail>[];
+  static List<AuthTokenRequest>? listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <AuthTokenRequest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = VerifyEmail.fromJson(row);
+        final value = AuthTokenRequest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -74,12 +81,12 @@ class VerifyEmail {
     return result.toList(growable: growable);
   }
 
-  static Map<String, VerifyEmail> mapFromJson(dynamic json) {
-    final map = <String, VerifyEmail>{};
+  static Map<String, AuthTokenRequest> mapFromJson(dynamic json) {
+    final map = <String, AuthTokenRequest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = VerifyEmail.fromJson(entry.value);
+        final value = AuthTokenRequest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -88,13 +95,13 @@ class VerifyEmail {
     return map;
   }
 
-  // maps a json object with a list of VerifyEmail-objects as value to a dart map
-  static Map<String, List<VerifyEmail>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<VerifyEmail>>{};
+  // maps a json object with a list of AuthTokenRequest-objects as value to a dart map
+  static Map<String, List<AuthTokenRequest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<AuthTokenRequest>>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = VerifyEmail.listFromJson(entry.value, growable: growable,);
+        final value = AuthTokenRequest.listFromJson(entry.value, growable: growable,);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -105,7 +112,8 @@ class VerifyEmail {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
-    'key',
+    'username',
+    'password',
   };
 }
 

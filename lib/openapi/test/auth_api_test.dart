@@ -19,12 +19,12 @@ void main() {
   group('tests for AuthApi', () {
     // Check the credentials and return the REST Token if the credentials are valid and authenticated. Calls Django Auth login method to register User ID in Django session framework  Accept the following POST parameters: username, password Return the REST Framework Token Object's key.
     //
-    //Future<Login> authLoginCreate(Login login) async
+    //Future<Login> authLoginCreate(LoginRequest loginRequest) async
     test('test authLoginCreate', () async {
       // TODO
     });
 
-    //Future<AuthToken> authLoginTokenCreate(String username, String password, { String token }) async
+    //Future<AuthToken> authLoginTokenCreate(String username, String password) async
     test('test authLoginTokenCreate', () async {
       // TODO
     });
@@ -38,43 +38,43 @@ void main() {
 
     // Calls Django Auth SetPasswordForm save method.  Accepts the following POST parameters: new_password1, new_password2 Returns the success/fail message.
     //
-    //Future<RestAuthDetail> authPasswordChangeCreate(PasswordChange passwordChange) async
+    //Future<RestAuthDetail> authPasswordChangeCreate(PasswordChangeRequest passwordChangeRequest) async
     test('test authPasswordChangeCreate', () async {
       // TODO
     });
 
     // Password reset e-mail link is confirmed, therefore this resets the user's password.  Accepts the following POST parameters: token, uid,     new_password1, new_password2 Returns the success/fail message.
     //
-    //Future<RestAuthDetail> authPasswordResetConfirmCreate(PasswordResetConfirm passwordResetConfirm) async
+    //Future<RestAuthDetail> authPasswordResetConfirmCreate(PasswordResetConfirmRequest passwordResetConfirmRequest) async
     test('test authPasswordResetConfirmCreate', () async {
       // TODO
     });
 
     // Calls Django Auth PasswordResetForm save method.  Accepts the following POST parameters: email Returns the success/fail message.
     //
-    //Future<RestAuthDetail> authPasswordResetCreate(PasswordReset passwordReset) async
+    //Future<RestAuthDetail> authPasswordResetCreate(PasswordResetRequest passwordResetRequest) async
     test('test authPasswordResetCreate', () async {
       // TODO
     });
 
-    //Future<Token> authRegistrationCreate(Register register) async
+    //Future<Token> authRegistrationCreate(RegisterRequest registerRequest) async
     test('test authRegistrationCreate', () async {
       // TODO
     });
 
-    //Future<RestAuthDetail> authRegistrationResendEmailCreate({ ResendEmailVerification resendEmailVerification }) async
+    //Future<RestAuthDetail> authRegistrationResendEmailCreate({ ResendEmailVerificationRequest resendEmailVerificationRequest }) async
     test('test authRegistrationResendEmailCreate', () async {
       // TODO
     });
 
-    //Future<RestAuthDetail> authRegistrationVerifyEmailCreate(VerifyEmail verifyEmail) async
+    //Future<RestAuthDetail> authRegistrationVerifyEmailCreate(VerifyEmailRequest verifyEmailRequest) async
     test('test authRegistrationVerifyEmailCreate', () async {
       // TODO
     });
 
     // Reads and updates UserModel fields Accepts GET, PUT, PATCH methods.  Default accepted fields: username, first_name, last_name Default display fields: pk, username, email, first_name, last_name Read-only fields: pk, email  Returns UserModel fields.
     //
-    //Future<UserDetails> authUserPartialUpdate({ PatchedUserDetails patchedUserDetails }) async
+    //Future<UserDetails> authUserPartialUpdate({ PatchedUserDetailsRequest patchedUserDetailsRequest }) async
     test('test authUserPartialUpdate', () async {
       // TODO
     });
@@ -88,7 +88,7 @@ void main() {
 
     // Reads and updates UserModel fields Accepts GET, PUT, PATCH methods.  Default accepted fields: username, first_name, last_name Default display fields: pk, username, email, first_name, last_name Read-only fields: pk, email  Returns UserModel fields.
     //
-    //Future<UserDetails> authUserUpdate(UserDetails userDetails) async
+    //Future<UserDetails> authUserUpdate(UserDetailsRequest userDetailsRequest) async
     test('test authUserUpdate', () async {
       // TODO
     });

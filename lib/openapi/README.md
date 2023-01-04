@@ -45,10 +45,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final login = Login(); // Login | 
+final loginRequest = LoginRequest(); // LoginRequest | 
 
 try {
-    final result = api_instance.authLoginCreate(login);
+    final result = api_instance.authLoginCreate(loginRequest);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authLoginCreate: $e\n');
@@ -87,20 +87,25 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AuthToken](doc//AuthToken.md)
+ - [AuthTokenRequest](doc//AuthTokenRequest.md)
  - [Csrfmiddlewaretoken](doc//Csrfmiddlewaretoken.md)
+ - [CsrfmiddlewaretokenRequest](doc//CsrfmiddlewaretokenRequest.md)
  - [Login](doc//Login.md)
- - [PasswordChange](doc//PasswordChange.md)
- - [PasswordReset](doc//PasswordReset.md)
- - [PasswordResetConfirm](doc//PasswordResetConfirm.md)
- - [PatchedTodo](doc//PatchedTodo.md)
- - [PatchedUserDetails](doc//PatchedUserDetails.md)
- - [Register](doc//Register.md)
- - [ResendEmailVerification](doc//ResendEmailVerification.md)
+ - [LoginRequest](doc//LoginRequest.md)
+ - [PasswordChangeRequest](doc//PasswordChangeRequest.md)
+ - [PasswordResetConfirmRequest](doc//PasswordResetConfirmRequest.md)
+ - [PasswordResetRequest](doc//PasswordResetRequest.md)
+ - [PatchedTodoRequest](doc//PatchedTodoRequest.md)
+ - [PatchedUserDetailsRequest](doc//PatchedUserDetailsRequest.md)
+ - [RegisterRequest](doc//RegisterRequest.md)
+ - [ResendEmailVerificationRequest](doc//ResendEmailVerificationRequest.md)
  - [RestAuthDetail](doc//RestAuthDetail.md)
  - [Todo](doc//Todo.md)
+ - [TodoRequest](doc//TodoRequest.md)
  - [Token](doc//Token.md)
  - [UserDetails](doc//UserDetails.md)
- - [VerifyEmail](doc//VerifyEmail.md)
+ - [UserDetailsRequest](doc//UserDetailsRequest.md)
+ - [VerifyEmailRequest](doc//VerifyEmailRequest.md)
 
 
 ## Documentation For Authorization

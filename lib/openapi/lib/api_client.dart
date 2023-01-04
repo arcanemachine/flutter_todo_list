@@ -183,34 +183,44 @@ class ApiClient {
           return value is DateTime ? value : DateTime.tryParse(value);
         case 'AuthToken':
           return AuthToken.fromJson(value);
+        case 'AuthTokenRequest':
+          return AuthTokenRequest.fromJson(value);
         case 'Csrfmiddlewaretoken':
           return Csrfmiddlewaretoken.fromJson(value);
+        case 'CsrfmiddlewaretokenRequest':
+          return CsrfmiddlewaretokenRequest.fromJson(value);
         case 'Login':
           return Login.fromJson(value);
-        case 'PasswordChange':
-          return PasswordChange.fromJson(value);
-        case 'PasswordReset':
-          return PasswordReset.fromJson(value);
-        case 'PasswordResetConfirm':
-          return PasswordResetConfirm.fromJson(value);
-        case 'PatchedTodo':
-          return PatchedTodo.fromJson(value);
-        case 'PatchedUserDetails':
-          return PatchedUserDetails.fromJson(value);
-        case 'Register':
-          return Register.fromJson(value);
-        case 'ResendEmailVerification':
-          return ResendEmailVerification.fromJson(value);
+        case 'LoginRequest':
+          return LoginRequest.fromJson(value);
+        case 'PasswordChangeRequest':
+          return PasswordChangeRequest.fromJson(value);
+        case 'PasswordResetConfirmRequest':
+          return PasswordResetConfirmRequest.fromJson(value);
+        case 'PasswordResetRequest':
+          return PasswordResetRequest.fromJson(value);
+        case 'PatchedTodoRequest':
+          return PatchedTodoRequest.fromJson(value);
+        case 'PatchedUserDetailsRequest':
+          return PatchedUserDetailsRequest.fromJson(value);
+        case 'RegisterRequest':
+          return RegisterRequest.fromJson(value);
+        case 'ResendEmailVerificationRequest':
+          return ResendEmailVerificationRequest.fromJson(value);
         case 'RestAuthDetail':
           return RestAuthDetail.fromJson(value);
         case 'Todo':
           return Todo.fromJson(value);
+        case 'TodoRequest':
+          return TodoRequest.fromJson(value);
         case 'Token':
           return Token.fromJson(value);
         case 'UserDetails':
           return UserDetails.fromJson(value);
-        case 'VerifyEmail':
-          return VerifyEmail.fromJson(value);
+        case 'UserDetailsRequest':
+          return UserDetailsRequest.fromJson(value);
+        case 'VerifyEmailRequest':
+          return VerifyEmailRequest.fromJson(value);
         default:
           dynamic match;
           if (value is List && (match = _regList.firstMatch(targetType)?.group(1)) != null) {

@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 
 # **todosCreate**
-> Todo todosCreate(todo)
+> Todo todosCreate(todoRequest)
 
 
 
@@ -35,10 +35,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = TodosApi();
-final todo = Todo(); // Todo | 
+final todoRequest = TodoRequest(); // TodoRequest | 
 
 try {
-    final result = api_instance.todosCreate(todo);
+    final result = api_instance.todosCreate(todoRequest);
     print(result);
 } catch (e) {
     print('Exception when calling TodosApi->todosCreate: $e\n');
@@ -49,7 +49,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **todo** | [**Todo**](Todo.md)|  | 
+ **todoRequest** | [**TodoRequest**](TodoRequest.md)|  | 
 
 ### Return type
 
@@ -160,7 +160,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **todosPartialUpdate**
-> Todo todosPartialUpdate(id, patchedTodo)
+> Todo todosPartialUpdate(id, patchedTodoRequest)
 
 
 
@@ -178,10 +178,10 @@ import 'package:openapi/api.dart';
 
 final api_instance = TodosApi();
 final id = 56; // int | A unique integer value identifying this todo.
-final patchedTodo = PatchedTodo(); // PatchedTodo | 
+final patchedTodoRequest = PatchedTodoRequest(); // PatchedTodoRequest | 
 
 try {
-    final result = api_instance.todosPartialUpdate(id, patchedTodo);
+    final result = api_instance.todosPartialUpdate(id, patchedTodoRequest);
     print(result);
 } catch (e) {
     print('Exception when calling TodosApi->todosPartialUpdate: $e\n');
@@ -193,7 +193,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| A unique integer value identifying this todo. | 
- **patchedTodo** | [**PatchedTodo**](PatchedTodo.md)|  | [optional] 
+ **patchedTodoRequest** | [**PatchedTodoRequest**](PatchedTodoRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -260,7 +260,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **todosUpdate**
-> Todo todosUpdate(id, todo)
+> Todo todosUpdate(id, todoRequest)
 
 
 
@@ -278,10 +278,10 @@ import 'package:openapi/api.dart';
 
 final api_instance = TodosApi();
 final id = 56; // int | A unique integer value identifying this todo.
-final todo = Todo(); // Todo | 
+final todoRequest = TodoRequest(); // TodoRequest | 
 
 try {
-    final result = api_instance.todosUpdate(id, todo);
+    final result = api_instance.todosUpdate(id, todoRequest);
     print(result);
 } catch (e) {
     print('Exception when calling TodosApi->todosUpdate: $e\n');
@@ -293,7 +293,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **int**| A unique integer value identifying this todo. | 
- **todo** | [**Todo**](Todo.md)|  | 
+ **todoRequest** | [**TodoRequest**](TodoRequest.md)|  | 
 
 ### Return type
 

@@ -11,13 +11,13 @@
 import 'package:openapi/api.dart';
 import 'package:test/test.dart';
 
-// tests for PasswordReset
+// tests for VerifyEmailRequest
 void main() {
-  // final instance = PasswordReset();
+  // final instance = VerifyEmailRequest();
 
-  group('test PasswordReset', () {
-    // String email
-    test('to test the property `email`', () async {
+  group('test VerifyEmailRequest', () {
+    // String key
+    test('to test the property `key`', () async {
       // TODO
     });
 

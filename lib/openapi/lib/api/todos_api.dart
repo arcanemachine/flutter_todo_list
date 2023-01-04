@@ -19,13 +19,13 @@ class TodosApi {
   /// Performs an HTTP 'POST /api/todos/' operation and returns the [Response].
   /// Parameters:
   ///
-  /// * [Todo] todo (required):
-  Future<Response> todosCreateWithHttpInfo(Todo todo,) async {
+  /// * [TodoRequest] todoRequest (required):
+  Future<Response> todosCreateWithHttpInfo(TodoRequest todoRequest,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/todos/';
 
     // ignore: prefer_final_locals
-    Object? postBody = todo;
+    Object? postBody = todoRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -47,9 +47,9 @@ class TodosApi {
 
   /// Parameters:
   ///
-  /// * [Todo] todo (required):
-  Future<Todo?> todosCreate(Todo todo,) async {
-    final response = await todosCreateWithHttpInfo(todo,);
+  /// * [TodoRequest] todoRequest (required):
+  Future<Todo?> todosCreate(TodoRequest todoRequest,) async {
+    final response = await todosCreateWithHttpInfo(todoRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -155,14 +155,14 @@ class TodosApi {
   /// * [int] id (required):
   ///   A unique integer value identifying this todo.
   ///
-  /// * [PatchedTodo] patchedTodo:
-  Future<Response> todosPartialUpdateWithHttpInfo(int id, { PatchedTodo? patchedTodo, }) async {
+  /// * [PatchedTodoRequest] patchedTodoRequest:
+  Future<Response> todosPartialUpdateWithHttpInfo(int id, { PatchedTodoRequest? patchedTodoRequest, }) async {
     // ignore: prefer_const_declarations
     final path = r'/api/todos/{id}/'
       .replaceAll('{id}', id.toString());
 
     // ignore: prefer_final_locals
-    Object? postBody = patchedTodo;
+    Object? postBody = patchedTodoRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -187,9 +187,9 @@ class TodosApi {
   /// * [int] id (required):
   ///   A unique integer value identifying this todo.
   ///
-  /// * [PatchedTodo] patchedTodo:
-  Future<Todo?> todosPartialUpdate(int id, { PatchedTodo? patchedTodo, }) async {
-    final response = await todosPartialUpdateWithHttpInfo(id,  patchedTodo: patchedTodo, );
+  /// * [PatchedTodoRequest] patchedTodoRequest:
+  Future<Todo?> todosPartialUpdate(int id, { PatchedTodoRequest? patchedTodoRequest, }) async {
+    final response = await todosPartialUpdateWithHttpInfo(id,  patchedTodoRequest: patchedTodoRequest, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -259,14 +259,14 @@ class TodosApi {
   /// * [int] id (required):
   ///   A unique integer value identifying this todo.
   ///
-  /// * [Todo] todo (required):
-  Future<Response> todosUpdateWithHttpInfo(int id, Todo todo,) async {
+  /// * [TodoRequest] todoRequest (required):
+  Future<Response> todosUpdateWithHttpInfo(int id, TodoRequest todoRequest,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/todos/{id}/'
       .replaceAll('{id}', id.toString());
 
     // ignore: prefer_final_locals
-    Object? postBody = todo;
+    Object? postBody = todoRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -291,9 +291,9 @@ class TodosApi {
   /// * [int] id (required):
   ///   A unique integer value identifying this todo.
   ///
-  /// * [Todo] todo (required):
-  Future<Todo?> todosUpdate(int id, Todo todo,) async {
-    final response = await todosUpdateWithHttpInfo(id, todo,);
+  /// * [TodoRequest] todoRequest (required):
+  Future<Todo?> todosUpdate(int id, TodoRequest todoRequest,) async {
+    final response = await todosUpdateWithHttpInfo(id, todoRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

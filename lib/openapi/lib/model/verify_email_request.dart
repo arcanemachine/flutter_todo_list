@@ -10,36 +10,36 @@
 
 part of openapi.api;
 
-class PasswordReset {
-  /// Returns a new [PasswordReset] instance.
-  PasswordReset({
-    required this.email,
+class VerifyEmailRequest {
+  /// Returns a new [VerifyEmailRequest] instance.
+  VerifyEmailRequest({
+    required this.key,
   });
 
-  String email;
+  String key;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is PasswordReset &&
-     other.email == email;
+  bool operator ==(Object other) => identical(this, other) || other is VerifyEmailRequest &&
+     other.key == key;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (email.hashCode);
+    (key.hashCode);
 
   @override
-  String toString() => 'PasswordReset[email=$email]';
+  String toString() => 'VerifyEmailRequest[key=$key]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'email'] = this.email;
+      json[r'key'] = this.key;
     return json;
   }
 
-  /// Returns a new [PasswordReset] instance and imports its values from
+  /// Returns a new [VerifyEmailRequest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static PasswordReset? fromJson(dynamic value) {
+  static VerifyEmailRequest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -48,24 +48,24 @@ class PasswordReset {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "PasswordReset[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "PasswordReset[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "VerifyEmailRequest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "VerifyEmailRequest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return PasswordReset(
-        email: mapValueOfType<String>(json, r'email')!,
+      return VerifyEmailRequest(
+        key: mapValueOfType<String>(json, r'key')!,
       );
     }
     return null;
   }
 
-  static List<PasswordReset>? listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <PasswordReset>[];
+  static List<VerifyEmailRequest>? listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <VerifyEmailRequest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = PasswordReset.fromJson(row);
+        final value = VerifyEmailRequest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -74,12 +74,12 @@ class PasswordReset {
     return result.toList(growable: growable);
   }
 
-  static Map<String, PasswordReset> mapFromJson(dynamic json) {
-    final map = <String, PasswordReset>{};
+  static Map<String, VerifyEmailRequest> mapFromJson(dynamic json) {
+    final map = <String, VerifyEmailRequest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = PasswordReset.fromJson(entry.value);
+        final value = VerifyEmailRequest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -88,13 +88,13 @@ class PasswordReset {
     return map;
   }
 
-  // maps a json object with a list of PasswordReset-objects as value to a dart map
-  static Map<String, List<PasswordReset>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<PasswordReset>>{};
+  // maps a json object with a list of VerifyEmailRequest-objects as value to a dart map
+  static Map<String, List<VerifyEmailRequest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<VerifyEmailRequest>>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = PasswordReset.listFromJson(entry.value, growable: growable,);
+        final value = VerifyEmailRequest.listFromJson(entry.value, growable: growable,);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -105,7 +105,7 @@ class PasswordReset {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
-    'email',
+    'key',
   };
 }
 

@@ -11,13 +11,18 @@
 import 'package:openapi/api.dart';
 import 'package:test/test.dart';
 
-// tests for AuthToken
+// tests for AuthTokenRequest
 void main() {
-  // final instance = AuthToken();
+  // final instance = AuthTokenRequest();
 
-  group('test AuthToken', () {
-    // String token
-    test('to test the property `token`', () async {
+  group('test AuthTokenRequest', () {
+    // String username
+    test('to test the property `username`', () async {
+      // TODO
+    });
+
+    // String password
+    test('to test the property `password`', () async {
       // TODO
     });
 

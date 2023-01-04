@@ -24,7 +24,7 @@ Method | HTTP request | Description
 
 
 # **authLoginCreate**
-> Login authLoginCreate(login)
+> Login authLoginCreate(loginRequest)
 
 
 
@@ -39,10 +39,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final login = Login(); // Login | 
+final loginRequest = LoginRequest(); // LoginRequest | 
 
 try {
-    final result = api_instance.authLoginCreate(login);
+    final result = api_instance.authLoginCreate(loginRequest);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authLoginCreate: $e\n');
@@ -53,7 +53,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **login** | [**Login**](Login.md)|  | 
+ **loginRequest** | [**LoginRequest**](LoginRequest.md)|  | 
 
 ### Return type
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authLoginTokenCreate**
-> AuthToken authLoginTokenCreate(username, password, token)
+> AuthToken authLoginTokenCreate(username, password)
 
 
 
@@ -86,10 +86,9 @@ import 'package:openapi/api.dart';
 final api_instance = AuthApi();
 final username = username_example; // String | 
 final password = password_example; // String | 
-final token = token_example; // String | 
 
 try {
-    final result = api_instance.authLoginTokenCreate(username, password, token);
+    final result = api_instance.authLoginTokenCreate(username, password);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authLoginTokenCreate: $e\n');
@@ -102,7 +101,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **username** | **String**|  | 
  **password** | **String**|  | 
- **token** | **String**|  | [optional] 
 
 ### Return type
 
@@ -167,7 +165,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authPasswordChangeCreate**
-> RestAuthDetail authPasswordChangeCreate(passwordChange)
+> RestAuthDetail authPasswordChangeCreate(passwordChangeRequest)
 
 
 
@@ -186,10 +184,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final passwordChange = PasswordChange(); // PasswordChange | 
+final passwordChangeRequest = PasswordChangeRequest(); // PasswordChangeRequest | 
 
 try {
-    final result = api_instance.authPasswordChangeCreate(passwordChange);
+    final result = api_instance.authPasswordChangeCreate(passwordChangeRequest);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authPasswordChangeCreate: $e\n');
@@ -200,7 +198,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **passwordChange** | [**PasswordChange**](PasswordChange.md)|  | 
+ **passwordChangeRequest** | [**PasswordChangeRequest**](PasswordChangeRequest.md)|  | 
 
 ### Return type
 
@@ -218,7 +216,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authPasswordResetConfirmCreate**
-> RestAuthDetail authPasswordResetConfirmCreate(passwordResetConfirm)
+> RestAuthDetail authPasswordResetConfirmCreate(passwordResetConfirmRequest)
 
 
 
@@ -237,10 +235,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final passwordResetConfirm = PasswordResetConfirm(); // PasswordResetConfirm | 
+final passwordResetConfirmRequest = PasswordResetConfirmRequest(); // PasswordResetConfirmRequest | 
 
 try {
-    final result = api_instance.authPasswordResetConfirmCreate(passwordResetConfirm);
+    final result = api_instance.authPasswordResetConfirmCreate(passwordResetConfirmRequest);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authPasswordResetConfirmCreate: $e\n');
@@ -251,7 +249,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **passwordResetConfirm** | [**PasswordResetConfirm**](PasswordResetConfirm.md)|  | 
+ **passwordResetConfirmRequest** | [**PasswordResetConfirmRequest**](PasswordResetConfirmRequest.md)|  | 
 
 ### Return type
 
@@ -269,7 +267,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authPasswordResetCreate**
-> RestAuthDetail authPasswordResetCreate(passwordReset)
+> RestAuthDetail authPasswordResetCreate(passwordResetRequest)
 
 
 
@@ -288,10 +286,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final passwordReset = PasswordReset(); // PasswordReset | 
+final passwordResetRequest = PasswordResetRequest(); // PasswordResetRequest | 
 
 try {
-    final result = api_instance.authPasswordResetCreate(passwordReset);
+    final result = api_instance.authPasswordResetCreate(passwordResetRequest);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authPasswordResetCreate: $e\n');
@@ -302,7 +300,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **passwordReset** | [**PasswordReset**](PasswordReset.md)|  | 
+ **passwordResetRequest** | [**PasswordResetRequest**](PasswordResetRequest.md)|  | 
 
 ### Return type
 
@@ -320,7 +318,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authRegistrationCreate**
-> Token authRegistrationCreate(register)
+> Token authRegistrationCreate(registerRequest)
 
 
 
@@ -337,10 +335,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final register = Register(); // Register | 
+final registerRequest = RegisterRequest(); // RegisterRequest | 
 
 try {
-    final result = api_instance.authRegistrationCreate(register);
+    final result = api_instance.authRegistrationCreate(registerRequest);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authRegistrationCreate: $e\n');
@@ -351,7 +349,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **register** | [**Register**](Register.md)|  | 
+ **registerRequest** | [**RegisterRequest**](RegisterRequest.md)|  | 
 
 ### Return type
 
@@ -369,7 +367,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authRegistrationResendEmailCreate**
-> RestAuthDetail authRegistrationResendEmailCreate(resendEmailVerification)
+> RestAuthDetail authRegistrationResendEmailCreate(resendEmailVerificationRequest)
 
 
 
@@ -386,10 +384,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final resendEmailVerification = ResendEmailVerification(); // ResendEmailVerification | 
+final resendEmailVerificationRequest = ResendEmailVerificationRequest(); // ResendEmailVerificationRequest | 
 
 try {
-    final result = api_instance.authRegistrationResendEmailCreate(resendEmailVerification);
+    final result = api_instance.authRegistrationResendEmailCreate(resendEmailVerificationRequest);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authRegistrationResendEmailCreate: $e\n');
@@ -400,7 +398,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resendEmailVerification** | [**ResendEmailVerification**](ResendEmailVerification.md)|  | [optional] 
+ **resendEmailVerificationRequest** | [**ResendEmailVerificationRequest**](ResendEmailVerificationRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -418,7 +416,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authRegistrationVerifyEmailCreate**
-> RestAuthDetail authRegistrationVerifyEmailCreate(verifyEmail)
+> RestAuthDetail authRegistrationVerifyEmailCreate(verifyEmailRequest)
 
 
 
@@ -435,10 +433,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final verifyEmail = VerifyEmail(); // VerifyEmail | 
+final verifyEmailRequest = VerifyEmailRequest(); // VerifyEmailRequest | 
 
 try {
-    final result = api_instance.authRegistrationVerifyEmailCreate(verifyEmail);
+    final result = api_instance.authRegistrationVerifyEmailCreate(verifyEmailRequest);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authRegistrationVerifyEmailCreate: $e\n');
@@ -449,7 +447,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **verifyEmail** | [**VerifyEmail**](VerifyEmail.md)|  | 
+ **verifyEmailRequest** | [**VerifyEmailRequest**](VerifyEmailRequest.md)|  | 
 
 ### Return type
 
@@ -467,7 +465,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authUserPartialUpdate**
-> UserDetails authUserPartialUpdate(patchedUserDetails)
+> UserDetails authUserPartialUpdate(patchedUserDetailsRequest)
 
 
 
@@ -486,10 +484,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final patchedUserDetails = PatchedUserDetails(); // PatchedUserDetails | 
+final patchedUserDetailsRequest = PatchedUserDetailsRequest(); // PatchedUserDetailsRequest | 
 
 try {
-    final result = api_instance.authUserPartialUpdate(patchedUserDetails);
+    final result = api_instance.authUserPartialUpdate(patchedUserDetailsRequest);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authUserPartialUpdate: $e\n');
@@ -500,7 +498,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **patchedUserDetails** | [**PatchedUserDetails**](PatchedUserDetails.md)|  | [optional] 
+ **patchedUserDetailsRequest** | [**PatchedUserDetailsRequest**](PatchedUserDetailsRequest.md)|  | [optional] 
 
 ### Return type
 
@@ -565,7 +563,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authUserUpdate**
-> UserDetails authUserUpdate(userDetails)
+> UserDetails authUserUpdate(userDetailsRequest)
 
 
 
@@ -584,10 +582,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final userDetails = UserDetails(); // UserDetails | 
+final userDetailsRequest = UserDetailsRequest(); // UserDetailsRequest | 
 
 try {
-    final result = api_instance.authUserUpdate(userDetails);
+    final result = api_instance.authUserUpdate(userDetailsRequest);
     print(result);
 } catch (e) {
     print('Exception when calling AuthApi->authUserUpdate: $e\n');
@@ -598,7 +596,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userDetails** | [**UserDetails**](UserDetails.md)|  | 
+ **userDetailsRequest** | [**UserDetailsRequest**](UserDetailsRequest.md)|  | 
 
 ### Return type
 

@@ -10,11 +10,14 @@
 
 part of openapi.api;
 
-class ResendEmailVerification {
-  /// Returns a new [ResendEmailVerification] instance.
-  ResendEmailVerification({
-    this.email,
+class TodoRequest {
+  /// Returns a new [TodoRequest] instance.
+  TodoRequest({
+    required this.content,
+    this.isCompleted,
   });
+
+  String content;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -22,34 +25,37 @@ class ResendEmailVerification {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? email;
+  bool? isCompleted;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is ResendEmailVerification &&
-     other.email == email;
+  bool operator ==(Object other) => identical(this, other) || other is TodoRequest &&
+     other.content == content &&
+     other.isCompleted == isCompleted;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (email == null ? 0 : email!.hashCode);
+    (content.hashCode) +
+    (isCompleted == null ? 0 : isCompleted!.hashCode);
 
   @override
-  String toString() => 'ResendEmailVerification[email=$email]';
+  String toString() => 'TodoRequest[content=$content, isCompleted=$isCompleted]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.email != null) {
-      json[r'email'] = this.email;
+      json[r'content'] = this.content;
+    if (this.isCompleted != null) {
+      json[r'is_completed'] = this.isCompleted;
     } else {
-      json[r'email'] = null;
+      json[r'is_completed'] = null;
     }
     return json;
   }
 
-  /// Returns a new [ResendEmailVerification] instance and imports its values from
+  /// Returns a new [TodoRequest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static ResendEmailVerification? fromJson(dynamic value) {
+  static TodoRequest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -58,24 +64,25 @@ class ResendEmailVerification {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "ResendEmailVerification[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "ResendEmailVerification[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "TodoRequest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "TodoRequest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return ResendEmailVerification(
-        email: mapValueOfType<String>(json, r'email'),
+      return TodoRequest(
+        content: mapValueOfType<String>(json, r'content')!,
+        isCompleted: mapValueOfType<bool>(json, r'is_completed'),
       );
     }
     return null;
   }
 
-  static List<ResendEmailVerification>? listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <ResendEmailVerification>[];
+  static List<TodoRequest>? listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <TodoRequest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = ResendEmailVerification.fromJson(row);
+        final value = TodoRequest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -84,12 +91,12 @@ class ResendEmailVerification {
     return result.toList(growable: growable);
   }
 
-  static Map<String, ResendEmailVerification> mapFromJson(dynamic json) {
-    final map = <String, ResendEmailVerification>{};
+  static Map<String, TodoRequest> mapFromJson(dynamic json) {
+    final map = <String, TodoRequest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = ResendEmailVerification.fromJson(entry.value);
+        final value = TodoRequest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -98,13 +105,13 @@ class ResendEmailVerification {
     return map;
   }
 
-  // maps a json object with a list of ResendEmailVerification-objects as value to a dart map
-  static Map<String, List<ResendEmailVerification>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<ResendEmailVerification>>{};
+  // maps a json object with a list of TodoRequest-objects as value to a dart map
+  static Map<String, List<TodoRequest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<TodoRequest>>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = ResendEmailVerification.listFromJson(entry.value, growable: growable,);
+        final value = TodoRequest.listFromJson(entry.value, growable: growable,);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -115,6 +122,7 @@ class ResendEmailVerification {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
+    'content',
   };
 }
 

@@ -10,9 +10,9 @@
 
 part of openapi.api;
 
-class PasswordResetConfirm {
-  /// Returns a new [PasswordResetConfirm] instance.
-  PasswordResetConfirm({
+class PasswordResetConfirmRequest {
+  /// Returns a new [PasswordResetConfirmRequest] instance.
+  PasswordResetConfirmRequest({
     required this.newPassword1,
     required this.newPassword2,
     required this.uid,
@@ -28,7 +28,7 @@ class PasswordResetConfirm {
   String token;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is PasswordResetConfirm &&
+  bool operator ==(Object other) => identical(this, other) || other is PasswordResetConfirmRequest &&
      other.newPassword1 == newPassword1 &&
      other.newPassword2 == newPassword2 &&
      other.uid == uid &&
@@ -43,7 +43,7 @@ class PasswordResetConfirm {
     (token.hashCode);
 
   @override
-  String toString() => 'PasswordResetConfirm[newPassword1=$newPassword1, newPassword2=$newPassword2, uid=$uid, token=$token]';
+  String toString() => 'PasswordResetConfirmRequest[newPassword1=$newPassword1, newPassword2=$newPassword2, uid=$uid, token=$token]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -54,10 +54,10 @@ class PasswordResetConfirm {
     return json;
   }
 
-  /// Returns a new [PasswordResetConfirm] instance and imports its values from
+  /// Returns a new [PasswordResetConfirmRequest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static PasswordResetConfirm? fromJson(dynamic value) {
+  static PasswordResetConfirmRequest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -66,13 +66,13 @@ class PasswordResetConfirm {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "PasswordResetConfirm[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "PasswordResetConfirm[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "PasswordResetConfirmRequest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "PasswordResetConfirmRequest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return PasswordResetConfirm(
+      return PasswordResetConfirmRequest(
         newPassword1: mapValueOfType<String>(json, r'new_password1')!,
         newPassword2: mapValueOfType<String>(json, r'new_password2')!,
         uid: mapValueOfType<String>(json, r'uid')!,
@@ -82,11 +82,11 @@ class PasswordResetConfirm {
     return null;
   }
 
-  static List<PasswordResetConfirm>? listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <PasswordResetConfirm>[];
+  static List<PasswordResetConfirmRequest>? listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <PasswordResetConfirmRequest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = PasswordResetConfirm.fromJson(row);
+        final value = PasswordResetConfirmRequest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -95,12 +95,12 @@ class PasswordResetConfirm {
     return result.toList(growable: growable);
   }
 
-  static Map<String, PasswordResetConfirm> mapFromJson(dynamic json) {
-    final map = <String, PasswordResetConfirm>{};
+  static Map<String, PasswordResetConfirmRequest> mapFromJson(dynamic json) {
+    final map = <String, PasswordResetConfirmRequest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = PasswordResetConfirm.fromJson(entry.value);
+        final value = PasswordResetConfirmRequest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -109,13 +109,13 @@ class PasswordResetConfirm {
     return map;
   }
 
-  // maps a json object with a list of PasswordResetConfirm-objects as value to a dart map
-  static Map<String, List<PasswordResetConfirm>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<PasswordResetConfirm>>{};
+  // maps a json object with a list of PasswordResetConfirmRequest-objects as value to a dart map
+  static Map<String, List<PasswordResetConfirmRequest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<PasswordResetConfirmRequest>>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = PasswordResetConfirm.listFromJson(entry.value, growable: growable,);
+        final value = PasswordResetConfirmRequest.listFromJson(entry.value, growable: growable,);
         if (value != null) {
           map[entry.key] = value;
         }

@@ -10,16 +10,11 @@
 
 part of openapi.api;
 
-class Register {
-  /// Returns a new [Register] instance.
-  Register({
-    required this.username,
+class ResendEmailVerificationRequest {
+  /// Returns a new [ResendEmailVerificationRequest] instance.
+  ResendEmailVerificationRequest({
     this.email,
-    required this.password1,
-    required this.password2,
   });
-
-  String username;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -29,45 +24,32 @@ class Register {
   ///
   String? email;
 
-  String password1;
-
-  String password2;
-
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Register &&
-     other.username == username &&
-     other.email == email &&
-     other.password1 == password1 &&
-     other.password2 == password2;
+  bool operator ==(Object other) => identical(this, other) || other is ResendEmailVerificationRequest &&
+     other.email == email;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (username.hashCode) +
-    (email == null ? 0 : email!.hashCode) +
-    (password1.hashCode) +
-    (password2.hashCode);
+    (email == null ? 0 : email!.hashCode);
 
   @override
-  String toString() => 'Register[username=$username, email=$email, password1=$password1, password2=$password2]';
+  String toString() => 'ResendEmailVerificationRequest[email=$email]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'username'] = this.username;
     if (this.email != null) {
       json[r'email'] = this.email;
     } else {
       json[r'email'] = null;
     }
-      json[r'password1'] = this.password1;
-      json[r'password2'] = this.password2;
     return json;
   }
 
-  /// Returns a new [Register] instance and imports its values from
+  /// Returns a new [ResendEmailVerificationRequest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Register? fromJson(dynamic value) {
+  static ResendEmailVerificationRequest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -76,27 +58,24 @@ class Register {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Register[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Register[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "ResendEmailVerificationRequest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "ResendEmailVerificationRequest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Register(
-        username: mapValueOfType<String>(json, r'username')!,
+      return ResendEmailVerificationRequest(
         email: mapValueOfType<String>(json, r'email'),
-        password1: mapValueOfType<String>(json, r'password1')!,
-        password2: mapValueOfType<String>(json, r'password2')!,
       );
     }
     return null;
   }
 
-  static List<Register>? listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Register>[];
+  static List<ResendEmailVerificationRequest>? listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <ResendEmailVerificationRequest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Register.fromJson(row);
+        final value = ResendEmailVerificationRequest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -105,12 +84,12 @@ class Register {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Register> mapFromJson(dynamic json) {
-    final map = <String, Register>{};
+  static Map<String, ResendEmailVerificationRequest> mapFromJson(dynamic json) {
+    final map = <String, ResendEmailVerificationRequest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Register.fromJson(entry.value);
+        final value = ResendEmailVerificationRequest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -119,13 +98,13 @@ class Register {
     return map;
   }
 
-  // maps a json object with a list of Register-objects as value to a dart map
-  static Map<String, List<Register>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Register>>{};
+  // maps a json object with a list of ResendEmailVerificationRequest-objects as value to a dart map
+  static Map<String, List<ResendEmailVerificationRequest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<ResendEmailVerificationRequest>>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Register.listFromJson(entry.value, growable: growable,);
+        final value = ResendEmailVerificationRequest.listFromJson(entry.value, growable: growable,);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -136,9 +115,6 @@ class Register {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
-    'username',
-    'password1',
-    'password2',
   };
 }
 

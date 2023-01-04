@@ -10,46 +10,36 @@
 
 part of openapi.api;
 
-class AuthToken {
-  /// Returns a new [AuthToken] instance.
-  AuthToken({
-    this.token,
+class PasswordResetRequest {
+  /// Returns a new [PasswordResetRequest] instance.
+  PasswordResetRequest({
+    required this.email,
   });
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? token;
+  String email;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is AuthToken &&
-     other.token == token;
+  bool operator ==(Object other) => identical(this, other) || other is PasswordResetRequest &&
+     other.email == email;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (token == null ? 0 : token!.hashCode);
+    (email.hashCode);
 
   @override
-  String toString() => 'AuthToken[token=$token]';
+  String toString() => 'PasswordResetRequest[email=$email]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.token != null) {
-      json[r'token'] = this.token;
-    } else {
-      json[r'token'] = null;
-    }
+      json[r'email'] = this.email;
     return json;
   }
 
-  /// Returns a new [AuthToken] instance and imports its values from
+  /// Returns a new [PasswordResetRequest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static AuthToken? fromJson(dynamic value) {
+  static PasswordResetRequest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -58,24 +48,24 @@ class AuthToken {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "AuthToken[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "AuthToken[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "PasswordResetRequest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "PasswordResetRequest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return AuthToken(
-        token: mapValueOfType<String>(json, r'token'),
+      return PasswordResetRequest(
+        email: mapValueOfType<String>(json, r'email')!,
       );
     }
     return null;
   }
 
-  static List<AuthToken>? listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <AuthToken>[];
+  static List<PasswordResetRequest>? listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <PasswordResetRequest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = AuthToken.fromJson(row);
+        final value = PasswordResetRequest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -84,12 +74,12 @@ class AuthToken {
     return result.toList(growable: growable);
   }
 
-  static Map<String, AuthToken> mapFromJson(dynamic json) {
-    final map = <String, AuthToken>{};
+  static Map<String, PasswordResetRequest> mapFromJson(dynamic json) {
+    final map = <String, PasswordResetRequest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = AuthToken.fromJson(entry.value);
+        final value = PasswordResetRequest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -98,13 +88,13 @@ class AuthToken {
     return map;
   }
 
-  // maps a json object with a list of AuthToken-objects as value to a dart map
-  static Map<String, List<AuthToken>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<AuthToken>>{};
+  // maps a json object with a list of PasswordResetRequest-objects as value to a dart map
+  static Map<String, List<PasswordResetRequest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<PasswordResetRequest>>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = AuthToken.listFromJson(entry.value, growable: growable,);
+        final value = PasswordResetRequest.listFromJson(entry.value, growable: growable,);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -115,6 +105,7 @@ class AuthToken {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
+    'email',
   };
 }
 

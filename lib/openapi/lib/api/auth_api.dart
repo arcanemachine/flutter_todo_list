@@ -22,13 +22,13 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [Login] login (required):
-  Future<Response> authLoginCreateWithHttpInfo(Login login,) async {
+  /// * [LoginRequest] loginRequest (required):
+  Future<Response> authLoginCreateWithHttpInfo(LoginRequest loginRequest,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/login/';
 
     // ignore: prefer_final_locals
-    Object? postBody = login;
+    Object? postBody = loginRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -52,9 +52,9 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [Login] login (required):
-  Future<Login?> authLoginCreate(Login login,) async {
-    final response = await authLoginCreateWithHttpInfo(login,);
+  /// * [LoginRequest] loginRequest (required):
+  Future<Login?> authLoginCreate(LoginRequest loginRequest,) async {
+    final response = await authLoginCreateWithHttpInfo(loginRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -74,9 +74,7 @@ class AuthApi {
   /// * [String] username (required):
   ///
   /// * [String] password (required):
-  ///
-  /// * [String] token:
-  Future<Response> authLoginTokenCreateWithHttpInfo(String username, String password, { String? token, }) async {
+  Future<Response> authLoginTokenCreateWithHttpInfo(String username, String password,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/login/token/';
 
@@ -95,9 +93,6 @@ class AuthApi {
     if (password != null) {
       formParams[r'password'] = parameterToString(password);
     }
-    if (token != null) {
-      formParams[r'token'] = parameterToString(token);
-    }
 
     return apiClient.invokeAPI(
       path,
@@ -115,10 +110,8 @@ class AuthApi {
   /// * [String] username (required):
   ///
   /// * [String] password (required):
-  ///
-  /// * [String] token:
-  Future<AuthToken?> authLoginTokenCreate(String username, String password, { String? token, }) async {
-    final response = await authLoginTokenCreateWithHttpInfo(username, password,  token: token, );
+  Future<AuthToken?> authLoginTokenCreate(String username, String password,) async {
+    final response = await authLoginTokenCreateWithHttpInfo(username, password,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -182,13 +175,13 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [PasswordChange] passwordChange (required):
-  Future<Response> authPasswordChangeCreateWithHttpInfo(PasswordChange passwordChange,) async {
+  /// * [PasswordChangeRequest] passwordChangeRequest (required):
+  Future<Response> authPasswordChangeCreateWithHttpInfo(PasswordChangeRequest passwordChangeRequest,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/password/change/';
 
     // ignore: prefer_final_locals
-    Object? postBody = passwordChange;
+    Object? postBody = passwordChangeRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -212,9 +205,9 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [PasswordChange] passwordChange (required):
-  Future<RestAuthDetail?> authPasswordChangeCreate(PasswordChange passwordChange,) async {
-    final response = await authPasswordChangeCreateWithHttpInfo(passwordChange,);
+  /// * [PasswordChangeRequest] passwordChangeRequest (required):
+  Future<RestAuthDetail?> authPasswordChangeCreate(PasswordChangeRequest passwordChangeRequest,) async {
+    final response = await authPasswordChangeCreateWithHttpInfo(passwordChangeRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -234,13 +227,13 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [PasswordResetConfirm] passwordResetConfirm (required):
-  Future<Response> authPasswordResetConfirmCreateWithHttpInfo(PasswordResetConfirm passwordResetConfirm,) async {
+  /// * [PasswordResetConfirmRequest] passwordResetConfirmRequest (required):
+  Future<Response> authPasswordResetConfirmCreateWithHttpInfo(PasswordResetConfirmRequest passwordResetConfirmRequest,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/password/reset/confirm/';
 
     // ignore: prefer_final_locals
-    Object? postBody = passwordResetConfirm;
+    Object? postBody = passwordResetConfirmRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -264,9 +257,9 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [PasswordResetConfirm] passwordResetConfirm (required):
-  Future<RestAuthDetail?> authPasswordResetConfirmCreate(PasswordResetConfirm passwordResetConfirm,) async {
-    final response = await authPasswordResetConfirmCreateWithHttpInfo(passwordResetConfirm,);
+  /// * [PasswordResetConfirmRequest] passwordResetConfirmRequest (required):
+  Future<RestAuthDetail?> authPasswordResetConfirmCreate(PasswordResetConfirmRequest passwordResetConfirmRequest,) async {
+    final response = await authPasswordResetConfirmCreateWithHttpInfo(passwordResetConfirmRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -286,13 +279,13 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [PasswordReset] passwordReset (required):
-  Future<Response> authPasswordResetCreateWithHttpInfo(PasswordReset passwordReset,) async {
+  /// * [PasswordResetRequest] passwordResetRequest (required):
+  Future<Response> authPasswordResetCreateWithHttpInfo(PasswordResetRequest passwordResetRequest,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/password/reset/';
 
     // ignore: prefer_final_locals
-    Object? postBody = passwordReset;
+    Object? postBody = passwordResetRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -316,9 +309,9 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [PasswordReset] passwordReset (required):
-  Future<RestAuthDetail?> authPasswordResetCreate(PasswordReset passwordReset,) async {
-    final response = await authPasswordResetCreateWithHttpInfo(passwordReset,);
+  /// * [PasswordResetRequest] passwordResetRequest (required):
+  Future<RestAuthDetail?> authPasswordResetCreate(PasswordResetRequest passwordResetRequest,) async {
+    final response = await authPasswordResetCreateWithHttpInfo(passwordResetRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -335,13 +328,13 @@ class AuthApi {
   /// Performs an HTTP 'POST /api/auth/registration/' operation and returns the [Response].
   /// Parameters:
   ///
-  /// * [Register] register (required):
-  Future<Response> authRegistrationCreateWithHttpInfo(Register register,) async {
+  /// * [RegisterRequest] registerRequest (required):
+  Future<Response> authRegistrationCreateWithHttpInfo(RegisterRequest registerRequest,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/registration/';
 
     // ignore: prefer_final_locals
-    Object? postBody = register;
+    Object? postBody = registerRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -363,9 +356,9 @@ class AuthApi {
 
   /// Parameters:
   ///
-  /// * [Register] register (required):
-  Future<Token?> authRegistrationCreate(Register register,) async {
-    final response = await authRegistrationCreateWithHttpInfo(register,);
+  /// * [RegisterRequest] registerRequest (required):
+  Future<Token?> authRegistrationCreate(RegisterRequest registerRequest,) async {
+    final response = await authRegistrationCreateWithHttpInfo(registerRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -382,13 +375,13 @@ class AuthApi {
   /// Performs an HTTP 'POST /api/auth/registration/resend-email/' operation and returns the [Response].
   /// Parameters:
   ///
-  /// * [ResendEmailVerification] resendEmailVerification:
-  Future<Response> authRegistrationResendEmailCreateWithHttpInfo({ ResendEmailVerification? resendEmailVerification, }) async {
+  /// * [ResendEmailVerificationRequest] resendEmailVerificationRequest:
+  Future<Response> authRegistrationResendEmailCreateWithHttpInfo({ ResendEmailVerificationRequest? resendEmailVerificationRequest, }) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/registration/resend-email/';
 
     // ignore: prefer_final_locals
-    Object? postBody = resendEmailVerification;
+    Object? postBody = resendEmailVerificationRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -410,9 +403,9 @@ class AuthApi {
 
   /// Parameters:
   ///
-  /// * [ResendEmailVerification] resendEmailVerification:
-  Future<RestAuthDetail?> authRegistrationResendEmailCreate({ ResendEmailVerification? resendEmailVerification, }) async {
-    final response = await authRegistrationResendEmailCreateWithHttpInfo( resendEmailVerification: resendEmailVerification, );
+  /// * [ResendEmailVerificationRequest] resendEmailVerificationRequest:
+  Future<RestAuthDetail?> authRegistrationResendEmailCreate({ ResendEmailVerificationRequest? resendEmailVerificationRequest, }) async {
+    final response = await authRegistrationResendEmailCreateWithHttpInfo( resendEmailVerificationRequest: resendEmailVerificationRequest, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -429,13 +422,13 @@ class AuthApi {
   /// Performs an HTTP 'POST /api/auth/registration/verify-email/' operation and returns the [Response].
   /// Parameters:
   ///
-  /// * [VerifyEmail] verifyEmail (required):
-  Future<Response> authRegistrationVerifyEmailCreateWithHttpInfo(VerifyEmail verifyEmail,) async {
+  /// * [VerifyEmailRequest] verifyEmailRequest (required):
+  Future<Response> authRegistrationVerifyEmailCreateWithHttpInfo(VerifyEmailRequest verifyEmailRequest,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/registration/verify-email/';
 
     // ignore: prefer_final_locals
-    Object? postBody = verifyEmail;
+    Object? postBody = verifyEmailRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -457,9 +450,9 @@ class AuthApi {
 
   /// Parameters:
   ///
-  /// * [VerifyEmail] verifyEmail (required):
-  Future<RestAuthDetail?> authRegistrationVerifyEmailCreate(VerifyEmail verifyEmail,) async {
-    final response = await authRegistrationVerifyEmailCreateWithHttpInfo(verifyEmail,);
+  /// * [VerifyEmailRequest] verifyEmailRequest (required):
+  Future<RestAuthDetail?> authRegistrationVerifyEmailCreate(VerifyEmailRequest verifyEmailRequest,) async {
+    final response = await authRegistrationVerifyEmailCreateWithHttpInfo(verifyEmailRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -479,13 +472,13 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [PatchedUserDetails] patchedUserDetails:
-  Future<Response> authUserPartialUpdateWithHttpInfo({ PatchedUserDetails? patchedUserDetails, }) async {
+  /// * [PatchedUserDetailsRequest] patchedUserDetailsRequest:
+  Future<Response> authUserPartialUpdateWithHttpInfo({ PatchedUserDetailsRequest? patchedUserDetailsRequest, }) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/user/';
 
     // ignore: prefer_final_locals
-    Object? postBody = patchedUserDetails;
+    Object? postBody = patchedUserDetailsRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -509,9 +502,9 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [PatchedUserDetails] patchedUserDetails:
-  Future<UserDetails?> authUserPartialUpdate({ PatchedUserDetails? patchedUserDetails, }) async {
-    final response = await authUserPartialUpdateWithHttpInfo( patchedUserDetails: patchedUserDetails, );
+  /// * [PatchedUserDetailsRequest] patchedUserDetailsRequest:
+  Future<UserDetails?> authUserPartialUpdate({ PatchedUserDetailsRequest? patchedUserDetailsRequest, }) async {
+    final response = await authUserPartialUpdateWithHttpInfo( patchedUserDetailsRequest: patchedUserDetailsRequest, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
@@ -575,13 +568,13 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [UserDetails] userDetails (required):
-  Future<Response> authUserUpdateWithHttpInfo(UserDetails userDetails,) async {
+  /// * [UserDetailsRequest] userDetailsRequest (required):
+  Future<Response> authUserUpdateWithHttpInfo(UserDetailsRequest userDetailsRequest,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/auth/user/';
 
     // ignore: prefer_final_locals
-    Object? postBody = userDetails;
+    Object? postBody = userDetailsRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -605,9 +598,9 @@ class AuthApi {
   ///
   /// Parameters:
   ///
-  /// * [UserDetails] userDetails (required):
-  Future<UserDetails?> authUserUpdate(UserDetails userDetails,) async {
-    final response = await authUserUpdateWithHttpInfo(userDetails,);
+  /// * [UserDetailsRequest] userDetailsRequest (required):
+  Future<UserDetails?> authUserUpdate(UserDetailsRequest userDetailsRequest,) async {
+    final response = await authUserUpdateWithHttpInfo(userDetailsRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

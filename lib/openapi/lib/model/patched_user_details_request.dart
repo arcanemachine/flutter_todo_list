@@ -10,21 +10,22 @@
 
 part of openapi.api;
 
-class PatchedTodo {
-  /// Returns a new [PatchedTodo] instance.
-  PatchedTodo({
-    this.id,
-    this.content,
-    this.isCompleted,
+class PatchedUserDetailsRequest {
+  /// Returns a new [PatchedUserDetailsRequest] instance.
+  PatchedUserDetailsRequest({
+    this.username,
+    this.firstName,
+    this.lastName,
   });
 
+  /// Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  int? id;
+  String? username;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -32,7 +33,7 @@ class PatchedTodo {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? content;
+  String? firstName;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -40,48 +41,48 @@ class PatchedTodo {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  bool? isCompleted;
+  String? lastName;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is PatchedTodo &&
-     other.id == id &&
-     other.content == content &&
-     other.isCompleted == isCompleted;
+  bool operator ==(Object other) => identical(this, other) || other is PatchedUserDetailsRequest &&
+     other.username == username &&
+     other.firstName == firstName &&
+     other.lastName == lastName;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (id == null ? 0 : id!.hashCode) +
-    (content == null ? 0 : content!.hashCode) +
-    (isCompleted == null ? 0 : isCompleted!.hashCode);
+    (username == null ? 0 : username!.hashCode) +
+    (firstName == null ? 0 : firstName!.hashCode) +
+    (lastName == null ? 0 : lastName!.hashCode);
 
   @override
-  String toString() => 'PatchedTodo[id=$id, content=$content, isCompleted=$isCompleted]';
+  String toString() => 'PatchedUserDetailsRequest[username=$username, firstName=$firstName, lastName=$lastName]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.id != null) {
-      json[r'id'] = this.id;
+    if (this.username != null) {
+      json[r'username'] = this.username;
     } else {
-      json[r'id'] = null;
+      json[r'username'] = null;
     }
-    if (this.content != null) {
-      json[r'content'] = this.content;
+    if (this.firstName != null) {
+      json[r'first_name'] = this.firstName;
     } else {
-      json[r'content'] = null;
+      json[r'first_name'] = null;
     }
-    if (this.isCompleted != null) {
-      json[r'is_completed'] = this.isCompleted;
+    if (this.lastName != null) {
+      json[r'last_name'] = this.lastName;
     } else {
-      json[r'is_completed'] = null;
+      json[r'last_name'] = null;
     }
     return json;
   }
 
-  /// Returns a new [PatchedTodo] instance and imports its values from
+  /// Returns a new [PatchedUserDetailsRequest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static PatchedTodo? fromJson(dynamic value) {
+  static PatchedUserDetailsRequest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -90,26 +91,26 @@ class PatchedTodo {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "PatchedTodo[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "PatchedTodo[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "PatchedUserDetailsRequest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "PatchedUserDetailsRequest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return PatchedTodo(
-        id: mapValueOfType<int>(json, r'id'),
-        content: mapValueOfType<String>(json, r'content'),
-        isCompleted: mapValueOfType<bool>(json, r'is_completed'),
+      return PatchedUserDetailsRequest(
+        username: mapValueOfType<String>(json, r'username'),
+        firstName: mapValueOfType<String>(json, r'first_name'),
+        lastName: mapValueOfType<String>(json, r'last_name'),
       );
     }
     return null;
   }
 
-  static List<PatchedTodo>? listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <PatchedTodo>[];
+  static List<PatchedUserDetailsRequest>? listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <PatchedUserDetailsRequest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = PatchedTodo.fromJson(row);
+        final value = PatchedUserDetailsRequest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -118,12 +119,12 @@ class PatchedTodo {
     return result.toList(growable: growable);
   }
 
-  static Map<String, PatchedTodo> mapFromJson(dynamic json) {
-    final map = <String, PatchedTodo>{};
+  static Map<String, PatchedUserDetailsRequest> mapFromJson(dynamic json) {
+    final map = <String, PatchedUserDetailsRequest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = PatchedTodo.fromJson(entry.value);
+        final value = PatchedUserDetailsRequest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -132,13 +133,13 @@ class PatchedTodo {
     return map;
   }
 
-  // maps a json object with a list of PatchedTodo-objects as value to a dart map
-  static Map<String, List<PatchedTodo>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<PatchedTodo>>{};
+  // maps a json object with a list of PatchedUserDetailsRequest-objects as value to a dart map
+  static Map<String, List<PatchedUserDetailsRequest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<PatchedUserDetailsRequest>>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = PatchedTodo.listFromJson(entry.value, growable: growable,);
+        final value = PatchedUserDetailsRequest.listFromJson(entry.value, growable: growable,);
         if (value != null) {
           map[entry.key] = value;
         }

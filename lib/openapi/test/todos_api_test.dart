@@ -17,7 +17,7 @@ void main() {
   // final instance = TodosApi();
 
   group('tests for TodosApi', () {
-    //Future<Todo> todosCreate(Todo todo) async
+    //Future<Todo> todosCreate(TodoRequest todoRequest) async
     test('test todosCreate', () async {
       // TODO
     });
@@ -32,7 +32,7 @@ void main() {
       // TODO
     });
 
-    //Future<Todo> todosPartialUpdate(int id, { PatchedTodo patchedTodo }) async
+    //Future<Todo> todosPartialUpdate(int id, { PatchedTodoRequest patchedTodoRequest }) async
     test('test todosPartialUpdate', () async {
       // TODO
     });
@@ -42,7 +42,7 @@ void main() {
       // TODO
     });
 
-    //Future<Todo> todosUpdate(int id, Todo todo) async
+    //Future<Todo> todosUpdate(int id, TodoRequest todoRequest) async
     test('test todosUpdate', () async {
       // TODO
     });

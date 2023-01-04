@@ -11,17 +11,11 @@
 import 'package:openapi/api.dart';
 import 'package:test/test.dart';
 
-// tests for PatchedUserDetails
+// tests for LoginRequest
 void main() {
-  // final instance = PatchedUserDetails();
+  // final instance = LoginRequest();
 
-  group('test PatchedUserDetails', () {
-    // int pk
-    test('to test the property `pk`', () async {
-      // TODO
-    });
-
-    // Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
+  group('test LoginRequest', () {
     // String username
     test('to test the property `username`', () async {
       // TODO
@@ -32,13 +26,8 @@ void main() {
       // TODO
     });
 
-    // String firstName
-    test('to test the property `firstName`', () async {
-      // TODO
-    });
-
-    // String lastName
-    test('to test the property `lastName`', () async {
+    // String password
+    test('to test the property `password`', () async {
       // TODO
     });
 

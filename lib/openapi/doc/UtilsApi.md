@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **utilsCsrfmiddlewaretokenCreate**
-> Csrfmiddlewaretoken utilsCsrfmiddlewaretokenCreate(csrfmiddlewaretoken)
+> Csrfmiddlewaretoken utilsCsrfmiddlewaretokenCreate(csrfmiddlewaretokenRequest)
 
 
 
@@ -31,10 +31,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = UtilsApi();
-final csrfmiddlewaretoken = Csrfmiddlewaretoken(); // Csrfmiddlewaretoken | 
+final csrfmiddlewaretokenRequest = CsrfmiddlewaretokenRequest(); // CsrfmiddlewaretokenRequest | 
 
 try {
-    final result = api_instance.utilsCsrfmiddlewaretokenCreate(csrfmiddlewaretoken);
+    final result = api_instance.utilsCsrfmiddlewaretokenCreate(csrfmiddlewaretokenRequest);
     print(result);
 } catch (e) {
     print('Exception when calling UtilsApi->utilsCsrfmiddlewaretokenCreate: $e\n');
@@ -45,7 +45,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **csrfmiddlewaretoken** | [**Csrfmiddlewaretoken**](Csrfmiddlewaretoken.md)|  | 
+ **csrfmiddlewaretokenRequest** | [**CsrfmiddlewaretokenRequest**](CsrfmiddlewaretokenRequest.md)|  | 
 
 ### Return type
 

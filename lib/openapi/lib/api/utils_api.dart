@@ -19,13 +19,13 @@ class UtilsApi {
   /// Performs an HTTP 'POST /api/utils/csrfmiddlewaretoken/' operation and returns the [Response].
   /// Parameters:
   ///
-  /// * [Csrfmiddlewaretoken] csrfmiddlewaretoken (required):
-  Future<Response> utilsCsrfmiddlewaretokenCreateWithHttpInfo(Csrfmiddlewaretoken csrfmiddlewaretoken,) async {
+  /// * [CsrfmiddlewaretokenRequest] csrfmiddlewaretokenRequest (required):
+  Future<Response> utilsCsrfmiddlewaretokenCreateWithHttpInfo(CsrfmiddlewaretokenRequest csrfmiddlewaretokenRequest,) async {
     // ignore: prefer_const_declarations
     final path = r'/api/utils/csrfmiddlewaretoken/';
 
     // ignore: prefer_final_locals
-    Object? postBody = csrfmiddlewaretoken;
+    Object? postBody = csrfmiddlewaretokenRequest;
 
     final queryParams = <QueryParam>[];
     final headerParams = <String, String>{};
@@ -47,9 +47,9 @@ class UtilsApi {
 
   /// Parameters:
   ///
-  /// * [Csrfmiddlewaretoken] csrfmiddlewaretoken (required):
-  Future<Csrfmiddlewaretoken?> utilsCsrfmiddlewaretokenCreate(Csrfmiddlewaretoken csrfmiddlewaretoken,) async {
-    final response = await utilsCsrfmiddlewaretokenCreateWithHttpInfo(csrfmiddlewaretoken,);
+  /// * [CsrfmiddlewaretokenRequest] csrfmiddlewaretokenRequest (required):
+  Future<Csrfmiddlewaretoken?> utilsCsrfmiddlewaretokenCreate(CsrfmiddlewaretokenRequest csrfmiddlewaretokenRequest,) async {
+    final response = await utilsCsrfmiddlewaretokenCreateWithHttpInfo(csrfmiddlewaretokenRequest,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }

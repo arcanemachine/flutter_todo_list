@@ -17,7 +17,7 @@ void main() {
   // final instance = UtilsApi();
 
   group('tests for UtilsApi', () {
-    //Future<Csrfmiddlewaretoken> utilsCsrfmiddlewaretokenCreate(Csrfmiddlewaretoken csrfmiddlewaretoken) async
+    //Future<Csrfmiddlewaretoken> utilsCsrfmiddlewaretokenCreate(CsrfmiddlewaretokenRequest csrfmiddlewaretokenRequest) async
     test('test utilsCsrfmiddlewaretokenCreate', () async {
       // TODO
     });

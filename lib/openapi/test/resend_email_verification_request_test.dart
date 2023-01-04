@@ -11,23 +11,13 @@
 import 'package:openapi/api.dart';
 import 'package:test/test.dart';
 
-// tests for PatchedTodo
+// tests for ResendEmailVerificationRequest
 void main() {
-  // final instance = PatchedTodo();
+  // final instance = ResendEmailVerificationRequest();
 
-  group('test PatchedTodo', () {
-    // int id
-    test('to test the property `id`', () async {
-      // TODO
-    });
-
-    // String content
-    test('to test the property `content`', () async {
-      // TODO
-    });
-
-    // bool isCompleted
-    test('to test the property `isCompleted`', () async {
+  group('test ResendEmailVerificationRequest', () {
+    // String email
+    test('to test the property `email`', () async {
       // TODO
     });
 

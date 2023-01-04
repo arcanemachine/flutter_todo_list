@@ -10,9 +10,9 @@
 
 part of openapi.api;
 
-class PasswordChange {
-  /// Returns a new [PasswordChange] instance.
-  PasswordChange({
+class PasswordChangeRequest {
+  /// Returns a new [PasswordChangeRequest] instance.
+  PasswordChangeRequest({
     required this.newPassword1,
     required this.newPassword2,
   });
@@ -22,7 +22,7 @@ class PasswordChange {
   String newPassword2;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is PasswordChange &&
+  bool operator ==(Object other) => identical(this, other) || other is PasswordChangeRequest &&
      other.newPassword1 == newPassword1 &&
      other.newPassword2 == newPassword2;
 
@@ -33,7 +33,7 @@ class PasswordChange {
     (newPassword2.hashCode);
 
   @override
-  String toString() => 'PasswordChange[newPassword1=$newPassword1, newPassword2=$newPassword2]';
+  String toString() => 'PasswordChangeRequest[newPassword1=$newPassword1, newPassword2=$newPassword2]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -42,10 +42,10 @@ class PasswordChange {
     return json;
   }
 
-  /// Returns a new [PasswordChange] instance and imports its values from
+  /// Returns a new [PasswordChangeRequest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static PasswordChange? fromJson(dynamic value) {
+  static PasswordChangeRequest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -54,13 +54,13 @@ class PasswordChange {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "PasswordChange[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "PasswordChange[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "PasswordChangeRequest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "PasswordChangeRequest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return PasswordChange(
+      return PasswordChangeRequest(
         newPassword1: mapValueOfType<String>(json, r'new_password1')!,
         newPassword2: mapValueOfType<String>(json, r'new_password2')!,
       );
@@ -68,11 +68,11 @@ class PasswordChange {
     return null;
   }
 
-  static List<PasswordChange>? listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <PasswordChange>[];
+  static List<PasswordChangeRequest>? listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <PasswordChangeRequest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = PasswordChange.fromJson(row);
+        final value = PasswordChangeRequest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -81,12 +81,12 @@ class PasswordChange {
     return result.toList(growable: growable);
   }
 
-  static Map<String, PasswordChange> mapFromJson(dynamic json) {
-    final map = <String, PasswordChange>{};
+  static Map<String, PasswordChangeRequest> mapFromJson(dynamic json) {
+    final map = <String, PasswordChangeRequest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = PasswordChange.fromJson(entry.value);
+        final value = PasswordChangeRequest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -95,13 +95,13 @@ class PasswordChange {
     return map;
   }
 
-  // maps a json object with a list of PasswordChange-objects as value to a dart map
-  static Map<String, List<PasswordChange>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<PasswordChange>>{};
+  // maps a json object with a list of PasswordChangeRequest-objects as value to a dart map
+  static Map<String, List<PasswordChangeRequest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<PasswordChangeRequest>>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = PasswordChange.listFromJson(entry.value, growable: growable,);
+        final value = PasswordChangeRequest.listFromJson(entry.value, growable: growable,);
         if (value != null) {
           map[entry.key] = value;
         }

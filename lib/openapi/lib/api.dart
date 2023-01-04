@@ -32,20 +32,25 @@ part 'api/todos_api.dart';
 part 'api/utils_api.dart';
 
 part 'model/auth_token.dart';
+part 'model/auth_token_request.dart';
 part 'model/csrfmiddlewaretoken.dart';
+part 'model/csrfmiddlewaretoken_request.dart';
 part 'model/login.dart';
-part 'model/password_change.dart';
-part 'model/password_reset.dart';
-part 'model/password_reset_confirm.dart';
-part 'model/patched_todo.dart';
-part 'model/patched_user_details.dart';
-part 'model/register.dart';
-part 'model/resend_email_verification.dart';
+part 'model/login_request.dart';
+part 'model/password_change_request.dart';
+part 'model/password_reset_confirm_request.dart';
+part 'model/password_reset_request.dart';
+part 'model/patched_todo_request.dart';
+part 'model/patched_user_details_request.dart';
+part 'model/register_request.dart';
+part 'model/resend_email_verification_request.dart';
 part 'model/rest_auth_detail.dart';
 part 'model/todo.dart';
+part 'model/todo_request.dart';
 part 'model/token.dart';
 part 'model/user_details.dart';
-part 'model/verify_email.dart';
+part 'model/user_details_request.dart';
+part 'model/verify_email_request.dart';
 
 
 const _delimiters = {'csv': ',', 'ssv': ' ', 'tsv': '\t', 'pipes': '|'};
