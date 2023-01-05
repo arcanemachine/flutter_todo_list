@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/openapi/lib/api.dart';
+import 'package:flutter_todo_list/stores.dart';
 import 'package:flutter_todo_list/todos/stores.dart';
 import 'package:flutter_todo_list/widgets.dart';
 
@@ -23,7 +26,7 @@ class TodosScreen extends ConsumerWidget {
 
   Widget _refreshIndicator(BuildContext context, WidgetRef ref) {
     return RefreshIndicator(
-      onRefresh: ref.read(todosProvider.notifier).todosRefresh,
+      onRefresh: ref.read(todosProvider.notifier).refresh,
       triggerMode: RefreshIndicatorTriggerMode.onEdge,
       child: Column(
         children: [
@@ -37,7 +40,7 @@ class TodosScreen extends ConsumerWidget {
 
   Widget _futureBuilder(BuildContext context, WidgetRef ref) {
     return FutureBuilder(
-      future: ref.watch(todosProvider.notifier).todosFetch(),
+      future: ref.watch(todosProvider.notifier).fetch(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return _futureSuccess(context, ref);
@@ -52,8 +55,8 @@ class TodosScreen extends ConsumerWidget {
 
   Widget _futureLoading(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: const <Widget>[
-        SizedBox(height: 16.0),
         CircularProgressIndicator(),
         SizedBox(height: 16.0),
         Center(
@@ -64,9 +67,21 @@ class TodosScreen extends ConsumerWidget {
   }
 
   Widget _futureError(BuildContext context) {
-    return const Center(
-      child: Text(
-        "Error: Could not retrieve data from the server.",
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text(
+            "Error: Could not retrieve data from the server.",
+          ),
+          const SizedBox.square(dimension: 16.0),
+          ElevatedButton(
+            onPressed: () {
+              context.pushReplacementNamed("todos:todos");
+            },
+            child: const Text("Try again"),
+          )
+        ],
       ),
     );
   }
@@ -140,23 +155,20 @@ class TodoForm extends ConsumerWidget {
                     // create todo
                     ref
                         .read(todosProvider.notifier)
-                        .todoCreate(content)
+                        .create(content)
                         .then((res) {
-                      // show message
-                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Todo created")));
+                      // success message
+                      widgetHelpers.snackBarShow(context, "Todo created");
                     }).catchError((err) {
                       // show message
-                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Could not create todo")));
+                      widgetHelpers.snackBarShow(
+                          context, "Could not create todo");
                     });
                   } else {
                     // update todo content
                     ref
                         .read(todosProvider.notifier)
-                        .todoUpdateContent(todoSelectedId, content)
+                        .updateContent(todoSelectedId, content)
                         .then((res) {
                       // show message
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -184,20 +196,17 @@ class TodoForm extends ConsumerWidget {
 class TodoList extends ConsumerWidget {
   const TodoList({Key? key}) : super(key: key);
 
-  void _todoUpdateIsCompleted(BuildContext context, WidgetRef ref, Todo todo) {
-    ref.read(todosProvider.notifier).todoToggleIsCompleted(todo.id).then((res) {
-      // show message
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Todo status updated"),
-      ));
+  void _toggleIsCompleted(BuildContext context, WidgetRef ref, Todo todo) {
+    ref.read(isLoadingProvider.notifier).state = true;
+
+    ref.read(todosProvider.notifier).toggleIsCompleted(todo.id).then((res) {
+      // success message
+      widgetHelpers.snackBarShow(context, "Todo status updated");
     }).catchError((error) {
-      debugPrint(error.toString());
-      // show message
-      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Could not update todo status"),
-      ));
+      // error message
+      widgetHelpers.snackBarShow(context, "Could not update todo status");
+    }).whenComplete(() {
+      ref.read(isLoadingProvider.notifier).state = false;
     });
   }
 
@@ -207,7 +216,7 @@ class TodoList extends ConsumerWidget {
       icon: const Icon(Icons.check),
       color: todo.isCompleted == true ? Colors.green : null,
       tooltip: "Mark complete",
-      onPressed: () => _todoUpdateIsCompleted(context, ref, todo),
+      onPressed: () => _toggleIsCompleted(context, ref, todo),
     );
   }
 
@@ -218,7 +227,7 @@ class TodoList extends ConsumerWidget {
       tooltip: "Delete todo",
       onPressed: () {
         // delete todo
-        ref.read(todosProvider.notifier).todoDelete(todo.id).then((res) {
+        ref.read(todosProvider.notifier).delete(todo.id).then((res) {
           // show message
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context)

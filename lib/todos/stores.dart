@@ -6,13 +6,13 @@ import 'package:flutter_todo_list/state.dart';
 class TodosNotifier extends StateNotifier<List<Todo>> {
   TodosNotifier() : super([]);
 
-  Future todosRefresh() {
+  Future refresh() {
     state = [];
 
-    return Future.delayed(const Duration(milliseconds: 500), todosFetch);
+    return Future.delayed(const Duration(milliseconds: 500), fetch);
   }
 
-  Future todosFetch() async {
+  Future fetch() async {
     final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
 
     Future result =
@@ -21,7 +21,7 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
     return result;
   }
 
-  Future<void> todoCreate(String content) async {
+  Future<void> create(String content) async {
     final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
 
     // create API request
@@ -33,22 +33,7 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
     state = [...state, newTodo];
   }
 
-  Future<bool> todoDelete(int? todoId) async {
-    final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
-
-    // create API request
-    await todosApi.todosDestroy(todoId as int);
-
-    // update local state
-    state = [
-      for (final todo in state)
-        if (todo.id != todoId) todo,
-    ];
-
-    return true;
-  }
-
-  Future<void> todoToggleIsCompleted(int? todoId) async {
+  Future toggleIsCompleted(int? todoId) async {
     final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
 
     // create new todo with updated completion status
@@ -69,7 +54,7 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
     ];
   }
 
-  Future<void> todoUpdateContent(int? todoId, String modifiedContent) async {
+  Future<void> updateContent(int? todoId, String modifiedContent) async {
     final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
 
     // create new todo with updated content
@@ -86,6 +71,21 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
       for (final todo in state)
         if (todo.id == todoId) updatedTodo else todo,
     ];
+  }
+
+  Future<bool> delete(int? todoId) async {
+    final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
+
+    // create API request
+    await todosApi.todosDestroy(todoId as int);
+
+    // update local state
+    state = [
+      for (final todo in state)
+        if (todo.id != todoId) todo,
+    ];
+
+    return true;
   }
 }
 

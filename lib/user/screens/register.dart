@@ -9,8 +9,8 @@ import 'package:flutter_todo_list/styles.dart';
 import 'package:flutter_todo_list/user/stores.dart';
 import 'package:flutter_todo_list/widgets.dart';
 
-class LoginScreen extends ConsumerWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class RegisterScreen extends ConsumerWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,7 +18,7 @@ class LoginScreen extends ConsumerWidget {
       appBar: baseWidgets.appBar(
         context,
         ref,
-        title: "Login",
+        title: "Register Account",
         hideBackButton: true,
       ),
       body: Center(
@@ -26,7 +26,7 @@ class LoginScreen extends ConsumerWidget {
           shrinkWrap: true,
           children: <Widget>[
             _formTitle(context),
-            const LoginForm(),
+            const RegisterForm(),
             _buttonRegister(context),
           ],
         ),
@@ -39,13 +39,13 @@ class LoginScreen extends ConsumerWidget {
       children: <Widget>[
         const SizedBox(height: 16.0),
         Text(
-          "Welcome to ${constants.projectName}!",
+          constants.projectName,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: Text(
-            "Please login to continue.",
+            "Register a new account",
             style: Theme.of(context).textTheme.subtitle1,
           ),
         )
@@ -58,60 +58,79 @@ class LoginScreen extends ConsumerWidget {
       padding: const EdgeInsets.only(top: 16.0),
       child: TextButton(
         child: const Text(
-          "Register new account",
+          "Login to an existing account",
           style: TextStyle(
             decoration: TextDecoration.underline,
           ),
         ),
         onPressed: () {
-          context.pushNamed("user:register");
+          while (context.canPop()) {
+            context.pop();
+          }
+          context.pushReplacementNamed("user:login");
         },
       ),
     );
   }
 }
 
-class LoginForm extends ConsumerStatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class RegisterForm extends ConsumerStatefulWidget {
+  const RegisterForm({Key? key}) : super(key: key);
 
   @override
-  LoginFormState createState() => LoginFormState();
+  RegisterFormState createState() => RegisterFormState();
 }
 
-class LoginFormState extends ConsumerState<LoginForm> {
+class RegisterFormState extends ConsumerState<RegisterForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
   bool get _loginButtonEnabled =>
       !_isLoading &&
       _usernameController.text.isNotEmpty &&
-      _passwordController.text.isNotEmpty;
+      // _emailController.text.isNotEmpty &&
+      _password1Controller.text.isNotEmpty &&
+      _password2Controller.text.isNotEmpty;
 
   // controllers
   // final _usernameController = TextEditingController();
-  // final _passwordController = TextEditingController();
+  // final _emailController = TextEditingController();
+  // final _password1Controller = TextEditingController();
+  // final _password2Controller = TextEditingController();
   final _usernameController = TextEditingController.fromValue(
     const TextEditingValue(text: "user"),
   );
-  final _passwordController = TextEditingController.fromValue(
+  final _emailController = TextEditingController.fromValue(
+    const TextEditingValue(text: "user@example.com"),
+  );
+  final _password1Controller = TextEditingController.fromValue(
+    const TextEditingValue(text: "distance"),
+  );
+  final _password2Controller = TextEditingController.fromValue(
     const TextEditingValue(text: "distance"),
   );
 
   // methods
   void _handleSubmit() {
     final String username = _usernameController.text;
-    final String password = _passwordController.text;
+    final String email = _emailController.text;
+    final String password1 = _password1Controller.text;
+    final String password2 = _password2Controller.text;
 
     setState(() {
       _isLoading = true;
     });
 
     // login
-    ref.read(userProvider.notifier).login(username, password).then((value) {
-      context.pushReplacement("/todos"); // success url
+    ref
+        .read(userProvider.notifier)
+        .register(username, email, password1, password2)
+        .then((value) {
+      context.pushReplacement("/login"); // success url
 
       // success message
-      widgetHelpers.snackBarShow(context, "Login successful");
+      widgetHelpers.snackBarShow(
+          context, "Registration successful. You are now logged in.");
     }).catchError((err) {
       setState(() => _isLoading = false); // done loading
       widgetHelpers.snackBarShowApiException(context, err); // error message
@@ -132,7 +151,9 @@ class LoginFormState extends ConsumerState<LoginForm> {
                 children: [
                   const SizedBox(height: 16.0),
                   _fieldUsername(),
-                  _fieldPassword(),
+                  _fieldEmail(),
+                  _fieldPassword1(),
+                  _fieldPassword2(),
                   const SizedBox(height: 32.0),
                   _buttonSubmit(),
                 ],
@@ -148,7 +169,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
     return TextFormField(
       controller: _usernameController,
       decoration: const InputDecoration(
-        icon: Icon(Icons.person),
+        icon: Icon(Icons.email),
         labelText: "Username",
       ),
       onChanged: (dynamic x) => setState(() {}),
@@ -161,9 +182,26 @@ class LoginFormState extends ConsumerState<LoginForm> {
     );
   }
 
-  Widget _fieldPassword() {
+  Widget _fieldEmail() {
     return TextFormField(
-      controller: _passwordController,
+      controller: _emailController,
+      decoration: const InputDecoration(
+        icon: Icon(Icons.person),
+        labelText: "Email (Optional)",
+      ),
+      onChanged: (dynamic x) => setState(() {}),
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return "This field must not be empty.";
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _fieldPassword1() {
+    return TextFormField(
+      controller: _password1Controller,
       obscureText: true,
       decoration: const InputDecoration(
         icon: Icon(Icons.key),
@@ -174,6 +212,27 @@ class LoginFormState extends ConsumerState<LoginForm> {
       validator: (val) {
         if (val == null || val.isEmpty) {
           return "This field must not be empty.";
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget _fieldPassword2() {
+    return TextFormField(
+      controller: _password1Controller,
+      obscureText: true,
+      decoration: const InputDecoration(
+        icon: Icon(Icons.key),
+        labelText: "Confirm password",
+      ),
+      onChanged: (_) => setState(() {}),
+      onFieldSubmitted: (_) => _handleSubmit(),
+      validator: (val) {
+        if (val == null || val.isEmpty) {
+          return "This field must not be empty.";
+        } else if (val != _password1Controller.text) {
+          return "The passwords do not match.";
         }
         return null;
       },
@@ -191,7 +250,8 @@ class LoginFormState extends ConsumerState<LoginForm> {
               ? _handleSubmit()
               : widgetHelpers.snackBarShow(context, "The form is incomplete.");
         },
-        child: !_isLoading ? const Text("Login") : baseWidgets.loadingSpinner(),
+        child:
+            !_isLoading ? const Text("Register") : baseWidgets.loadingSpinner(),
       ),
     );
   }

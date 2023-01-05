@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/openapi/lib/api.dart';
@@ -6,13 +5,11 @@ import 'package:flutter_todo_list/state.dart';
 
 class User {
   User({
-    // this.isAuthenticated = false,
     this.username,
     this.email,
     this.apiClient,
   });
 
-  // bool isAuthenticated = false;
   String? username;
   String? email;
   ApiClient? apiClient;
@@ -35,6 +32,32 @@ class UserNotifier extends StateNotifier<User> {
 
   Future<bool> confirmAuthenticationStatus() async {
     return false; // todo
+  }
+
+  Future<void> register(
+    String username,
+    String? email,
+    String password1,
+    String password2,
+  ) async {
+    // create unauthenticated API client
+    AuthApi authApi = authApiCreate();
+
+    // build request
+    var registerRequest = RegisterRequest(
+        username: username,
+        email: email ?? "",
+        password1: password1,
+        password2: password2);
+
+    // get auth token
+    Token? token = await authApi.authRegistrationCreate(registerRequest);
+
+    // save token to secure storage
+    await secureStorage.login(token!.key);
+
+    // save auth status to shared preferences (for easy non-async access)
+    sharedPrefs.login();
   }
 
   Future<void> login(String username, String password) async {

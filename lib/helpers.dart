@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todo_list/openapi/lib/api.dart';
 
 class _Helpers {
-  _ExampleHelpers get example => _ExampleHelpers();
+  // _ExampleHelpers get example => _ExampleHelpers();
 
   bool canPop(BuildContext context) {
     final NavigatorState? navigator = Navigator.maybeOf(context);
@@ -37,14 +37,14 @@ class _Helpers {
 
 final helpers = _Helpers();
 
-// example
-class _ExampleHelpers {
-  Future<List> listFetch() async {
-    /** Returns enough data to populate the user's companyList. */
-
-    return ["hello", "world"];
-  }
-}
+// // example
+// class _ExampleHelpers {
+//   Future<List> listFetch() async {
+//     /** Returns enough data to populate the user's companyList. */
+//
+//     return ["hello", "world"];
+//   }
+// }
 
 // widgets
 class _WidgetHelpers {
@@ -75,7 +75,9 @@ class _WidgetHelpers {
     /** Parse error and show a snackbar message. */
 
     /* parse error message(s) and return the first error in the message body */
+    String errorField = "";
     late String message;
+
     if (error.message != null) {
       Map<String, dynamic> messageJson = jsonDecode(error.message as String);
 
@@ -86,16 +88,17 @@ class _WidgetHelpers {
       } else {
         String firstKey = messageJson.keys.first;
         message = messageJson[firstKey][0];
+        errorField = " ($firstKey)";
       }
     } else {
       message = "An unknown error occurred.";
     }
 
-    int statusCode = error.code;
+    final int statusCode = error.code;
     if (statusCode != 400) {
       return snackBarShow(context, "Error $statusCode: $message");
     } else {
-      return snackBarShow(context, "Error: $message");
+      return snackBarShow(context, "Error$errorField: $message");
     }
   }
 }

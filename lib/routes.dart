@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_todo_list/main.dart';
@@ -8,8 +8,7 @@ import 'package:flutter_todo_list/user/routes.dart';
 final List<GoRoute> _routes = [
       GoRoute(
         path: '/',
-        builder: (BuildContext context, GoRouterState state) =>
-            const InitScreen(),
+        builder: (context, state) => const InitScreen(),
       ),
     ] +
     todosRoutes +
@@ -17,4 +16,5 @@ final List<GoRoute> _routes = [
 
 final GoRouter router = GoRouter(
   routes: _routes,
+  // debugLogDiagnostics: true,
 );

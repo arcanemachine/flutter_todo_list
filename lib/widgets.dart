@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_todo_list/stores.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_todo_list/constants.dart';
@@ -8,6 +9,10 @@ import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/user/helpers.dart';
 
 class _BaseWidgets {
+  Widget emptyPlaceholder() {
+    return const SizedBox.square(dimension: 0.0);
+  }
+
   PreferredSizeWidget appBar(
     BuildContext context,
     WidgetRef ref, {
@@ -111,8 +116,29 @@ class _BaseWidgets {
 
     return AppBar(
       leading: !hideBackButton ? backButton(context) : null,
-      title: Text(title ?? constants.projectName),
+      title: Row(
+        children: <Widget>[
+          Text(title ?? constants.projectName),
+          ref.watch(isLoadingProvider.notifier).state
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 12.0),
+                  child: loadingSpinner(color: Colors.white),
+                )
+              : emptyPlaceholder(),
+        ],
+      ),
       actions: appBarActions,
+    );
+  }
+
+  Widget loadingSpinner({double? size, Color? color}) {
+    return SizedBox(
+      height: size ?? 20.0,
+      width: size ?? 20.0,
+      child: CircularProgressIndicator(
+        strokeWidth: 2.0,
+        color: color,
+      ),
     );
   }
 }

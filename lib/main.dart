@@ -35,8 +35,9 @@ class MyApp extends StatelessWidget {
     );
 
     return MaterialApp.router(
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+      // routeInformationParser: router.routeInformationParser,
+      // routerDelegate: router.routerDelegate,
+      routerConfig: router,
       title: constants.projectName,
       theme: defaultTheme,
       darkTheme: ThemeData.dark(),
