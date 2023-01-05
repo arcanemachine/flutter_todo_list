@@ -98,7 +98,7 @@ class TodoForm extends ConsumerWidget {
     final int? todoSelectedId = ref.watch(todoSelectedIdProvider);
 
     // when updating todo, assign input field value to todo content
-    if (todoSelectedId != null) {
+    if (todoSelectedId != 0) {
       textInputController.text = ref
           .read(todosProvider)
           .where((todo) => todo.id == todoSelectedId)
@@ -184,27 +184,30 @@ class TodoForm extends ConsumerWidget {
 class TodoList extends ConsumerWidget {
   const TodoList({Key? key}) : super(key: key);
 
+  void _todoUpdateIsCompleted(BuildContext context, WidgetRef ref, Todo todo) {
+    ref.read(todosProvider.notifier).todoToggleIsCompleted(todo.id).then((res) {
+      // show message
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Todo status updated"),
+      ));
+    }).catchError((error) {
+      debugPrint(error.toString());
+      // show message
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Could not update todo status"),
+      ));
+    });
+  }
+
+  // widgets
   Widget checkmarkIcon(BuildContext context, WidgetRef ref, Todo todo) {
     return IconButton(
       icon: const Icon(Icons.check),
       color: todo.isCompleted == true ? Colors.green : null,
       tooltip: "Mark complete",
-      onPressed: () {
-        ref
-            .read(todosProvider.notifier)
-            .todoToggleIsCompleted(todo.id)
-            .then((res) {
-          // show message
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Todo status updated")));
-        }).catchError((err) {
-          // show message
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Could not update todo status")));
-        });
-      },
+      onPressed: () => _todoUpdateIsCompleted(context, ref, todo),
     );
   }
 
@@ -260,7 +263,7 @@ class TodoList extends ConsumerWidget {
             ),
             child: Text(todo.content),
             onPressed: () {
-              ref.read(todoSelectedIdProvider.notifier).update(todo.id);
+              ref.read(todoSelectedIdProvider.notifier).update(todo.id as int);
             },
           ),
           trailing: todoSelectedId != todo.id

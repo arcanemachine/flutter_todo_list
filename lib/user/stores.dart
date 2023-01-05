@@ -1,6 +1,4 @@
-// import 'dart:html';
-
-// import 'package:flutter/material.dart';
+import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/openapi/lib/api.dart';
@@ -24,8 +22,8 @@ class UserNotifier extends StateNotifier<User> {
   UserNotifier() : super(User());
 
   Future<ApiClient> apiClientGet() async {
-    String token = await secureStorage.storage.read(key: "auth_token") ?? "";
-    if (token.isEmpty) {
+    String? token = await secureStorage.storage.read(key: "auth_token");
+    if (token == null) {
       // create unauthenticated API client
       return apiClientCreate();
     } else {

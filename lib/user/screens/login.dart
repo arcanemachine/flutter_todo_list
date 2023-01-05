@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_list/openapi/lib/api.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/constants.dart';
 import 'package:flutter_todo_list/helpers.dart';
-// import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/styles.dart';
 import 'package:flutter_todo_list/user/stores.dart';
 import 'package:flutter_todo_list/widgets.dart';
@@ -28,7 +26,7 @@ class LoginScreen extends ConsumerWidget {
           shrinkWrap: true,
           children: <Widget>[
             _formTitle(context),
-            LoginForm(ref: ref),
+            const LoginForm(),
             _buttonRegister(),
           ],
         ),
@@ -73,15 +71,14 @@ class LoginScreen extends ConsumerWidget {
   }
 }
 
-class LoginForm extends StatefulWidget {
-  final WidgetRef ref;
-  const LoginForm({Key? key, required this.ref}) : super(key: key);
+class LoginForm extends ConsumerStatefulWidget {
+  const LoginForm({Key? key}) : super(key: key);
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  LoginFormState createState() => LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class LoginFormState extends ConsumerState<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
@@ -103,8 +100,30 @@ class _LoginFormState extends State<LoginForm> {
     const TextEditingValue(text: 'user'),
   );
   final _passwordController = TextEditingController.fromValue(
-    const TextEditingValue(text: 'passwords'),
+    const TextEditingValue(text: 'password'),
   );
+
+  // methods
+  void _handleSubmit(WidgetRef ref) {
+    final String username = _usernameController.text;
+    final String password = _passwordController.text;
+
+    _isLoadingSet(true); // set loading status
+
+    ref // login
+        .read(userProvider.notifier)
+        .login(username, password)
+        .then((value) {
+      context.pushReplacement("/todos"); // success url
+
+      // success message
+      widgetHelpers.snackBarShow(context, "Login successful");
+    }).catchError((err) {
+      widgetHelpers.snackBarShowApiException(context, err); // error message
+    });
+
+    _isLoadingSet(false); // reset loading status
+  }
 
   // widgets
   @override
@@ -157,8 +176,8 @@ class _LoginFormState extends State<LoginForm> {
         icon: Icon(Icons.key),
         labelText: "Password",
       ),
-      onChanged: (dynamic x) => setState(() {}),
-      onFieldSubmitted: (dynamic x) => _handleSubmit(),
+      onChanged: (_) => setState(() {}),
+      onFieldSubmitted: (_) => _handleSubmit(ref),
       validator: (val) {
         if (val == null || val.isEmpty) {
           return "This field must not be empty.";
@@ -176,7 +195,7 @@ class _LoginFormState extends State<LoginForm> {
             : styles.button.elevatedLgSecondary,
         onPressed: () {
           _loginButtonEnabled
-              ? _handleSubmit()
+              ? _handleSubmit(ref)
               : widgetHelpers.snackBarShow(context, "The form is incomplete.");
         },
         child: !_isLoading
@@ -184,35 +203,5 @@ class _LoginFormState extends State<LoginForm> {
             : const CircularProgressIndicator(),
       ),
     );
-  }
-
-  // methods
-  // Future<void> login(BuildContext context, String authToken) async {
-  //   await secureStorage.write('authToken', authToken).then((dynamic x) {
-  //     sharedPrefs.userIsAuthenticated = true;
-  //     context.goNamed('companies:companyList');
-  //     widgetHelpers.snackBarShow(context, "Login successful");
-  //   });
-  // }
-
-  void _handleSubmit() {
-    final String username = _usernameController.text;
-    final String password = _passwordController.text;
-
-    _isLoadingSet(true); // set loading status
-
-    widget.ref // login
-        .read(userProvider.notifier)
-        .login(username, password)
-        .then((value) {
-      context.pushReplacement("/todos"); // success url
-
-      // success message
-      widgetHelpers.snackBarShow(context, "Login successful");
-    }).catchError((err) {
-      widgetHelpers.snackBarShowApiException(context, err); // error message
-    });
-
-    _isLoadingSet(false); // reset loading status
   }
 }

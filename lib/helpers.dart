@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_list/openapi/lib/api.dart';
 
@@ -76,14 +74,14 @@ class _WidgetHelpers {
           [SnackBarAction? customAction]) {
     /** Parse error and show a snackbar message. */
 
-    int statusCode = error.code; // status code
-
     /* parse error message(s) and return the first error in the message body */
     late String message;
     if (error.message != null) {
       Map<String, dynamic> messageJson = jsonDecode(error.message as String);
 
-      if (messageJson.containsKey('non_field_errors')) {
+      if (messageJson.containsKey('detail')) {
+        message = messageJson['detail'];
+      } else if (messageJson.containsKey('non_field_errors')) {
         message = messageJson['non_field_errors'][0];
       } else {
         String firstKey = messageJson.keys.first;
@@ -93,7 +91,7 @@ class _WidgetHelpers {
       message = "An unknown error occurred.";
     }
 
-    // int statusCode =
+    int statusCode = error.code;
     if (statusCode != 400) {
       return snackBarShow(context, "Error $statusCode: $message");
     } else {

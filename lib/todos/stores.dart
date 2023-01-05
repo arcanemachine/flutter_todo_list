@@ -12,7 +12,9 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
     return Future.delayed(const Duration(milliseconds: 500), todosFetch);
   }
 
-  Future todosFetch() {
+  Future todosFetch() async {
+    final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
+
     Future result =
         todosApi.todosList().then((todos) => state = todos as List<Todo>);
 
@@ -20,6 +22,8 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
   }
 
   Future<void> todoCreate(String content) async {
+    final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
+
     // create API request
     final newTodo = await todosApi.todosCreate(TodoRequest(
       content: content,
@@ -30,6 +34,8 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
   }
 
   Future<bool> todoDelete(int? todoId) async {
+    final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
+
     // create API request
     await todosApi.todosDestroy(todoId as int);
 
@@ -43,13 +49,18 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
   }
 
   Future<void> todoToggleIsCompleted(int? todoId) async {
+    final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
+
     // create new todo with updated completion status
-    Todo modifiedTodo = state.where((todo) => todo.id == todoId).toList()[0];
-    modifiedTodo.isCompleted = !(modifiedTodo.isCompleted as bool);
+    Todo todo = state.where((todo) => todo.id == todoId).toList()[0];
+    TodoRequest todoRequest = TodoRequest(
+      content: todo.content,
+      isCompleted: !(todo.isCompleted as bool),
+    );
 
     // create API request
-    Todo updatedTodo = await todosApi.todosUpdate(
-        todoId as int, modifiedTodo as TodoRequest) as Todo;
+    Todo updatedTodo =
+        await todosApi.todosUpdate(todoId as int, todoRequest) as Todo;
 
     // update local state
     state = [
@@ -58,14 +69,17 @@ class TodosNotifier extends StateNotifier<List<Todo>> {
     ];
   }
 
-  Future<void> todoUpdateContent(int? todoId, String content) async {
+  Future<void> todoUpdateContent(int? todoId, String modifiedContent) async {
+    final todosApi = todosApiCreate(await secureStorage.read('auth_token'));
+
     // create new todo with updated content
-    Todo modifiedTodo = state.where((todo) => todo.id == todoId).toList()[0];
-    modifiedTodo.content = content;
+    Todo todo = state.where((todo) => todo.id == todoId).toList()[0];
+    TodoRequest todoRequest =
+        TodoRequest(content: modifiedContent, isCompleted: todo.isCompleted);
 
     // create API request
-    Todo updatedTodo = await todosApi.todosUpdate(
-        todoId as int, modifiedTodo as TodoRequest) as Todo;
+    Todo updatedTodo =
+        await todosApi.todosUpdate(todoId as int, todoRequest) as Todo;
 
     // update local state
     state = [
@@ -79,12 +93,12 @@ final todosProvider = StateNotifierProvider<TodosNotifier, List<Todo>>((ref) {
   return TodosNotifier();
 });
 
-class TodoSelectedIdNotifier extends StateNotifier<int?> {
-  TodoSelectedIdNotifier() : super(null);
+class TodoSelectedIdNotifier extends StateNotifier<int> {
+  TodoSelectedIdNotifier() : super(0);
 
   void reset() => state = 0;
 
-  void update(int? todoId) {
+  void update(int todoId) {
     if (state != todoId) {
       state = todoId;
     } else {
@@ -94,6 +108,6 @@ class TodoSelectedIdNotifier extends StateNotifier<int?> {
 }
 
 final todoSelectedIdProvider =
-    StateNotifierProvider<TodoSelectedIdNotifier, int?>((ref) {
+    StateNotifierProvider<TodoSelectedIdNotifier, int>((ref) {
   return TodoSelectedIdNotifier();
 });

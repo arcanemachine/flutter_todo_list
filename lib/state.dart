@@ -1,4 +1,4 @@
-// import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -6,31 +6,34 @@ import 'package:flutter_todo_list/openapi/lib/api.dart';
 import 'package:flutter_todo_list/constants.dart';
 
 // API clients
-ApiClient apiClientCreate({String token = ""}) {
+ApiClient apiClientCreate({String? token}) {
   /** If user is authenticated, add authorization data to HTTP headers. */
-  if (token.isEmpty) {
+  if (token == null) {
     return ApiClient(basePath: constants.basePath);
   } else {
     ApiKeyAuth authentication = ApiKeyAuth("header", "Authorization");
     authentication.apiKeyPrefix = "Token";
     authentication.apiKey = token;
+
     return ApiClient(
-        basePath: constants.basePath, authentication: authentication);
+      basePath: constants.basePath,
+      authentication: authentication,
+    );
   }
 }
 
-AuthApi authApiCreate({String token = ""}) =>
+AuthApi authApiCreate({String? token}) =>
     AuthApi(apiClientCreate(token: token));
-TodosApi todosApiCreate({String token = ""}) =>
+TodosApi todosApiCreate(String token) =>
     TodosApi(apiClientCreate(token: token));
-UtilsApi utilsApiCreate({String token = ""}) =>
-    UtilsApi(apiClientCreate(token: token));
+// UtilsApi utilsApiCreate({String? token}) =>
+//     UtilsApi(apiClientCreate(token: token));
 
 // deleteme
 final ApiClient apiClient = apiClientCreate();
 final AuthApi authApi = authApiCreate();
-final TodosApi todosApi = todosApiCreate();
-final UtilsApi utilsApi = utilsApiCreate();
+// final TodosApi todosApi = todosApiCreate();
+// final UtilsApi utilsApi = utilsApiCreate();
 
 // shared preferences
 class SharedPrefs {
@@ -54,10 +57,8 @@ class SharedPrefs {
   }
 
   void readAll() {
-    // if (kDebugMode) {
-    //   print('darkMode: "$darkMode"');
-    //   print('userIsAuthenticated: "$userIsAuthenticated"');
-    // }
+    debugPrint("darkMode: '$darkMode'");
+    debugPrint('userIsAuthenticated: "$userIsAuthenticated"');
   }
 
   void clearSession() {
