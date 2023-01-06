@@ -108,16 +108,16 @@ class LoginFormState extends ConsumerState<LoginForm> {
     final String username = _usernameController.text;
     final String password = _passwordController.text;
 
-    setState(() => _isLoading = true);
+    setState(() => _isLoading = true); // show loading spinner
 
     // login
     ref.read(userProvider.notifier).login(username, password).then((value) {
-      context.pushReplacement("/todos"); // success url
+      context.pushReplacementNamed("todos:todos"); // success url
 
       // success message
       widgetHelpers.snackBarShow(context, "Login successful");
     }).catchError((err) {
-      setState(() => _isLoading = false); // done loading
+      setState(() => _isLoading = false); // hide loading spinner
       widgetHelpers.snackBarShowApiException(context, err); // error message
     });
   }

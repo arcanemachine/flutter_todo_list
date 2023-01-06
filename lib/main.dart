@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/constants.dart';
+// import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/routes.dart';
 import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/styles.dart';
-import 'package:flutter_todo_list/todos/screens.dart';
+import 'package:flutter_todo_list/todos/screens/todos.dart';
 import 'package:flutter_todo_list/user/screens/login.dart';
-// import 'package:flutter_todo_list/user/stores.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await sharedPrefs.init(); // load persistent data
+
+  if (await secureStorage.userIsAuthenticated()) {
+    // // todo: confirm auth status or logout
+    // helpers.confirmAuthStatusOrLogout();
+  }
 
   runApp(
     const ProviderScope(
@@ -35,8 +40,6 @@ class MyApp extends StatelessWidget {
     );
 
     return MaterialApp.router(
-      // routeInformationParser: router.routeInformationParser,
-      // routerDelegate: router.routerDelegate,
       routerConfig: router,
       title: constants.projectName,
       theme: defaultTheme,

@@ -88,7 +88,7 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
   bool get _loginButtonEnabled =>
       !_isLoading &&
       _usernameController.text.isNotEmpty &&
-      // _emailController.text.isNotEmpty &&
+      _emailController.text.isNotEmpty &&
       _password1Controller.text.isNotEmpty &&
       _password2Controller.text.isNotEmpty;
 
@@ -187,7 +187,7 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
       controller: _emailController,
       decoration: const InputDecoration(
         icon: Icon(Icons.person),
-        labelText: "Email (Optional)",
+        labelText: "Email",
       ),
       onChanged: (dynamic x) => setState(() {}),
       validator: (val) {

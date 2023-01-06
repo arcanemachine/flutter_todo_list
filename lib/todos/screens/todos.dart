@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_todo_list/styles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -103,12 +104,18 @@ class TodosScreen extends ConsumerWidget {
   }
 }
 
-class TodoForm extends ConsumerWidget {
+class TodoForm extends ConsumerStatefulWidget {
   const TodoForm({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final formKey = GlobalKey<FormState>();
+  TodoFormState createState() => TodoFormState();
+}
+
+class TodoFormState extends ConsumerState<TodoForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
     final textInputController = TextEditingController();
     final int? todoSelectedId = ref.watch(todoSelectedIdProvider);
 
@@ -122,8 +129,10 @@ class TodoForm extends ConsumerWidget {
     }
 
     void handleSubmit() {
-      if (formKey.currentState!.validate()) {
+      if (_formKey.currentState!.validate()) {
         final String content = textInputController.text;
+
+        ref.read(isLoadingProvider.notifier).state = true; // begin loading
 
         if (todoSelectedId == 0) {
           // create todo
@@ -133,6 +142,9 @@ class TodoForm extends ConsumerWidget {
           }).catchError((err) {
             // show message
             widgetHelpers.snackBarShow(context, "Could not create todo");
+          }).whenComplete(() {
+            // finish loading
+            ref.read(isLoadingProvider.notifier).state = false;
           });
         } else {
           // update todo content
@@ -148,6 +160,8 @@ class TodoForm extends ConsumerWidget {
 
             // reset selected todo
             ref.read(todoSelectedIdProvider.notifier).reset();
+          }).whenComplete(() {
+            ref.read(isLoadingProvider.notifier).state = false; // done loading
           });
         }
 
@@ -156,7 +170,7 @@ class TodoForm extends ConsumerWidget {
     }
 
     return Form(
-      key: formKey,
+      key: _formKey,
       child: Column(
         children: <Widget>[
           Padding(
@@ -178,10 +192,11 @@ class TodoForm extends ConsumerWidget {
             ),
           ),
           Center(
-            // submit button
-            child: ElevatedButton(
+            child: baseWidgets.disablableButton(
+              isDisabled: ref.watch(isLoadingProvider),
               onPressed: () => handleSubmit(),
               child: const Text("Submit"),
+              disabledChild: const Text("Loading..."),
             ),
           ),
         ],
@@ -223,7 +238,8 @@ class TodoList extends ConsumerWidget {
       color: Colors.red,
       tooltip: "Delete todo",
       onPressed: () {
-        // delete todo
+        ref.read(isLoadingProvider.notifier).state = true; // begin loading
+
         ref.read(todosProvider.notifier).delete(todo.id).then((res) {
           // show message
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -232,6 +248,8 @@ class TodoList extends ConsumerWidget {
 
           // reset selected todo ID
           ref.read(todoSelectedIdProvider.notifier).reset();
+        }).whenComplete(() {
+          ref.read(isLoadingProvider.notifier).state = false; // done loading
         });
       },
     );

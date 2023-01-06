@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_todo_list/stores.dart';
+import 'package:flutter_todo_list/styles.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_todo_list/constants.dart';
@@ -9,10 +10,6 @@ import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/user/helpers.dart';
 
 class _BaseWidgets {
-  Widget emptyPlaceholder() {
-    return const SizedBox.square(dimension: 0.0);
-  }
-
   PreferredSizeWidget appBar(
     BuildContext context,
     WidgetRef ref, {
@@ -119,7 +116,7 @@ class _BaseWidgets {
       title: Row(
         children: <Widget>[
           Text(title ?? constants.projectName),
-          ref.watch(isLoadingProvider.notifier).state
+          ref.watch(isLoadingProvider)
               ? Padding(
                   padding: const EdgeInsets.only(left: 12.0),
                   child: loadingSpinner(color: Colors.white),
@@ -129,6 +126,39 @@ class _BaseWidgets {
       ),
       actions: appBarActions,
     );
+  }
+
+  Widget disablableButton({
+    isDisabled = true,
+    dynamic onPressed,
+    dynamic disabledOnPressed,
+    Widget? child,
+    Widget? disabledChild,
+  }) {
+    onPressed ??= () {};
+    child ??= const Text("Disabled");
+
+    if (!isDisabled) {
+      return ElevatedButton(onPressed: onPressed, child: child);
+    } else {
+      return disabledButton(onPressed: disabledOnPressed, child: disabledChild);
+    }
+  }
+
+  Widget disabledButton({dynamic onPressed, Widget? child}) {
+    onPressed ??= () {};
+    child ??= const Text("Disabled");
+
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(colors.palette.secondary)),
+      child: child,
+    );
+  }
+
+  Widget emptyPlaceholder() {
+    return const SizedBox.square(dimension: 0.0);
   }
 
   Widget loadingSpinner({double? size, Color? color}) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /* COLORS */
 class _Colors {
-  get palette => _Palette();
+  final palette = _Palette();
 
   MaterialColor generateMaterialColor(Color color) {
     return MaterialColor(color.value, {
@@ -40,15 +40,15 @@ class _Colors {
 }
 
 class _Palette {
-  Color get primary => const Color(0xFF2563EB);
-  Color get secondary => const Color(0xFFD1D5DB);
-  Color get accent => const Color(0xFF8B5CF6);
-  Color get neutral => const Color(0xFF312E81);
-  Color get base100 => const Color(0xFFF6F6FF);
-  Color get info => const Color(0xFF7DD3FC);
-  Color get success => const Color(0xFF25A762);
-  Color get warning => const Color(0xFFFACC15);
-  Color get error => const Color(0xFFDC2626);
+  final primary = const Color(0xFF2563EB);
+  final secondary = const Color(0xFFD1D5DB);
+  final accent = const Color(0xFF8B5CF6);
+  final neutral = const Color(0xFF312E81);
+  final base100 = const Color(0xFFF6F6FF);
+  final info = const Color(0xFF7DD3FC);
+  final success = const Color(0xFF25A762);
+  final warning = const Color(0xFFFACC15);
+  final error = const Color(0xFFDC2626);
 }
 
 final colors = _Colors();

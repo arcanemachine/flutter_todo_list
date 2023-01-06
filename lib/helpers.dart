@@ -11,6 +11,8 @@ class _Helpers {
     return navigator != null && navigator.canPop();
   }
 
+  // Future confirmAuthStatusOrLogout() async {}
+
   String? validateEmail(String? value) {
     String pattern =
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
@@ -25,12 +27,10 @@ class _Helpers {
   }
 
   // Widget saveRoute(GoRouterState state, Widget widget) {
-  //   /** Save incoming route to shared preferences so that it will be seen first
-  //     * when first opening the app.
+  //   /** Save incoming route to shared preferences so that it will be seen
+  //     * first when first opening the app.
   //     */
-
   //   sharedPrefs.routeCurrent = state.location;
-
   //   return widget;
   // }
 }
@@ -72,7 +72,7 @@ class _WidgetHelpers {
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
       snackBarShowApiException(BuildContext context, ApiException error,
           [SnackBarAction? customAction]) {
-    /** Parse error and show a snackbar message. */
+    /** Parse ApiException and show a snackbar message. */
 
     /* parse error message(s) and return the first error in the message body */
     String errorField = "";
