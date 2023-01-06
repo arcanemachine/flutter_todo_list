@@ -20,6 +20,12 @@ class LoginScreen extends ConsumerWidget {
         ref,
         title: "Login",
         hideBackButton: true,
+        extraPopupMenuItems: [
+          PopupMenuItem(
+            child: const Text("Register new account"),
+            onTap: () => context.pushNamed("user:register"),
+          ),
+        ],
       ),
       body: Center(
         child: ListView(
@@ -102,9 +108,7 @@ class LoginFormState extends ConsumerState<LoginForm> {
     final String username = _usernameController.text;
     final String password = _passwordController.text;
 
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() => _isLoading = true);
 
     // login
     ref.read(userProvider.notifier).login(username, password).then((value) {

@@ -98,10 +98,10 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
   // final _password1Controller = TextEditingController();
   // final _password2Controller = TextEditingController();
   final _usernameController = TextEditingController.fromValue(
-    const TextEditingValue(text: "user"),
+    const TextEditingValue(text: "user2"),
   );
   final _emailController = TextEditingController.fromValue(
-    const TextEditingValue(text: "user@example.com"),
+    const TextEditingValue(text: "user2@example.com"),
   );
   final _password1Controller = TextEditingController.fromValue(
     const TextEditingValue(text: "distance"),
@@ -126,7 +126,7 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
         .read(userProvider.notifier)
         .register(username, email, password1, password2)
         .then((value) {
-      context.pushReplacement("/login"); // success url
+      context.pushReplacementNamed("todos:todos"); // success url
 
       // success message
       widgetHelpers.snackBarShow(

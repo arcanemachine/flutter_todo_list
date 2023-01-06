@@ -63,7 +63,7 @@ class _BaseWidgets {
           context: context,
           builder: (BuildContext context) => AlertDialog(
             title: const Text("Confirm Logout"),
-            content: const Text("Are you sure you want to log out?"),
+            content: const Text("Do you really want to log out?"),
             actions: <Widget>[
               TextButton(
                 child: const Text("Cancel"),
@@ -90,7 +90,7 @@ class _BaseWidgets {
               },
             );
           },
-        )
+        ),
       ];
     } else {
       // unauthenticated user actions

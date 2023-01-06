@@ -121,6 +121,40 @@ class TodoForm extends ConsumerWidget {
           .content;
     }
 
+    void handleSubmit() {
+      if (formKey.currentState!.validate()) {
+        final String content = textInputController.text;
+
+        if (todoSelectedId == 0) {
+          // create todo
+          ref.read(todosProvider.notifier).create(content).then((res) {
+            // success message
+            widgetHelpers.snackBarShow(context, "Todo created");
+          }).catchError((err) {
+            // show message
+            widgetHelpers.snackBarShow(context, "Could not create todo");
+          });
+        } else {
+          // update todo content
+          ref
+              .read(todosProvider.notifier)
+              .updateContent(todoSelectedId, content)
+              .then((res) {
+            // show message
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Todo content updated")),
+            );
+
+            // reset selected todo
+            ref.read(todoSelectedIdProvider.notifier).reset();
+          });
+        }
+
+        textInputController.clear(); // clear text input field
+      }
+    }
+
     return Form(
       key: formKey,
       child: Column(
@@ -140,50 +174,13 @@ class TodoForm extends ConsumerWidget {
                 }
                 return null;
               },
+              onFieldSubmitted: (_) => handleSubmit(),
             ),
           ),
           Center(
             // submit button
             child: ElevatedButton(
-              onPressed: () {
-                // ignore: todo
-                // TODO: move into own function
-                if (formKey.currentState!.validate()) {
-                  final String content = textInputController.text;
-
-                  if (todoSelectedId == 0) {
-                    // create todo
-                    ref
-                        .read(todosProvider.notifier)
-                        .create(content)
-                        .then((res) {
-                      // success message
-                      widgetHelpers.snackBarShow(context, "Todo created");
-                    }).catchError((err) {
-                      // show message
-                      widgetHelpers.snackBarShow(
-                          context, "Could not create todo");
-                    });
-                  } else {
-                    // update todo content
-                    ref
-                        .read(todosProvider.notifier)
-                        .updateContent(todoSelectedId, content)
-                        .then((res) {
-                      // show message
-                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Todo content updated")),
-                      );
-
-                      // reset selected todo
-                      ref.read(todoSelectedIdProvider.notifier).reset();
-                    });
-                  }
-
-                  textInputController.clear(); // clear text input field
-                }
-              },
+              onPressed: () => handleSubmit(),
               child: const Text("Submit"),
             ),
           ),

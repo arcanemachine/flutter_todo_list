@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/openapi/lib/api.dart';
@@ -56,7 +57,7 @@ class UserNotifier extends StateNotifier<User> {
     // save token to secure storage
     await secureStorage.login(token!.key);
 
-    // save auth status to shared preferences (for easy non-async access)
+    // save auth status to shared preferences
     sharedPrefs.login();
   }
 
@@ -64,17 +65,14 @@ class UserNotifier extends StateNotifier<User> {
     // create unauthenticated API client
     AuthApi authApi = authApiCreate();
 
-    // get auth token
+    // try to login
     AuthToken? authToken =
         await authApi.authLoginTokenCreate(username, password);
-
-    // // update user authentication status
-    // state.isAuthenticated = true;
 
     // save token to secure storage
     await secureStorage.login(authToken!.token as String);
 
-    // save auth status to shared preferences (for easy non-async access)
+    // save auth status to shared preferences
     sharedPrefs.login();
   }
 
