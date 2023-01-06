@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:flutter_todo_list/constants.dart';
+import 'package:flutter_todo_list/globals.dart';
 // import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/routes.dart';
 import 'package:flutter_todo_list/state.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp.router(
       routerConfig: router,
-      title: constants.projectName,
+      title: globals.projectName,
       theme: defaultTheme,
       darkTheme: ThemeData.dark(),
       themeMode: sharedPrefs.darkMode == 'light'

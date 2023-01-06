@@ -7,4 +7,4 @@ class _Constants {
   String get apiRoot => "$basePath/api";
 }
 
-final constants = _Constants();
+final globals = _Constants();

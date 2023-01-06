@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_list/openapi/lib/api.dart';
+import 'package:flutter_todo_list/state.dart';
 
 class _Helpers {
   // _ExampleHelpers get example => _ExampleHelpers();
@@ -12,6 +13,14 @@ class _Helpers {
   }
 
   // Future confirmAuthStatusOrLogout() async {}
+
+  String? routeLoginRequired() {
+    if (!sharedPrefs.userIsAuthenticated) {
+      return "/"; // redirect to login
+    } else {
+      return null; // continue to route
+    }
+  }
 
   String? validateEmail(String? value) {
     String pattern =

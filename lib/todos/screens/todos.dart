@@ -241,14 +241,15 @@ class TodoList extends ConsumerWidget {
         ref.read(isLoadingProvider.notifier).state = true; // begin loading
 
         ref.read(todosProvider.notifier).delete(todo.id).then((res) {
-          // show message
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text("Todo deleted")));
-
+          // success message
+          widgetHelpers.snackBarShow(context, "Todo deleted");
+        }).catchError((error) {
+          // error message
+          widgetHelpers.snackBarShow(context, "Could not delete todo");
+        }).whenComplete(() {
           // reset selected todo ID
           ref.read(todoSelectedIdProvider.notifier).reset();
-        }).whenComplete(() {
+
           ref.read(isLoadingProvider.notifier).state = false; // done loading
         });
       },

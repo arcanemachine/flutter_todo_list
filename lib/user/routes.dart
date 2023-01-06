@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/user/screens/login.dart';
+import 'package:flutter_todo_list/user/screens/user_detail.dart';
 import 'package:flutter_todo_list/user/screens/register.dart';
 import 'package:flutter_todo_list/user/screens/settings.dart';
 
 final List<GoRoute> userRoutes = [
+  GoRoute(
+    path: '/user',
+    name: 'user:user_detail',
+    builder: (context, state) => const UserDetailScreen(),
+    redirect: (BuildContext context, GoRouterState state) =>
+        helpers.routeLoginRequired(),
+  ),
   GoRoute(
     path: '/user/login',
     name: 'user:login',

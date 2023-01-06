@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 // import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:flutter_todo_list/constants.dart';
+import 'package:flutter_todo_list/globals.dart';
 import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/styles.dart';
 import 'package:flutter_todo_list/user/stores.dart';
@@ -27,7 +27,7 @@ class RegisterScreen extends ConsumerWidget {
           children: <Widget>[
             _formTitle(context),
             const RegisterForm(),
-            _buttonRegister(context),
+            _textButtonRegister(context),
           ],
         ),
       ),
@@ -39,7 +39,7 @@ class RegisterScreen extends ConsumerWidget {
       children: <Widget>[
         const SizedBox(height: 16.0),
         Text(
-          constants.projectName,
+          globals.projectName,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         Padding(
@@ -53,7 +53,7 @@ class RegisterScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buttonRegister(BuildContext context) {
+  Widget _textButtonRegister(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: TextButton(

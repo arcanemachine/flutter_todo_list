@@ -3,13 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_todo_list/openapi/lib/api.dart';
 import 'package:flutter_todo_list/state.dart';
 
+// todods
 class TodosNotifier extends StateNotifier<List<Todo>> {
+  /// StateNotifierProviders do not expose a value directly, but instead
+  /// expose methods that allow you to *manipulate* the value.
   TodosNotifier() : super([]);
 
   Future refresh() {
-    state = [];
-
-    return Future.delayed(const Duration(milliseconds: 500), fetch);
+    return Future.delayed(const Duration(milliseconds: 500), fetch)
+        .then((value) => state = value);
   }
 
   Future fetch() async {
@@ -93,6 +95,7 @@ final todosProvider = StateNotifierProvider<TodosNotifier, List<Todo>>((ref) {
   return TodosNotifier();
 });
 
+// selected todo ID
 class TodoSelectedIdNotifier extends StateNotifier<int> {
   TodoSelectedIdNotifier() : super(0);
 

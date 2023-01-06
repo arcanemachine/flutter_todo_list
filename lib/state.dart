@@ -3,20 +3,20 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_todo_list/openapi/lib/api.dart';
-import 'package:flutter_todo_list/constants.dart';
+import 'package:flutter_todo_list/globals.dart';
 
 // API clients
 ApiClient apiClientCreate({String? token}) {
   /** If user is authenticated, add authorization data to HTTP headers. */
   if (token == null) {
-    return ApiClient(basePath: constants.basePath);
+    return ApiClient(basePath: globals.basePath);
   } else {
     ApiKeyAuth authentication = ApiKeyAuth("header", "Authorization");
     authentication.apiKeyPrefix = "Token";
     authentication.apiKey = token;
 
     return ApiClient(
-      basePath: constants.basePath,
+      basePath: globals.basePath,
       authentication: authentication,
     );
   }

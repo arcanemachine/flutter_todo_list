@@ -4,8 +4,8 @@ import 'package:flutter_todo_list/stores.dart';
 import 'package:flutter_todo_list/styles.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:flutter_todo_list/constants.dart';
-import 'package:flutter_todo_list/helpers.dart';
+import 'package:flutter_todo_list/globals.dart';
+// import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/user/helpers.dart';
 
@@ -18,21 +18,22 @@ class _BaseWidgets {
     List<PopupMenuItem> extraPopupMenuItems = const <PopupMenuItem>[],
     bool hideBackButton = false,
     bool hideSettings = false,
+    bool hideUserProfile = false,
   }) {
-    /* back button */
-    Widget? backButton(BuildContext context) {
-      if (helpers.canPop(context)) {
-        return IconButton(
-          icon: const Icon(Icons.arrow_back),
-          tooltip: "Go Back",
-          onPressed: () {
-            context.pop();
-          },
-        );
-      } else {
-        return null;
-      }
-    }
+    // /* back button */
+    // Widget? backButton() {
+    //   if (helpers.canPop(context)) {
+    //     return IconButton(
+    //       icon: const Icon(Icons.arrow_back),
+    //       tooltip: "Go Back",
+    //       onPressed: () {
+    //         context.pop();
+    //       },
+    //     );
+    //   } else {
+    //     return null;
+    //   }
+    // }
 
     /* popup menu items */
     List<PopupMenuItem> popupMenuItems = [...extraPopupMenuItems];
@@ -49,32 +50,7 @@ class _BaseWidgets {
       );
     }
 
-    // print(sharedPrefs.userIsAuthenticated);
-
     if (sharedPrefs.userIsAuthenticated) {
-      // ignore: todo
-      // TODO: user profile icon
-
-      void showDialogLogout() {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: const Text("Confirm Logout"),
-            content: const Text("Do you really want to log out?"),
-            actions: <Widget>[
-              TextButton(
-                child: const Text("Cancel"),
-                onPressed: () => Navigator.pop(context),
-              ),
-              TextButton(
-                child: const Text("OK"),
-                onPressed: () => userHelpers.logout(context, ref),
-              ),
-            ],
-          ),
-        );
-      }
-
       // append
       popupMenuItems = [
         ...popupMenuItems,
@@ -83,7 +59,24 @@ class _BaseWidgets {
           onTap: () {
             WidgetsBinding.instance.addPostFrameCallback(
               (_) {
-                showDialogLogout();
+                // show dialog: confirm logout
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text("Confirm Logout"),
+                    content: const Text("Do you really want to log out?"),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text("Cancel"),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      TextButton(
+                        child: const Text("OK"),
+                        onPressed: () => userHelpers.logout(context, ref),
+                      ),
+                    ],
+                  ),
+                );
               },
             );
           },
@@ -98,24 +91,41 @@ class _BaseWidgets {
     List<Widget> appBarActions = List<Widget>.from(extraActions);
 
     appBarActions = List<Widget>.from(appBarActions);
+
+    if (sharedPrefs.userIsAuthenticated && !hideUserProfile) {
+      // user profile icon
+      appBarActions.add(
+        IconButton(
+          onPressed: () {
+            context.pushNamed("user:user_detail");
+          },
+          icon: const Icon(Icons.person),
+          tooltip: "Your profile",
+        ),
+      );
+    } else {
+      // unauthenticated user actions
+    }
+
     if (popupMenuItems.isNotEmpty) {
-      // show popup menu on the end of the list
+      // show extra actions at the end
       appBarActions.addAll(
         [
           PopupMenuButton(
             itemBuilder: (context) {
               return popupMenuItems;
             },
+            tooltip: "Menu",
           ),
         ],
       );
     }
 
     return AppBar(
-      leading: !hideBackButton ? backButton(context) : null,
+      // leading: !hideBackButton ? backButton() : null,
       title: Row(
         children: <Widget>[
-          Text(title ?? constants.projectName),
+          Text(title ?? globals.projectName),
           ref.watch(isLoadingProvider)
               ? Padding(
                   padding: const EdgeInsets.only(left: 12.0),
