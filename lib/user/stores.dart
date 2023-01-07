@@ -53,7 +53,7 @@ class UserNotifier extends StateNotifier<UserDetails?> {
         password1: password1,
         password2: password2);
 
-    // get auth token (and save it to bypass login requirement)
+    // get and save auth token (allows immediate login)
     Token? token = await authApi.authRegistrationCreate(registerRequest);
 
     // save token to secure storage

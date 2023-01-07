@@ -1,1 +1,9 @@
-flutter emulators --launch generic
+#!/bin/bash
+
+if [ "$1" != "" ]; then
+  emulator_name="$1"
+else
+  emulator_name="generic-play"
+fi
+
+flutter emulators --launch $emulator_name

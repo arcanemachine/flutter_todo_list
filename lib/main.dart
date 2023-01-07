@@ -1,8 +1,12 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_todo_list/helpers.dart';
+
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/globals.dart';
-// import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/routes.dart';
 import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/styles.dart';
@@ -18,6 +22,8 @@ void main() async {
     // // todo: confirm auth status or logout
     // helpers.confirmAuthStatusOrLogout();
   }
+
+  await helpers.initializeFcm();
 
   runApp(
     const ProviderScope(

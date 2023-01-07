@@ -7,13 +7,19 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
-        <!-- disable FCM analytics -->
-        <meta-data
+        <!-- disable FCM analytics (from firebase docs) -->
+        <!--meta-data
             android:name="firebase_messaging_auto_init_enabled"
-            android:value="false" />
+            android:value="false" /-->
         <meta-data
             android:name="firebase_analytics_collection_enabled"
             android:value="false" />
+
+        <!-- more analytics stuff (from https://stackoverflow.com/a/56853571) -->
+        <meta-data
+            android:name="firebase_analytics_collection_deactivated" android:value="true" />
+        <meta-data
+            android:name="google_analytics_adid_collection_enabled" android:value="false" />
 
         <activity
             android:name=".MainActivity"
