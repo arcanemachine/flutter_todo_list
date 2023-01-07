@@ -26,14 +26,10 @@ AuthApi authApiCreate({String? token}) =>
     AuthApi(apiClientCreate(token: token));
 TodosApi todosApiCreate(String token) =>
     TodosApi(apiClientCreate(token: token));
-// UtilsApi utilsApiCreate({String? token}) =>
-//     UtilsApi(apiClientCreate(token: token));
 
-// deleteme
+// todo: deleteme
 final ApiClient apiClient = apiClientCreate();
 final AuthApi authApi = authApiCreate();
-// final TodosApi todosApi = todosApiCreate();
-// final UtilsApi utilsApi = utilsApiCreate();
 
 // shared preferences
 class SharedPrefs {

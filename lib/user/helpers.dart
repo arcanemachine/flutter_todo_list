@@ -19,6 +19,29 @@ class _UserHelpers {
       widgetHelpers.snackBarShow(context, "Logout successful");
     });
   }
+
+  void showDialogLogout(BuildContext context, WidgetRef ref) {
+    /// Confirm user intentions and logout (or cancel).
+    {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text("Confirm Logout"),
+          content: const Text("Do you really want to log out?"),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Cancel"),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: const Text("OK"),
+              onPressed: () => userHelpers.logout(context, ref),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 }
 
 final userHelpers = _UserHelpers();

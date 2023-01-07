@@ -58,26 +58,7 @@ class _BaseWidgets {
           child: const Text("Logout"),
           onTap: () {
             WidgetsBinding.instance.addPostFrameCallback(
-              (_) {
-                // show dialog: confirm logout
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text("Confirm Logout"),
-                    content: const Text("Do you really want to log out?"),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text("Cancel"),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                      TextButton(
-                        child: const Text("OK"),
-                        onPressed: () => userHelpers.logout(context, ref),
-                      ),
-                    ],
-                  ),
-                );
-              },
+              (_) => userHelpers.showDialogLogout(context, ref),
             );
           },
         ),

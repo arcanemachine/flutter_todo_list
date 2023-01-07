@@ -5,13 +5,12 @@ import 'package:flutter_todo_list/state.dart';
 
 // todods
 class TodosNotifier extends StateNotifier<List<Todo>> {
-  /// StateNotifierProviders do not expose a value directly, but instead
-  /// expose methods that allow you to *manipulate* the value.
+  /// StateNotifierProviders both expose a value directly, and also
+  /// expose methods that allow you to manipulate the value.
   TodosNotifier() : super([]);
 
   Future refresh() {
-    return Future.delayed(const Duration(milliseconds: 500), fetch)
-        .then((value) => state = value);
+    return fetch().then((value) => state = value);
   }
 
   Future fetch() async {

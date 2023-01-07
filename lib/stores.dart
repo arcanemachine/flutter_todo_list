@@ -17,5 +17,4 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //   return RoutePreviousNotifier();
 // });
 
-// StateProviders allow you to directly manipulate the state of an object
 final isLoadingProvider = StateProvider<bool>((ref) => false);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_list/styles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +18,6 @@ class TodosScreen extends ConsumerWidget {
         context,
         ref,
         title: "Todo List",
-        hideBackButton: true,
       ),
       body: _refreshIndicator(context, ref),
     );

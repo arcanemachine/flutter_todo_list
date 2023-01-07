@@ -3,32 +3,35 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_todo_list/openapi/lib/api.dart';
 import 'package:flutter_todo_list/state.dart';
 
-class User {
-  User({
-    this.username,
-    this.email,
-    this.apiClient,
-  });
+class UserNotifier extends StateNotifier<UserDetails?> {
+  UserNotifier() : super(UserDetails(username: ""));
 
-  String? username;
-  String? email;
-  ApiClient? apiClient;
-}
+  // get pk => state?.username;
+  // get username => state?.username;
+  // get email => state?.email;
+  // get firstName => state?.firstName;
+  // get lastName => state?.lastName;
+  UserDetails? get user => state;
 
-class UserNotifier extends StateNotifier<User> {
-  UserNotifier() : super(User());
-
-  Future<ApiClient> apiClientGet() async {
-    String? token = await secureStorage.storage.read(key: "auth_token");
-    if (token == null) {
-      // create unauthenticated API client
-      return apiClientCreate();
-    } else {
-      return apiClientCreate(token: token);
-    }
+  Future refresh() {
+    return fetch(forceRefresh: true).then((value) {
+      state = value;
+    });
   }
 
-  // bool get isAuthenticated => state.isAuthenticated;
+  Future fetch({bool forceRefresh = false}) async {
+    // return cached value
+    if (!forceRefresh && state!.username.isNotEmpty) {
+      return state;
+    }
+
+    final authApi =
+        authApiCreate(token: await secureStorage.read('auth_token'));
+
+    Future result = authApi.authUserRetrieve().then((user) => state = user);
+
+    return result;
+  }
 
   Future<bool> confirmAuthenticationStatus() async {
     return false; // todo
@@ -36,7 +39,7 @@ class UserNotifier extends StateNotifier<User> {
 
   Future<void> register(
     String username,
-    String? email,
+    String email,
     String password1,
     String password2,
   ) async {
@@ -46,11 +49,11 @@ class UserNotifier extends StateNotifier<User> {
     // build request
     var registerRequest = RegisterRequest(
         username: username,
-        email: email ?? "",
+        email: email,
         password1: password1,
         password2: password2);
 
-    // get auth token
+    // get auth token (and save it to bypass login requirement)
     Token? token = await authApi.authRegistrationCreate(registerRequest);
 
     // save token to secure storage
@@ -64,7 +67,7 @@ class UserNotifier extends StateNotifier<User> {
     // create unauthenticated API client
     AuthApi authApi = authApiCreate();
 
-    // try to login
+    // make login request
     AuthToken? authToken =
         await authApi.authLoginTokenCreate(username, password);
 
@@ -81,7 +84,7 @@ class UserNotifier extends StateNotifier<User> {
   }
 }
 
-final userProvider = StateNotifierProvider<UserNotifier, Object>((ref) {
+final userProvider = StateNotifierProvider<UserNotifier, UserDetails?>((ref) {
   return UserNotifier();
 });
 
