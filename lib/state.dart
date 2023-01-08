@@ -8,6 +8,7 @@ import 'package:flutter_todo_list/globals.dart';
 // API clients
 ApiClient apiClientCreate({String? token}) {
   /** If user is authenticated, add authorization data to HTTP headers. */
+
   if (token == null) {
     return ApiClient(basePath: globals.basePath);
   } else {

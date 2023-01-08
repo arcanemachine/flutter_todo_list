@@ -61,8 +61,12 @@ class UserNotifier extends StateNotifier<UserDetails?> {
     // save token to secure storage
     await secureStorage.login(token!.key);
 
-    // register for notifications
-    await fcmNotificationsRegister();
+    // register with API server to receive FCM notifications
+    try {
+      await fcmNotificationsRegister();
+    } catch (err) {
+      debugPrint("Could not register FCM device with our API server.");
+    }
 
     // save auth status to shared preferences
     sharedPrefs.login();
@@ -79,8 +83,12 @@ class UserNotifier extends StateNotifier<UserDetails?> {
     // save token to secure storage
     await secureStorage.login(authToken!.token as String);
 
-    // register for notifications
-    await fcmNotificationsRegister();
+    // register with API server to receive FCM notifications
+    try {
+      await fcmNotificationsRegister();
+    } catch (err) {
+      debugPrint("Could not register FCM device with our API server.");
+    }
 
     // save auth status to shared preferences
     sharedPrefs.login();

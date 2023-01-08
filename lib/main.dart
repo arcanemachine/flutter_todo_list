@@ -23,7 +23,11 @@ void main() async {
     // helpers.confirmAuthStatusOrLogout();
   }
 
-  await helpers.initializeFcm();
+  try {
+    await helpers.initializeFcm();
+  } catch (err) {
+    debugPrint("Could not initialize FCM.");
+  }
 
   runApp(
     const ProviderScope(

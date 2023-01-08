@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 // import 'package:url_launcher/url_launcher.dart';
@@ -118,7 +120,8 @@ class LoginFormState extends ConsumerState<LoginForm> {
       widgetHelpers.snackBarShow(context, "Login successful");
     }).catchError((err) {
       setState(() => _isLoading = false); // hide loading spinner
-      widgetHelpers.snackBarShowApiException(context, err); // error message
+
+      widgetHelpers.snackBarShow(context, err.toString()); // error message
     });
   }
 
