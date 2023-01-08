@@ -84,6 +84,8 @@ class _Helpers {
         );
       }
     });
+
+    // sharedPrefs.hasPlayServices = true;
   }
 
   // Future confirmAuthStatusOrLogout() async {}

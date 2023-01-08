@@ -62,11 +62,13 @@ class UserNotifier extends StateNotifier<UserDetails?> {
     await secureStorage.login(token!.key);
 
     // register with API server to receive FCM notifications
+    // if (sharedPrefs.hasPlayServices) {
     try {
       await fcmNotificationsRegister();
     } catch (err) {
       debugPrint("Could not register FCM device with our API server.");
     }
+    // }
 
     // save auth status to shared preferences
     sharedPrefs.login();
@@ -84,11 +86,13 @@ class UserNotifier extends StateNotifier<UserDetails?> {
     await secureStorage.login(authToken!.token as String);
 
     // register with API server to receive FCM notifications
+    // if (sharedPrefs.hasPlayServices) {
     try {
       await fcmNotificationsRegister();
     } catch (err) {
       debugPrint("Could not register FCM device with our API server.");
     }
+    // }
 
     // save auth status to shared preferences
     sharedPrefs.login();

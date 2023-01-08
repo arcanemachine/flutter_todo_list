@@ -1,8 +1,5 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_todo_list/helpers.dart';
 
-import 'firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,7 +16,7 @@ void main() async {
   await sharedPrefs.init(); // load persistent data
 
   if (await secureStorage.userIsAuthenticated()) {
-    // // todo: confirm auth status or logout
+    // // todo: confirm auth status (or logout)
     // helpers.confirmAuthStatusOrLogout();
   }
 
@@ -27,6 +24,7 @@ void main() async {
     await helpers.initializeFcm();
   } catch (err) {
     debugPrint("Could not initialize FCM.");
+    // sharedPrefs.hasPlayServices = false;
   }
 
   runApp(

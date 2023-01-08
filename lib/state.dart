@@ -46,6 +46,10 @@ class SharedPrefs {
     if (_sharedPrefs?.getBool('is_authenticated') != true) {
       _sharedPrefs?.setBool('is_authenticated', false);
     }
+
+    // if (_sharedPrefs?.getBool('has_play_services') != true) {
+    //   _sharedPrefs?.setBool('has_play_services', false);
+    // }
   }
 
   // utility
@@ -78,11 +82,18 @@ class SharedPrefs {
     _sharedPrefs?.setBool('is_authenticated', false);
   }
 
-  // darkMode
+  // dark_mode
   String get darkMode => _sharedPrefs?.getString('dark_mode') ?? 'auto';
   set darkMode(String val) {
     _sharedPrefs?.setString('dark_mode', val);
   }
+
+  // // has_play_services
+  // bool get hasPlayServices =>
+  //     _sharedPrefs?.getBool('has_play_services') ?? false;
+  // set hasPlayServices(bool val) {
+  //   _sharedPrefs?.setBool('has_play_services', val);
+  // }
 
   // // routes
   // String get routeCurrent => _sharedPrefs?.getString('route_current') ?? "";
