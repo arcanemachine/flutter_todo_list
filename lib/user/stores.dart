@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter_todo_list/openapi/lib/api.dart';
 import 'package:flutter_todo_list/state.dart';
@@ -59,6 +61,9 @@ class UserNotifier extends StateNotifier<UserDetails?> {
     // save token to secure storage
     await secureStorage.login(token!.key);
 
+    // register for notifications
+    await fcmNotificationsRegister();
+
     // save auth status to shared preferences
     sharedPrefs.login();
   }
@@ -74,8 +79,26 @@ class UserNotifier extends StateNotifier<UserDetails?> {
     // save token to secure storage
     await secureStorage.login(authToken!.token as String);
 
+    // register for notifications
+    await fcmNotificationsRegister();
+
     // save auth status to shared preferences
     sharedPrefs.login();
+  }
+
+  Future<void> fcmNotificationsRegister() async {
+    final AuthApi authApi =
+        authApiCreate(token: await secureStorage.read('auth_token'));
+
+    try {
+      final String? fcmToken = await FirebaseMessaging.instance.getToken();
+      final gcmDeviceRequest =
+          GCMDeviceRequest(registrationId: fcmToken as String);
+
+      authApi.authFcmCreate(gcmDeviceRequest);
+    } catch (err) {
+      debugPrint("Could not register for FCM notifications.");
+    }
   }
 
   Future<void> logout() async {

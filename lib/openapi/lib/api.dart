@@ -35,6 +35,8 @@ part 'model/auth_token.dart';
 part 'model/auth_token_request.dart';
 part 'model/csrfmiddlewaretoken.dart';
 part 'model/csrfmiddlewaretoken_request.dart';
+part 'model/drf_authtoken.dart';
+part 'model/gcm_device_request.dart';
 part 'model/login.dart';
 part 'model/login_request.dart';
 part 'model/password_change_request.dart';

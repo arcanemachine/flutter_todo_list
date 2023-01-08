@@ -189,6 +189,10 @@ class ApiClient {
           return Csrfmiddlewaretoken.fromJson(value);
         case 'CsrfmiddlewaretokenRequest':
           return CsrfmiddlewaretokenRequest.fromJson(value);
+        case 'DrfAuthtoken':
+          return DrfAuthtoken.fromJson(value);
+        case 'GCMDeviceRequest':
+          return GCMDeviceRequest.fromJson(value);
         case 'Login':
           return Login.fromJson(value);
         case 'LoginRequest':

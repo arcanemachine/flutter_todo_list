@@ -17,13 +17,43 @@ void main() {
   // final instance = AuthApi();
 
   group('tests for AuthApi', () {
-    // Check the credentials and return the REST Token if the credentials are valid and authenticated. Calls Django Auth login method to register User ID in Django session framework  Accept the following POST parameters: username, password Return the REST Framework Token Object's key.
+    // Check if a user is authenticated using session authentication.
+    //
+    //Future<DrfAuthtoken> authCheckRetrieve() async
+    test('test authCheckRetrieve', () async {
+      // TODO
+    });
+
+    // Check if a user is authenticated using token authentication.
+    //
+    //Future<DrfAuthtoken> authCheckTokenRetrieve() async
+    test('test authCheckTokenRetrieve', () async {
+      // TODO
+    });
+
+    // Register a device with Firebase Cloud Messaging (FCM).
+    //
+    //Future authFcmCreate(GCMDeviceRequest gCMDeviceRequest) async
+    test('test authFcmCreate', () async {
+      // TODO
+    });
+
+    // Register a device with Firebase Cloud Messaging (FCM).
+    //
+    //Future authFcmUpdate(GCMDeviceRequest gCMDeviceRequest) async
+    test('test authFcmUpdate', () async {
+      // TODO
+    });
+
+    // Login using session authentication.
     //
     //Future<Login> authLoginCreate(LoginRequest loginRequest) async
     test('test authLoginCreate', () async {
       // TODO
     });
 
+    // Login using token authentication.
+    //
     //Future<AuthToken> authLoginTokenCreate(String username, String password) async
     test('test authLoginTokenCreate', () async {
       // TODO

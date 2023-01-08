@@ -45,13 +45,12 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
 
 final api_instance = AuthApi();
-final loginRequest = LoginRequest(); // LoginRequest | 
 
 try {
-    final result = api_instance.authLoginCreate(loginRequest);
+    final result = api_instance.authCheckRetrieve();
     print(result);
 } catch (e) {
-    print('Exception when calling AuthApi->authLoginCreate: $e\n');
+    print('Exception when calling AuthApi->authCheckRetrieve: $e\n');
 }
 
 ```
@@ -62,6 +61,10 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AuthApi* | [**authCheckRetrieve**](doc//AuthApi.md#authcheckretrieve) | **GET** /api/auth/check/ | 
+*AuthApi* | [**authCheckTokenRetrieve**](doc//AuthApi.md#authchecktokenretrieve) | **GET** /api/auth/check/token/ | 
+*AuthApi* | [**authFcmCreate**](doc//AuthApi.md#authfcmcreate) | **POST** /api/auth/fcm/ | 
+*AuthApi* | [**authFcmUpdate**](doc//AuthApi.md#authfcmupdate) | **PUT** /api/auth/fcm/ | 
 *AuthApi* | [**authLoginCreate**](doc//AuthApi.md#authlogincreate) | **POST** /api/auth/login/ | 
 *AuthApi* | [**authLoginTokenCreate**](doc//AuthApi.md#authlogintokencreate) | **POST** /api/auth/login/token/ | 
 *AuthApi* | [**authLogoutCreate**](doc//AuthApi.md#authlogoutcreate) | **POST** /api/auth/logout/ | 
@@ -90,6 +93,8 @@ Class | Method | HTTP request | Description
  - [AuthTokenRequest](doc//AuthTokenRequest.md)
  - [Csrfmiddlewaretoken](doc//Csrfmiddlewaretoken.md)
  - [CsrfmiddlewaretokenRequest](doc//CsrfmiddlewaretokenRequest.md)
+ - [DrfAuthtoken](doc//DrfAuthtoken.md)
+ - [GCMDeviceRequest](doc//GCMDeviceRequest.md)
  - [Login](doc//Login.md)
  - [LoginRequest](doc//LoginRequest.md)
  - [PasswordChangeRequest](doc//PasswordChangeRequest.md)

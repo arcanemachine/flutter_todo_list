@@ -8,6 +8,8 @@ doc/AuthToken.md
 doc/AuthTokenRequest.md
 doc/Csrfmiddlewaretoken.md
 doc/CsrfmiddlewaretokenRequest.md
+doc/DrfAuthtoken.md
+doc/GCMDeviceRequest.md
 doc/Login.md
 doc/LoginRequest.md
 doc/PasswordChangeRequest.md
@@ -43,6 +45,8 @@ lib/model/auth_token.dart
 lib/model/auth_token_request.dart
 lib/model/csrfmiddlewaretoken.dart
 lib/model/csrfmiddlewaretoken_request.dart
+lib/model/drf_authtoken.dart
+lib/model/gcm_device_request.dart
 lib/model/login.dart
 lib/model/login_request.dart
 lib/model/password_change_request.dart
@@ -65,6 +69,8 @@ test/auth_token_request_test.dart
 test/auth_token_test.dart
 test/csrfmiddlewaretoken_request_test.dart
 test/csrfmiddlewaretoken_test.dart
+test/drf_authtoken_test.dart
+test/gcm_device_request_test.dart
 test/login_request_test.dart
 test/login_test.dart
 test/password_change_request_test.dart

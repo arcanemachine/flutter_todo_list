@@ -13,7 +13,7 @@ final List<GoRoute> userRoutes = [
     name: 'user:user_detail',
     builder: (context, state) => const UserDetailScreen(),
     redirect: (BuildContext context, GoRouterState state) =>
-        helpers.routeLoginRequired(),
+        helpers.routesLoginRequired(),
   ),
   GoRoute(
     path: '/user/login',

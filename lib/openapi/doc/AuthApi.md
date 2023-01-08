@@ -9,6 +9,10 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**authCheckRetrieve**](AuthApi.md#authcheckretrieve) | **GET** /api/auth/check/ | 
+[**authCheckTokenRetrieve**](AuthApi.md#authchecktokenretrieve) | **GET** /api/auth/check/token/ | 
+[**authFcmCreate**](AuthApi.md#authfcmcreate) | **POST** /api/auth/fcm/ | 
+[**authFcmUpdate**](AuthApi.md#authfcmupdate) | **PUT** /api/auth/fcm/ | 
 [**authLoginCreate**](AuthApi.md#authlogincreate) | **POST** /api/auth/login/ | 
 [**authLoginTokenCreate**](AuthApi.md#authlogintokencreate) | **POST** /api/auth/login/token/ | 
 [**authLogoutCreate**](AuthApi.md#authlogoutcreate) | **POST** /api/auth/logout/ | 
@@ -23,12 +27,190 @@ Method | HTTP request | Description
 [**authUserUpdate**](AuthApi.md#authuserupdate) | **PUT** /api/auth/user/ | 
 
 
+# **authCheckRetrieve**
+> DrfAuthtoken authCheckRetrieve()
+
+
+
+Check if a user is authenticated using session authentication.
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: cookieAuth
+//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('cookieAuth').apiKeyPrefix = 'Bearer';
+
+final api_instance = AuthApi();
+
+try {
+    final result = api_instance.authCheckRetrieve();
+    print(result);
+} catch (e) {
+    print('Exception when calling AuthApi->authCheckRetrieve: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**DrfAuthtoken**](DrfAuthtoken.md)
+
+### Authorization
+
+[cookieAuth](../README.md#cookieAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authCheckTokenRetrieve**
+> DrfAuthtoken authCheckTokenRetrieve()
+
+
+
+Check if a user is authenticated using token authentication.
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: tokenAuth
+//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
+
+final api_instance = AuthApi();
+
+try {
+    final result = api_instance.authCheckTokenRetrieve();
+    print(result);
+} catch (e) {
+    print('Exception when calling AuthApi->authCheckTokenRetrieve: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**DrfAuthtoken**](DrfAuthtoken.md)
+
+### Authorization
+
+[tokenAuth](../README.md#tokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authFcmCreate**
+> authFcmCreate(gCMDeviceRequest)
+
+
+
+Register a device with Firebase Cloud Messaging (FCM).
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: tokenAuth
+//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
+
+final api_instance = AuthApi();
+final gCMDeviceRequest = GCMDeviceRequest(); // GCMDeviceRequest | 
+
+try {
+    api_instance.authFcmCreate(gCMDeviceRequest);
+} catch (e) {
+    print('Exception when calling AuthApi->authFcmCreate: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **gCMDeviceRequest** | [**GCMDeviceRequest**](GCMDeviceRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[tokenAuth](../README.md#tokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authFcmUpdate**
+> authFcmUpdate(gCMDeviceRequest)
+
+
+
+Register a device with Firebase Cloud Messaging (FCM).
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: tokenAuth
+//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('tokenAuth').apiKeyPrefix = 'Bearer';
+
+final api_instance = AuthApi();
+final gCMDeviceRequest = GCMDeviceRequest(); // GCMDeviceRequest | 
+
+try {
+    api_instance.authFcmUpdate(gCMDeviceRequest);
+} catch (e) {
+    print('Exception when calling AuthApi->authFcmUpdate: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **gCMDeviceRequest** | [**GCMDeviceRequest**](GCMDeviceRequest.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[tokenAuth](../README.md#tokenAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, application/x-www-form-urlencoded, multipart/form-data
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **authLoginCreate**
 > Login authLoginCreate(loginRequest)
 
 
 
-Check the credentials and return the REST Token if the credentials are valid and authenticated. Calls Django Auth login method to register User ID in Django session framework  Accept the following POST parameters: username, password Return the REST Framework Token Object's key.
+Login using session authentication.
 
 ### Example
 ```dart
@@ -74,6 +256,8 @@ Name | Type | Description  | Notes
 > AuthToken authLoginTokenCreate(username, password)
 
 
+
+Login using token authentication.
 
 ### Example
 ```dart

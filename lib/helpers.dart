@@ -45,21 +45,15 @@ class _Helpers {
       // because flutter web crashes when checking for other platforms, check
       // for it before checking for other platforms
     } else if (Platform.isAndroid) {
-      // handle background messages
-      @pragma('vm:entry-point')
-      Future<void> firebaseMessagingBackgroundHandler(
-          RemoteMessage message) async {
-        /*
-        // If you're going to use other Firebase services in the background,
-        // such as Firestore, make sure you call `initializeApp` before using
-        // other Firebase services.
-        await Firebase.initializeApp();
-      */
+      // // handle background messages
+      // @pragma('vm:entry-point')
+      // Future<void> firebaseMessagingBackgroundHandler(
+      //   RemoteMessage message,
+      // ) async {
+      //   debugPrint("Handling a background message: ${message.messageId}");
+      // }
 
-        debugPrint("Handling a background message: ${message.messageId}");
-      }
-
-      FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+      // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
     } else if (Platform.isIOS) {
       // get notification permissions on iOS
       FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -86,14 +80,15 @@ class _Helpers {
 
       if (message.notification != null) {
         debugPrint(
-            'Message also contained a notification: ${message.notification}');
+          'Message also contained a notification: ${message.notification}',
+        );
       }
     });
   }
 
   // Future confirmAuthStatusOrLogout() async {}
 
-  String? routeLoginRequired() {
+  String? routesLoginRequired() {
     if (!sharedPrefs.userIsAuthenticated) {
       return "/"; // redirect to login
     } else {

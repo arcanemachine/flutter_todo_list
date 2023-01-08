@@ -16,7 +16,183 @@ class AuthApi {
 
   final ApiClient apiClient;
 
-  /// Check the credentials and return the REST Token if the credentials are valid and authenticated. Calls Django Auth login method to register User ID in Django session framework  Accept the following POST parameters: username, password Return the REST Framework Token Object's key.
+  /// Check if a user is authenticated using session authentication.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> authCheckRetrieveWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/api/auth/check/';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Check if a user is authenticated using session authentication.
+  Future<DrfAuthtoken?> authCheckRetrieve() async {
+    final response = await authCheckRetrieveWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'DrfAuthtoken',) as DrfAuthtoken;
+    
+    }
+    return null;
+  }
+
+  /// Check if a user is authenticated using token authentication.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  Future<Response> authCheckTokenRetrieveWithHttpInfo() async {
+    // ignore: prefer_const_declarations
+    final path = r'/api/auth/check/token/';
+
+    // ignore: prefer_final_locals
+    Object? postBody;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>[];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'GET',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Check if a user is authenticated using token authentication.
+  Future<DrfAuthtoken?> authCheckTokenRetrieve() async {
+    final response = await authCheckTokenRetrieveWithHttpInfo();
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'DrfAuthtoken',) as DrfAuthtoken;
+    
+    }
+    return null;
+  }
+
+  /// Register a device with Firebase Cloud Messaging (FCM).
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [GCMDeviceRequest] gCMDeviceRequest (required):
+  Future<Response> authFcmCreateWithHttpInfo(GCMDeviceRequest gCMDeviceRequest,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/api/auth/fcm/';
+
+    // ignore: prefer_final_locals
+    Object? postBody = gCMDeviceRequest;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json', 'application/x-www-form-urlencoded', 'multipart/form-data'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'POST',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Register a device with Firebase Cloud Messaging (FCM).
+  ///
+  /// Parameters:
+  ///
+  /// * [GCMDeviceRequest] gCMDeviceRequest (required):
+  Future<void> authFcmCreate(GCMDeviceRequest gCMDeviceRequest,) async {
+    final response = await authFcmCreateWithHttpInfo(gCMDeviceRequest,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Register a device with Firebase Cloud Messaging (FCM).
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
+  /// Parameters:
+  ///
+  /// * [GCMDeviceRequest] gCMDeviceRequest (required):
+  Future<Response> authFcmUpdateWithHttpInfo(GCMDeviceRequest gCMDeviceRequest,) async {
+    // ignore: prefer_const_declarations
+    final path = r'/api/auth/fcm/';
+
+    // ignore: prefer_final_locals
+    Object? postBody = gCMDeviceRequest;
+
+    final queryParams = <QueryParam>[];
+    final headerParams = <String, String>{};
+    final formParams = <String, String>{};
+
+    const contentTypes = <String>['application/json', 'application/x-www-form-urlencoded', 'multipart/form-data'];
+
+
+    return apiClient.invokeAPI(
+      path,
+      'PUT',
+      queryParams,
+      postBody,
+      headerParams,
+      formParams,
+      contentTypes.isEmpty ? null : contentTypes.first,
+    );
+  }
+
+  /// Register a device with Firebase Cloud Messaging (FCM).
+  ///
+  /// Parameters:
+  ///
+  /// * [GCMDeviceRequest] gCMDeviceRequest (required):
+  Future<void> authFcmUpdate(GCMDeviceRequest gCMDeviceRequest,) async {
+    final response = await authFcmUpdateWithHttpInfo(gCMDeviceRequest,);
+    if (response.statusCode >= HttpStatus.badRequest) {
+      throw ApiException(response.statusCode, await _decodeBodyBytes(response));
+    }
+  }
+
+  /// Login using session authentication.
   ///
   /// Note: This method returns the HTTP [Response].
   ///
@@ -48,7 +224,7 @@ class AuthApi {
     );
   }
 
-  /// Check the credentials and return the REST Token if the credentials are valid and authenticated. Calls Django Auth login method to register User ID in Django session framework  Accept the following POST parameters: username, password Return the REST Framework Token Object's key.
+  /// Login using session authentication.
   ///
   /// Parameters:
   ///
@@ -68,7 +244,10 @@ class AuthApi {
     return null;
   }
 
-  /// Performs an HTTP 'POST /api/auth/login/token/' operation and returns the [Response].
+  /// Login using token authentication.
+  ///
+  /// Note: This method returns the HTTP [Response].
+  ///
   /// Parameters:
   ///
   /// * [String] username (required):
@@ -105,6 +284,8 @@ class AuthApi {
     );
   }
 
+  /// Login using token authentication.
+  ///
   /// Parameters:
   ///
   /// * [String] username (required):

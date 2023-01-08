@@ -98,10 +98,10 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
   // final _password1Controller = TextEditingController();
   // final _password2Controller = TextEditingController();
   final _usernameController = TextEditingController.fromValue(
-    const TextEditingValue(text: "user2"),
+    const TextEditingValue(text: "user"),
   );
   final _emailController = TextEditingController.fromValue(
-    const TextEditingValue(text: "user2@example.com"),
+    const TextEditingValue(text: "user@example.com"),
   );
   final _password1Controller = TextEditingController.fromValue(
     const TextEditingValue(text: "distance"),

@@ -10,6 +10,6 @@ final List<GoRoute> todosRoutes = [
     name: 'todos:todos',
     builder: (BuildContext context, GoRouterState state) => const TodosScreen(),
     redirect: (BuildContext context, GoRouterState state) =>
-        helpers.routeLoginRequired(),
+        helpers.routesLoginRequired(),
   ),
 ];
