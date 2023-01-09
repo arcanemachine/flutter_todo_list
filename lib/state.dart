@@ -83,7 +83,7 @@ class SharedPrefs {
   }
 
   // dark_mode
-  String get darkMode => _sharedPrefs?.getString('dark_mode') ?? 'auto';
+  String get darkMode => _sharedPrefs?.getString('dark_mode') ?? 'light';
   set darkMode(String val) {
     _sharedPrefs?.setString('dark_mode', val);
   }

@@ -68,7 +68,7 @@ class _SettingsState extends State<Settings> {
         ),
         trailing: DropdownButton<String>(
           value: sharedPrefs.darkMode,
-          items: ['auto', 'light', 'dark']
+          items: ['light', 'dark', 'auto']
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
