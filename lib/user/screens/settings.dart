@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:restart_app/restart_app.dart';
+import 'package:flutter_todo_list/stores.dart';
 
-import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/state.dart';
 import 'package:flutter_todo_list/widgets.dart';
 
@@ -22,14 +21,14 @@ class SettingsScreen extends ConsumerWidget {
   }
 }
 
-class Settings extends StatefulWidget {
+class Settings extends ConsumerStatefulWidget {
   const Settings({Key? key}) : super(key: key);
 
   @override
-  State<Settings> createState() => _SettingsState();
+  SettingsState createState() => SettingsState();
 }
 
-class _SettingsState extends State<Settings> {
+class SettingsState extends ConsumerState<Settings> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,22 +77,10 @@ class _SettingsState extends State<Settings> {
             );
           }).toList(),
           onChanged: (String? value) {
-            setState(() {
-              sharedPrefs.darkMode = value!;
-            });
+            ref.read(themeProvider.notifier).state = value!;
+            sharedPrefs.darkMode = value;
 
-            // show restart confirmation snackbar
-            widgetHelpers.snackBarShow(
-              context,
-              "App restart required. Restart now?",
-              SnackBarAction(
-                label: "Restart",
-                onPressed: () {
-                  // warning: will cause flutter to exit in dev
-                  Restart.restartApp(webOrigin: '/');
-                },
-              ),
-            );
+            setState(() {}); // update the widget even if the theme is the same
           },
         ),
       ),

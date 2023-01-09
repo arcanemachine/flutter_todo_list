@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_todo_list/globals.dart';
 import 'package:flutter_todo_list/routes.dart';
 import 'package:flutter_todo_list/state.dart';
+import 'package:flutter_todo_list/stores.dart';
 import 'package:flutter_todo_list/styles.dart';
 import 'package:flutter_todo_list/todos/screens/todos.dart';
 import 'package:flutter_todo_list/user/screens/login.dart';
@@ -34,11 +35,11 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final defaultTheme = ThemeData(
       primarySwatch:
           styles.colors.generateMaterialColor(colors.palette.primary),
@@ -52,9 +53,9 @@ class MyApp extends StatelessWidget {
       title: globals.projectName,
       theme: defaultTheme,
       darkTheme: ThemeData.dark(),
-      themeMode: sharedPrefs.darkMode == 'light'
+      themeMode: ref.watch(themeProvider) == 'light'
           ? ThemeMode.light
-          : sharedPrefs.darkMode == 'dark'
+          : ref.watch(themeProvider) == 'dark'
               ? ThemeMode.dark
               : ThemeMode.system,
       debugShowCheckedModeBanner: false,

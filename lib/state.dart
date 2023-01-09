@@ -57,10 +57,10 @@ class SharedPrefs {
     _sharedPrefs?.clear();
   }
 
-  void readAll() {
-    debugPrint("darkMode: '$darkMode'");
-    debugPrint('userIsAuthenticated: "$userIsAuthenticated"');
-  }
+  // void readAll() {
+  //   debugPrint("darkMode: '$darkMode'");
+  //   debugPrint('userIsAuthenticated: "$userIsAuthenticated"');
+  // }
 
   void clearSession() {
     logout();
