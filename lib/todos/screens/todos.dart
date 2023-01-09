@@ -277,10 +277,9 @@ class TodoList extends ConsumerWidget {
         return ListTile(
           title: TextButton(
             style: TextButton.styleFrom(
-              foregroundColor:
-                  todo.isCompleted == true ? Colors.green : Colors.black,
+              foregroundColor: todo.isCompleted == true ? Colors.green : null,
               backgroundColor: todo.id == ref.read(todoSelectedIdProvider)
-                  ? Colors.blue[100]
+                  ? Colors.blue[100] // highlight selected todo item
                   : null,
               alignment: Alignment.centerLeft,
             ),
