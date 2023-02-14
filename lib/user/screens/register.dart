@@ -46,7 +46,7 @@ class RegisterScreen extends ConsumerWidget {
           padding: const EdgeInsets.only(top: 8.0),
           child: Text(
             "Register a new account",
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         )
       ],

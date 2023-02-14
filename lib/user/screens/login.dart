@@ -53,7 +53,7 @@ class LoginScreen extends ConsumerWidget {
           padding: const EdgeInsets.only(top: 8.0),
           child: Text(
             "Please login to continue.",
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         )
       ],
