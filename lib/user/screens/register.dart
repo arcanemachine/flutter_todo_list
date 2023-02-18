@@ -93,22 +93,13 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
       _password2Controller.text.isNotEmpty;
 
   // controllers
-  // final _usernameController = TextEditingController();
-  // final _emailController = TextEditingController();
-  // final _password1Controller = TextEditingController();
-  // final _password2Controller = TextEditingController();
-  final _usernameController = TextEditingController.fromValue(
-    const TextEditingValue(text: "user"),
-  );
-  final _emailController = TextEditingController.fromValue(
-    const TextEditingValue(text: "user@example.com"),
-  );
-  final _password1Controller = TextEditingController.fromValue(
-    const TextEditingValue(text: "distance"),
-  );
-  final _password2Controller = TextEditingController.fromValue(
-    const TextEditingValue(text: "distance"),
-  );
+  // final _usernameController = TextEditingController.fromValue(
+  //   const TextEditingValue(text: "user"),
+  // );
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _password1Controller = TextEditingController();
+  final _password2Controller = TextEditingController();
 
   // methods
   void _handleSubmit() {
@@ -220,7 +211,7 @@ class RegisterFormState extends ConsumerState<RegisterForm> {
 
   Widget _fieldPassword2() {
     return TextFormField(
-      controller: _password1Controller,
+      controller: _password2Controller,
       obscureText: true,
       decoration: const InputDecoration(
         icon: Icon(Icons.key),

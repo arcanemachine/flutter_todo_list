@@ -95,14 +95,11 @@ class LoginFormState extends ConsumerState<LoginForm> {
       _passwordController.text.isNotEmpty;
 
   // controllers
-  // final _usernameController = TextEditingController();
-  // final _passwordController = TextEditingController();
-  final _usernameController = TextEditingController.fromValue(
-    const TextEditingValue(text: "user"),
-  );
-  final _passwordController = TextEditingController.fromValue(
-    const TextEditingValue(text: "distance"),
-  );
+  // final _usernameController = TextEditingController.fromValue(
+  //   const TextEditingValue(text: "user"),
+  // );
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   // methods
   void _handleSubmit() {
