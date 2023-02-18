@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_todo_list/globals.dart';
 import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/styles.dart';
-import 'package:flutter_todo_list/user/stores.dart';
+import 'package:flutter_todo_list/user/providers.dart';
 import 'package:flutter_todo_list/widgets.dart';
 
 class LoginScreen extends ConsumerWidget {

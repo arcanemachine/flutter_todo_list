@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_todo_list/globals.dart';
 import 'package:flutter_todo_list/routes.dart';
 import 'package:flutter_todo_list/state.dart';
-import 'package:flutter_todo_list/stores.dart';
+import 'package:flutter_todo_list/providers.dart';
 import 'package:flutter_todo_list/styles.dart';
 import 'package:flutter_todo_list/todos/screens/todos.dart';
 import 'package:flutter_todo_list/user/screens/login.dart';

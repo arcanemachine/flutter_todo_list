@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_todo_list/helpers.dart';
 import 'package:flutter_todo_list/openapi/lib/api.dart';
-import 'package:flutter_todo_list/stores.dart';
-import 'package:flutter_todo_list/todos/stores.dart';
+import 'package:flutter_todo_list/providers.dart';
+import 'package:flutter_todo_list/todos/providers.dart';
 import 'package:flutter_todo_list/widgets.dart';
 
 class TodosScreen extends ConsumerWidget {
